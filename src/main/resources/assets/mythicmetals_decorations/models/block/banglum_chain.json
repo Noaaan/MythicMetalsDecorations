@@ -1,0 +1,7 @@
+{
+  "parent": "mythicmetals_decorations:block/chain_base",
+  "textures": {
+    "all": "mythicmetals_decorations:blocks/banglum_chain",
+    "particle": "mythicmetals_decorations:blocks/banglum_chain"
+  }
+}
