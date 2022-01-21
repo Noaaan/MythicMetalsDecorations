@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import nourl.utils.RegistryHelper;
+import nourl.mythicmetalsdecorations.utils.RegistryHelper;
 
 import java.util.*;
 import java.util.function.Consumer;
