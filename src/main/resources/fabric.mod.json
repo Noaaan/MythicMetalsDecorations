@@ -24,6 +24,7 @@
     "fabricloader": ">=0.12.5",
     "fabric": "*",
     "minecraft": "1.18.x",
-    "mythicmetals": "0.11.x"
+    "mythicmetals": "0.12.x",
+    "owo": "0.5.2"
   }
 }
