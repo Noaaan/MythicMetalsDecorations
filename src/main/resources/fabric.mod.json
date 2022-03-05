@@ -5,7 +5,11 @@
   "name": "Mythic Metals Decorations",
   "description": "A bunch of metal-themed decorations for Mythic Metals",
   "authors": ["Noaaan"],
-  "contact": {},
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/mythicmetals-decorations",
+    "sources": "https://github.com/Noaaan/MythicMetalsDecorations",
+    "issues": "https://github.com/Noaaan/MythicMetalsDecorations/issues"
+  },
   "license": "MIT",
   "icon": "assets/mythicmetals_decorations/icon.png",
   "environment": "*",
@@ -24,7 +28,6 @@
     "fabricloader": ">=0.12.5",
     "fabric": "*",
     "minecraft": "1.18.x",
-    "mythicmetals": "0.12.x",
-    "owo": "0.5.2"
+    "mythicmetals": "0.12.x"
   }
 }
