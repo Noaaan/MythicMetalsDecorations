@@ -7,7 +7,10 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import nourl.mythicmetalsdecorations.utils.RegistryHelper;
+import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
+import nourl.mythicmetalsdecorations.blocks.chest.MythicChestBlock;
+import nourl.mythicmetalsdecorations.blocks.chest.MythicChests;
+import nourl.mythicmetalsdecorations.utils.RegHelper;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -22,11 +25,13 @@ import java.util.function.Consumer;
 @SuppressWarnings({"unused"})
 public class DecorationSet {
     private final ChainBlock chain;
+    private final MythicChestBlock chest;
 
     private final String name;
     private final boolean fireproof;
 
     private final Multimap<Block, Identifier> miningLevels;
+    public static final Multimap<String, MythicChestBlock> CHEST_MAP = HashMultimap.create();
 
     /**
      * This constructor collects the smaller constructors from the {@link Builder} and creates a set of blocks.
@@ -39,19 +44,27 @@ public class DecorationSet {
      */
     private DecorationSet(String name,
                           ChainBlock chain,
+                          MythicChestBlock chest,
                           boolean fireproof,
                           Multimap<Block, Identifier> miningLevels) {
         this.name = name;
         this.fireproof = fireproof;
-        this.miningLevels = miningLevels;
 
         this.chain = chain;
+        this.chest = chest;
+
+        this.miningLevels = miningLevels;
 
     }
 
     private void register() {
         if (chain != null)
-            RegistryHelper.chain(name + "_chain", chain, fireproof);
+            RegHelper.chain(name + "_chain", chain, fireproof);
+        if (chest != null) {
+            RegHelper.chest(name + "_chest", chest, MythicMetalsDecorations.MYTHICMETALS_DECOR, fireproof);
+            CHEST_MAP.put(name, chest);
+        }
+
         // Inject all the mining levels into their tags.
         miningLevels.forEach((block, level) -> TagInjector.injectBlocks(level, block));
     }
@@ -61,6 +74,13 @@ public class DecorationSet {
      */
     public ChainBlock getChain() {
         return chain;
+    }
+
+    /**
+     * @return Returns the chest in the set
+     */
+    public MythicChestBlock getChest() {
+        return chest;
     }
 
     /**
@@ -89,6 +109,7 @@ public class DecorationSet {
         private final String name;
         private final boolean fireproof;
         private ChainBlock chain = null;
+        private MythicChestBlock chest = null;
         private BlockSoundGroup currentSounds = BlockSoundGroup.METAL;
         private float currentHardness = -1;
         private float currentResistance = -1;
@@ -125,13 +146,12 @@ public class DecorationSet {
 
         /**
          * Used internally for configuring blocks
-         * @param material      Vanilla {@link Material}, determines piston behaviour.
          * @param hardness      Determines the breaking time of the block.
          * @param resistance    Determines blast resistance of a block.
          * @param sounds        Determines the sounds that blocks play when interacted with.
          */
-        private static FabricBlockSettings blockSettings(Material material, float hardness, float resistance, BlockSoundGroup sounds) {
-            return FabricBlockSettings.of(material)
+        private static FabricBlockSettings blockSettings(float hardness, float resistance, BlockSoundGroup sounds) {
+            return FabricBlockSettings.of(Material.METAL)
                     .strength(hardness, resistance)
                     .sounds(sounds)
                     .requiresTool();
@@ -143,9 +163,10 @@ public class DecorationSet {
          * @param miningLevel        The mining level of the ore block.
          * @see #strength(float)     The strength of the block. Higher value takes longer to break.
          */
-        public Builder createDefaultSet(float strength, Identifier miningLevel) {
+        public Builder createDefaultSet(float strength, Identifier miningLevel, int slots) {
             return  strength(strength)
-                    .createChain(miningLevel);
+                    .createChain(miningLevel)
+                    .createChest(slots, miningLevel);
         }
 
         /**
@@ -183,7 +204,7 @@ public class DecorationSet {
          * @see Builder
          */
         public Builder createChain(Identifier miningLevel) {
-            final var settings = blockSettings(Material.METAL, currentHardness, currentResistance, currentSounds);
+            final var settings = blockSettings(currentHardness, currentResistance, currentSounds);
             settingsProcessor.accept(settings);
             this.chain = new ChainBlock(settings);
             miningLevels.put(chain, miningLevel);
@@ -191,7 +212,20 @@ public class DecorationSet {
             return this;
         }
 
-
+        /**
+         * Creates a Mythic Chest block.
+         * @param slots         The amount of slots the chest has.
+         * @param miningLevel   The mining level required to break the chest.
+         * @see Builder
+         */
+        public Builder createChest(int slots, Identifier miningLevel) {
+            final var settings = blockSettings(currentHardness, currentResistance, currentSounds);
+            settingsProcessor.accept(settings);
+            this.chest = new MythicChestBlock(this.name, settings, () -> MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, slots);
+            miningLevels.put(chest, miningLevel);
+            miningLevels.put(chest, PICKAXE);
+            return this;
+        }
 
         /**
          * Finishes the creation of the block set, and returns the entire set using the settings declared.
@@ -199,10 +233,11 @@ public class DecorationSet {
          * @return BlockSet
          */
         public DecorationSet finish() {
-            final var set = new DecorationSet(this.name, this.chain, this.fireproof, this.miningLevels);
+            final var set = new DecorationSet(this.name, this.chain, this.chest, this.fireproof, this.miningLevels);
             Builder.toBeRegistered.add(set);
             return set;
         }
 
     }
+
 }

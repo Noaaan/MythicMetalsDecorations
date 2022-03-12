@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '0.10-SNAPSHOT'
     id 'maven-publish'
+    id 'io.github.juuxel.loom-quiltflower-mini' version '1.2.1'
 }
 
 version = project.mod_version
@@ -32,11 +33,11 @@ dependencies {
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 
     // ContainerLib
-    include "curse.maven:ninjaphenixs-container-library-530668:${project.containerlib_id}"
-    modImplementation "curse.maven:ninjaphenixs-container-library-530668:${project.containerlib_id}"
+    include ("curse.maven:ninjaphenixs-container-library-530668:${project.containerlib_id}")
+    modImplementation ("curse.maven:ninjaphenixs-container-library-530668:${project.containerlib_id}")
 
     // MM
-    //modImplementation "maven.modrinth:mythicmetals:${project.mm_version}"
+    modImplementation "maven.modrinth:mythicmetals:${project.mm_version}"
 
     // AF
     modRuntimeOnly "maven.modrinth:alloy-forgery:${project.af_version}"
