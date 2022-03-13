@@ -1,13 +1,13 @@
 package nourl.mythicmetalsdecorations.blocks.chest;
 
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.block.AbstractChestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoubleBlockProperties;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.ChestType;
-import net.minecraft.client.block.ChestAnimationProgress;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -16,15 +16,22 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
-import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
+import nourl.mythicmetalsdecorations.blocks.DecorationSet;
 import nourl.mythicmetalsdecorations.blocks.Decorations;
 
-public class MythicChestBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
+import java.util.HashMap;
+import java.util.Map;
+
+public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<MythicChestBlockEntity> {
     private static final String BASE = "bottom";
     private static final String LID = "lid";
     private static final String LATCH = "lock";
@@ -51,6 +58,8 @@ public class MythicChestBlockEntityRenderer<T extends BlockEntity> implements Bl
         this.doubleChestRightBase = modelPart3.getChild(BASE);
         this.doubleChestRightLid = modelPart3.getChild(LID);
         this.doubleChestRightLatch = modelPart3.getChild(LATCH);
+
+
     }
 
     public static TexturedModelData getSingleTexturedModelData() {
@@ -81,7 +90,7 @@ public class MythicChestBlockEntityRenderer<T extends BlockEntity> implements Bl
     }
 
     @Override
-    public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(MythicChestBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();
         boolean bl = world != null;
         BlockState blockState = bl ? entity.getCachedState() : Decorations.ADAMANTITE.getChest().getDefaultState().with(MythicChestBlock.FACING, Direction.SOUTH);
@@ -103,12 +112,12 @@ public class MythicChestBlockEntityRenderer<T extends BlockEntity> implements Bl
             } else {
                 propertySource = DoubleBlockProperties.PropertyRetriever::getFallback;
             }
-            float g = propertySource.apply(MythicChestBlock.getAnimationProgressRetriever((ChestAnimationProgress) entity)).get(tickDelta);
+            float g = propertySource.apply(MythicChestBlock.getAnimationProgressRetriever(entity)).get(tickDelta);
 
             g = 1.0f - g;
             g = 1.0f - g * g * g;
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
-            SpriteIdentifier spriteIdentifier = ChestTextureLayers.getChestIdentifier(((MythicChestBlock)block).getChestName(), chestType);
+            SpriteIdentifier spriteIdentifier = ChestTextureLayers.getChestIdentifier((entity.getChestName()), chestType);
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
             if (bl2) {
                 if (chestType == ChestType.LEFT) {
@@ -129,4 +138,17 @@ public class MythicChestBlockEntityRenderer<T extends BlockEntity> implements Bl
         latch.render(matrices, vertices, light, overlay);
         base.render(matrices, vertices, light, overlay);
     }
+
+    public static class ChestItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
+        private final Map<Block, MythicChestBlockEntity> betterchestEntityMap = new HashMap<>();
+
+        public ChestItemRenderer() {
+            DecorationSet.CHEST_MAP.forEach((s, mythicChestBlock) -> betterchestEntityMap.put(mythicChestBlock, new MythicChestBlockEntity(mythicChestBlock.getChestName(), BlockPos.ORIGIN, mythicChestBlock.getDefaultState(), 0)));
+        }
+
+        public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+            MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(betterchestEntityMap.get(((BlockItem)stack.getItem()).getBlock()), matrices, vertexConsumers, light, overlay);
+        }
+    }
+
 }

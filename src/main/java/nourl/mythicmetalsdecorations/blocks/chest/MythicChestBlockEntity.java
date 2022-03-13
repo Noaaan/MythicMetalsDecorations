@@ -33,6 +33,7 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
     private int inventorySize;
     private DefaultedList<ItemStack> inventory;
     private final ChestLidAnimator lidAnimator = new ChestLidAnimator();
+    private String name;
     private final ViewerCountManager stateManager = new ViewerCountManager() {
         @Override
         protected void onContainerOpen(World world, BlockPos pos, BlockState state) {
@@ -71,6 +72,7 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
     public MythicChestBlockEntity(String name, BlockPos pos, BlockState state, int inventorySize) {
         this(MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, pos, state);
         this.inventorySize = inventorySize;
+        this.name = name;
     }
 
     public MythicChestBlockEntity(BlockPos pos, BlockState state) {
@@ -105,6 +107,10 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
     @Override
     public Text getInventoryTitle() {
         return new TranslatableText("container.mythicmetals_decorations.chest." + ((MythicChestBlock)getCachedState().getBlock()).getChestName());
+    }
+
+    public String getChestName() {
+        return name;
     }
 
     @Override

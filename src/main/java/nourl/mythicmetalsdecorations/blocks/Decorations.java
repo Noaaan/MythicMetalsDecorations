@@ -30,7 +30,7 @@ public class Decorations {
     public static final DecorationSet MANGANESE = DecorationSet.Builder.begin("manganese", false)
             .createDefaultSet(5.0f, IRON_MINING_LEVEL, 1).finish();
     public static final DecorationSet METALLURGIUM = DecorationSet.Builder.begin("metallurgium", true)
-            .createDefaultSet(5.0f, MYTHIC_MINING_LEVEL, 1).finish();
+            .createDefaultSet(5.0f, MYTHIC_MINING_LEVEL, 216).finish();
     public static final DecorationSet MIDAS_GOLD = DecorationSet.Builder.begin("midas_gold", false)
             .createDefaultSet(5.0f, IRON_MINING_LEVEL, 1).finish();
     public static final DecorationSet MYTHRIL = DecorationSet.Builder.begin("mythril", false)
