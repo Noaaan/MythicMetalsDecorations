@@ -170,6 +170,18 @@ public class DecorationSet {
         }
 
         /**
+         * Puts an ore, a storage block and an ore in the blockset, with slightly more configurable settings.
+         * @param strength           The strength of the ore block.
+         * @param miningLevel        The mining level of the ore block.
+         * @see #strength(float)     The strength of the block. Higher value takes longer to break.
+         */
+        public Builder createDefaultSet(float strength, float resistance, Identifier miningLevel, int slots) {
+            return  strength(strength, resistance)
+                    .createChain(miningLevel)
+                    .createChest(slots, miningLevel);
+        }
+
+        /**
          * Applies sounds to the block(s) in the set.
          * @param sounds    The {@link BlockSoundGroup} which should be played.
          */

@@ -31,10 +31,14 @@ import nourl.mythicmetalsdecorations.blocks.Decorations;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Mostly a VanillaCopy, but with changes to fit my rendering
+ */
 public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<MythicChestBlockEntity> {
     private static final String BASE = "bottom";
     private static final String LID = "lid";
     private static final String LATCH = "lock";
+    public static final Dilation D = new Dilation(0.015F);
     private final ModelPart singleChestLid;
     private final ModelPart singleChestBase;
     private final ModelPart singleChestLatch;
@@ -44,6 +48,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
     private final ModelPart doubleChestRightLid;
     private final ModelPart doubleChestRightBase;
     private final ModelPart doubleChestRightLatch;
+
 
     public MythicChestBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         ModelPart modelPart = ctx.getLayerModelPart(EntityModelLayers.CHEST);
@@ -66,7 +71,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild(BASE, ModelPartBuilder.create().uv(0, 19).cuboid(1.0f, 0.0f, 1.0f, 14.0f, 10.0f, 14.0f), ModelTransform.NONE);
-        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 14.0f, 5.0f, 14.0f), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
+        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 14.0f, 5.0f, 14.0f, D), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
         modelPartData.addChild(LATCH, ModelPartBuilder.create().uv(0, 0).cuboid(7.0f, -1.0f, 15.0f, 2.0f, 4.0f, 1.0f), ModelTransform.pivot(0.0f, 8.0f, 0.0f));
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -75,7 +80,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild(BASE, ModelPartBuilder.create().uv(0, 19).cuboid(1.0f, 0.0f, 1.0f, 15.0f, 10.0f, 14.0f), ModelTransform.NONE);
-        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
+        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f, D), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
         modelPartData.addChild(LATCH, ModelPartBuilder.create().uv(0, 0).cuboid(15.0f, -1.0f, 15.0f, 1.0f, 4.0f, 1.0f), ModelTransform.pivot(0.0f, 8.0f, 0.0f));
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -84,7 +89,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild(BASE, ModelPartBuilder.create().uv(0, 19).cuboid(0.0f, 0.0f, 1.0f, 15.0f, 10.0f, 14.0f), ModelTransform.NONE);
-        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(0.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
+        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(0.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f, D), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
         modelPartData.addChild(LATCH, ModelPartBuilder.create().uv(0, 0).cuboid(0.0f, -1.0f, 15.0f, 1.0f, 4.0f, 1.0f), ModelTransform.pivot(0.0f, 8.0f, 0.0f));
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -112,11 +117,14 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
             } else {
                 propertySource = DoubleBlockProperties.PropertyRetriever::getFallback;
             }
-            float g = propertySource.apply(MythicChestBlock.getAnimationProgressRetriever(entity)).get(tickDelta);
 
+            // Get animation progress from our custom chest block entity
+            float g = propertySource.apply(MythicChestBlock.getAnimationProgressRetriever(entity)).get(tickDelta);
             g = 1.0f - g;
             g = 1.0f - g * g * g;
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
+
+            // Get our own chest sprites
             SpriteIdentifier spriteIdentifier = ChestTextureLayers.getChestIdentifier((entity.getChestName()), chestType);
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
             if (bl2) {
@@ -139,6 +147,10 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         base.render(matrices, vertices, light, overlay);
     }
 
+    /**
+     *  An inner class that contains an item renderer for the chests
+     *  This class initializes a Chest to ChestBE map when loaded from the chest blocks in {@link DecorationSet#CHEST_MAP}
+     */
     public static class ChestItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
         private final Map<Block, MythicChestBlockEntity> betterchestEntityMap = new HashMap<>();
 
@@ -146,6 +158,9 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
             DecorationSet.CHEST_MAP.forEach((s, mythicChestBlock) -> betterchestEntityMap.put(mythicChestBlock, new MythicChestBlockEntity(mythicChestBlock.getChestName(), BlockPos.ORIGIN, mythicChestBlock.getDefaultState(), 0)));
         }
 
+        /**
+         *  Used to render the MythicChestBlockEntity on the BlockItem
+         */
         public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
             MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(betterchestEntityMap.get(((BlockItem)stack.getItem()).getBlock()), matrices, vertexConsumers, light, overlay);
         }

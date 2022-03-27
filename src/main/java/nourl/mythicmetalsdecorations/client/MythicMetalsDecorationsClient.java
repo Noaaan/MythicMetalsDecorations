@@ -76,9 +76,9 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
             ChestTextureLayers.modelList.add(left);
             ChestTextureLayers.modelList.add(right);
 
-            ChestTextureLayers.chestSpriteList.put(name + ChestType.SINGLE.name(), RegHelper.chestSprite(single.getId()));
-            ChestTextureLayers.chestSpriteList.put(name + ChestType.LEFT.name(), RegHelper.chestSprite(left.getId()));
-            ChestTextureLayers.chestSpriteList.put(name + ChestType.RIGHT.name(), RegHelper.chestSprite(right.getId()));
+            ChestTextureLayers.chestSpriteMap.put(name + ChestType.SINGLE.name(), RegHelper.chestSprite(single.getId()));
+            ChestTextureLayers.chestSpriteMap.put(name + ChestType.LEFT.name(), RegHelper.chestSprite(left.getId()));
+            ChestTextureLayers.chestSpriteMap.put(name + ChestType.RIGHT.name(), RegHelper.chestSprite(right.getId()));
 
             BuiltinItemRendererRegistry.INSTANCE.register(mythicChestBlock, new MythicChestBlockEntityRenderer.ChestItemRenderer());
 
