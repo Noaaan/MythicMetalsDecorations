@@ -38,7 +38,6 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
     private static final String BASE = "bottom";
     private static final String LID = "lid";
     private static final String LATCH = "lock";
-    public static final Dilation D = new Dilation(0.015F);
     private final ModelPart singleChestLid;
     private final ModelPart singleChestBase;
     private final ModelPart singleChestLatch;
@@ -71,7 +70,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild(BASE, ModelPartBuilder.create().uv(0, 19).cuboid(1.0f, 0.0f, 1.0f, 14.0f, 10.0f, 14.0f), ModelTransform.NONE);
-        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 14.0f, 5.0f, 14.0f, D), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
+        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 14.0f, 5.0f, 14.0f), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
         modelPartData.addChild(LATCH, ModelPartBuilder.create().uv(0, 0).cuboid(7.0f, -1.0f, 15.0f, 2.0f, 4.0f, 1.0f), ModelTransform.pivot(0.0f, 8.0f, 0.0f));
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -80,7 +79,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild(BASE, ModelPartBuilder.create().uv(0, 19).cuboid(1.0f, 0.0f, 1.0f, 15.0f, 10.0f, 14.0f), ModelTransform.NONE);
-        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f, D), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
+        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
         modelPartData.addChild(LATCH, ModelPartBuilder.create().uv(0, 0).cuboid(15.0f, -1.0f, 15.0f, 1.0f, 4.0f, 1.0f), ModelTransform.pivot(0.0f, 8.0f, 0.0f));
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -89,7 +88,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild(BASE, ModelPartBuilder.create().uv(0, 19).cuboid(0.0f, 0.0f, 1.0f, 15.0f, 10.0f, 14.0f), ModelTransform.NONE);
-        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(0.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f, D), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
+        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(0.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
         modelPartData.addChild(LATCH, ModelPartBuilder.create().uv(0, 0).cuboid(0.0f, -1.0f, 15.0f, 1.0f, 4.0f, 1.0f), ModelTransform.pivot(0.0f, 8.0f, 0.0f));
         return TexturedModelData.of(modelData, 64, 64);
     }
