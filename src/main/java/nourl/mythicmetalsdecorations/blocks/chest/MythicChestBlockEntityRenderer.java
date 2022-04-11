@@ -15,7 +15,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
@@ -32,7 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Mostly a VanillaCopy, but with changes to fit my rendering
+ * Mostly a Vanilla Copy, but with changes to fit my rendering
  */
 public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<MythicChestBlockEntity> {
     private static final String BASE = "bottom";
@@ -47,21 +46,23 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
     private final ModelPart doubleChestRightLid;
     private final ModelPart doubleChestRightBase;
     private final ModelPart doubleChestRightLatch;
+    private static final Dilation D = new Dilation(0.01F);
 
 
     public MythicChestBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-        ModelPart modelPart = ctx.getLayerModelPart(EntityModelLayers.CHEST);
-        this.singleChestBase = modelPart.getChild(BASE);
-        this.singleChestLid = modelPart.getChild(LID);
-        this.singleChestLatch = modelPart.getChild(LATCH);
-        ModelPart modelPart2 = ctx.getLayerModelPart(EntityModelLayers.DOUBLE_CHEST_LEFT);
-        this.doubleChestLeftBase = modelPart2.getChild(BASE);
-        this.doubleChestLeftLid = modelPart2.getChild(LID);
-        this.doubleChestLeftLatch = modelPart2.getChild(LATCH);
-        ModelPart modelPart3 = ctx.getLayerModelPart(EntityModelLayers.DOUBLE_CHEST_RIGHT);
-        this.doubleChestRightBase = modelPart3.getChild(BASE);
-        this.doubleChestRightLid = modelPart3.getChild(LID);
-        this.doubleChestRightLatch = modelPart3.getChild(LATCH);
+        // Actually use my own rendering
+        ModelPart modelSingle = getSingleTexturedModelData().createModel();
+        this.singleChestBase = modelSingle.getChild(BASE);
+        this.singleChestLid = modelSingle.getChild(LID);
+        this.singleChestLatch = modelSingle.getChild(LATCH);
+        ModelPart modelLeft = getLeftDoubleTexturedModelData().createModel();
+        this.doubleChestLeftBase = modelLeft.getChild(BASE);
+        this.doubleChestLeftLid = modelLeft.getChild(LID);
+        this.doubleChestLeftLatch = modelLeft.getChild(LATCH);
+        ModelPart modelRight = getRightDoubleTexturedModelData().createModel();
+        this.doubleChestRightBase = modelRight.getChild(BASE);
+        this.doubleChestRightLid = modelRight.getChild(LID);
+        this.doubleChestRightLatch = modelRight.getChild(LATCH);
 
 
     }
@@ -70,7 +71,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild(BASE, ModelPartBuilder.create().uv(0, 19).cuboid(1.0f, 0.0f, 1.0f, 14.0f, 10.0f, 14.0f), ModelTransform.NONE);
-        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 14.0f, 5.0f, 14.0f), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
+        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 14.0f, 5.0f, 14.0f, D), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
         modelPartData.addChild(LATCH, ModelPartBuilder.create().uv(0, 0).cuboid(7.0f, -1.0f, 15.0f, 2.0f, 4.0f, 1.0f), ModelTransform.pivot(0.0f, 8.0f, 0.0f));
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -79,7 +80,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild(BASE, ModelPartBuilder.create().uv(0, 19).cuboid(1.0f, 0.0f, 1.0f, 15.0f, 10.0f, 14.0f), ModelTransform.NONE);
-        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
+        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(1.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f, D), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
         modelPartData.addChild(LATCH, ModelPartBuilder.create().uv(0, 0).cuboid(15.0f, -1.0f, 15.0f, 1.0f, 4.0f, 1.0f), ModelTransform.pivot(0.0f, 8.0f, 0.0f));
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -88,7 +89,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild(BASE, ModelPartBuilder.create().uv(0, 19).cuboid(0.0f, 0.0f, 1.0f, 15.0f, 10.0f, 14.0f), ModelTransform.NONE);
-        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(0.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
+        modelPartData.addChild(LID, ModelPartBuilder.create().uv(0, 0).cuboid(0.0f, 0.0f, 0.0f, 15.0f, 5.0f, 14.0f, D), ModelTransform.pivot(0.0f, 9.0f, 1.0f));
         modelPartData.addChild(LATCH, ModelPartBuilder.create().uv(0, 0).cuboid(0.0f, -1.0f, 15.0f, 1.0f, 4.0f, 1.0f), ModelTransform.pivot(0.0f, 8.0f, 0.0f));
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -102,7 +103,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         Block block = blockState.getBlock();
         if (block instanceof AbstractChestBlock abstractChestBlock) {
 
-            boolean bl2 = chestType != ChestType.SINGLE;
+            boolean isDoubleChest = chestType != ChestType.SINGLE;
             matrices.push();
             float f = blockState.get(MythicChestBlock.FACING).asRotation();
             matrices.translate(0.5, 0.5, 0.5);
@@ -123,16 +124,22 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
             g = 1.0f - g * g * g;
             int i = propertySource.apply(new LightmapCoordinatesRetriever<>()).applyAsInt(light);
 
-            // Get our own chest sprites
+            // Get custom chest sprites
             SpriteIdentifier spriteIdentifier = ChestTextureLayers.getChestIdentifier((entity.getChestName()), chestType);
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
-            if (bl2) {
+
+            if (isDoubleChest) {
+                // Left chest rendering
                 if (chestType == ChestType.LEFT) {
                     this.render(matrices, vertexConsumer, this.doubleChestLeftLid, this.doubleChestLeftLatch, this.doubleChestLeftBase, g, i, overlay);
-                } else {
+                }
+                // Right chest rendering
+                else {
                     this.render(matrices, vertexConsumer, this.doubleChestRightLid, this.doubleChestRightLatch, this.doubleChestRightBase, g, i, overlay);
                 }
-            } else {
+            }
+            // Single chest rendering
+            else {
                 this.render(matrices, vertexConsumer, this.singleChestLid, this.singleChestLatch, this.singleChestBase, g, i, overlay);
             }
             matrices.pop();

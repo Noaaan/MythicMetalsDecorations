@@ -16,11 +16,13 @@ public class ChestTextureLayers {
     public static List<EntityModelLayer> modelList = new ArrayList<>();
     public static Map<String, SpriteIdentifier> chestSpriteMap = new HashMap<>();
 
+    /**
+     * For each entry in the list assign it a model
+     * The list of models is created in order by single chest, left double chest, right double chest
+     * @param consumer A bi-consumer for registering the modellayers is passed here
+     */
     public static void init(BiConsumer<EntityModelLayer, TexturedModelData> consumer) {
-        /*
-         * For each entry in the list assign it a model
-         * The list of models is created in order by single chest, left double chest, right double chest
-         */
+
         for (int i = 0; i < modelList.size(); i++) {
             if (i % 3 == 0) {
                 consumer.accept(modelList.get(i), MythicChestBlockEntityRenderer.getSingleTexturedModelData());
