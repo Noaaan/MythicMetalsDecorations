@@ -161,7 +161,13 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         private final Map<Block, MythicChestBlockEntity> betterchestEntityMap = new HashMap<>();
 
         public ChestItemRenderer() {
-            DecorationSet.CHEST_MAP.forEach((s, mythicChestBlock) -> betterchestEntityMap.put(mythicChestBlock, new MythicChestBlockEntity(mythicChestBlock.getChestName(), BlockPos.ORIGIN, mythicChestBlock.getDefaultState(), 0)));
+            DecorationSet.CHEST_MAP.forEach((s, mythicChestBlock) ->
+                    betterchestEntityMap.put(mythicChestBlock,
+                    new MythicChestBlockEntity(
+                            mythicChestBlock.getChestName(),
+                            BlockPos.ORIGIN,
+                            mythicChestBlock.getDefaultState(),
+                            0)));
         }
 
         /**
