@@ -11,10 +11,10 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.block.ChestAnimationProgress;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.DoubleInventory;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -148,19 +148,37 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
 
     @Override
     public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
         this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        if (!this.deserializeLootTable(nbt)) {
-            Inventories.readNbt(nbt, this.inventory);
+        NbtList nbtList = nbt.getList("Items", 10);
+
+        for(int i = 0; i < nbtList.size(); ++i) {
+            NbtCompound nbtCompound = nbtList.getCompound(i);
+            int j = nbtCompound.getShort("Slot") & Short.MAX_VALUE;
+            if (j < this.inventory.size()) {
+                this.inventory.set(j, ItemStack.fromNbt(nbtCompound));
+            }
         }
 
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
         if (!this.serializeLootTable(nbt)) {
-            Inventories.writeNbt(nbt, this.inventory);
+            NbtList nbtList = new NbtList();
+
+            for(int i = 0; i < this.inventory.size(); i++) {
+                ItemStack itemStack = this.inventory.get(i);
+                if (!itemStack.isEmpty()) {
+                    NbtCompound nbtCompound = new NbtCompound();
+                    nbtCompound.putShort("Slot", (short) i);
+                    itemStack.writeNbt(nbtCompound);
+                    nbtList.add(nbtCompound);
+                }
+            }
+
+            if (!nbtList.isEmpty()) {
+                nbt.put("Items", nbtList);
+            }
         }
 
     }

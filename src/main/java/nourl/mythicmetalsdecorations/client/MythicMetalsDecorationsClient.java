@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import nourl.mythicmetalsdecorations.blocks.DecorationSet;
 import nourl.mythicmetalsdecorations.blocks.Decorations;
 import nourl.mythicmetalsdecorations.blocks.chest.ChestTextureLayers;
@@ -26,8 +26,9 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
         createChestModelsAndSprites();
 
         // Add the chest models to the atlas
-        ClientSpriteRegistryCallback.event(TexturedRenderLayers.CHEST_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
+        ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
             ChestTextureLayers.modelList.forEach(entityModelLayer -> registry.register(entityModelLayer.getId()));
+            ChestTextureLayers.chestSpriteMap.forEach((s, spriteIdentifier) -> registry.register(spriteIdentifier.getTextureId()));
         });
 
         // Register the chest models

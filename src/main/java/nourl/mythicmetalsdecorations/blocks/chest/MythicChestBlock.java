@@ -31,6 +31,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import ninjaphenix.container_library.Utils;
 import ninjaphenix.container_library.api.v2.OpenableBlockEntityProviderV2;
 import ninjaphenix.container_library.api.v2.OpenableBlockEntityV2;
 import org.jetbrains.annotations.Nullable;
@@ -272,7 +273,7 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
 
     @Override
     public void ncl_sOpenInventory(World world, BlockState state, BlockPos pos, ServerPlayerEntity player) {
-        OpenableBlockEntityProviderV2.super.ncl_sOpenInventory(world, state, pos, player);
+        OpenableBlockEntityProviderV2.super.ncl_sOpenInventory(world, state, pos, player, Utils.SCROLL_SCREEN_TYPE);
     }
 
     public static DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(ChestAnimationProgress progress) {

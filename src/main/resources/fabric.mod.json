@@ -27,6 +27,6 @@
   "depends": {
     "fabric": "*",
     "minecraft": "1.18.x",
-    "mythicmetals": "0.13.x"
+    "mythicmetals": ">=0.13.0"
   }
 }

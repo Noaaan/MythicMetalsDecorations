@@ -6,8 +6,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -90,7 +90,7 @@ public class RegHelper {
 
     @Environment(EnvType.CLIENT)
     public static SpriteIdentifier chestSprite(Identifier id) {
-        return new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, id);
+        return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, id);
     }
 
 }
