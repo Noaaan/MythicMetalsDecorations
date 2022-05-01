@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "#": {
+      "item": "mythicmetals:prometheum_ingot"
+    }
+  },
+  "result": {
+    "item": "mythicmetals_decorations:prometheum_chest",
+    "count": 1
+  },
+  "group": "mm_chests"
+}
