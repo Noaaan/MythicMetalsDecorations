@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "#": {
+      "item": "mythicmetals:adamantite_ingot"
+    }
+  },
+  "result": {
+    "item": "mythicmetals_decorations:adamantite_chest",
+    "count": 1
+  },
+  "group": "mm_chests"
+}

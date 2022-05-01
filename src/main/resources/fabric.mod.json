@@ -25,9 +25,8 @@
     "mythicmetals-decorations.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.12.5",
     "fabric": "*",
     "minecraft": "1.18.x",
-    "mythicmetals": "0.13.x"
+    "mythicmetals": ">=0.13.0"
   }
 }

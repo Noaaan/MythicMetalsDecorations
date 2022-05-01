@@ -1,23 +1,27 @@
 plugins {
     id 'fabric-loom' version '0.10-SNAPSHOT'
     id 'maven-publish'
+    id 'io.github.juuxel.loom-quiltflower-mini' version '1.2.1'
 }
 
 version = project.mod_version
 group = project.maven_group
 
 repositories {
+    maven {url = "https://www.cursemaven.com"}
     maven {url = "https://maven.shedaniel.me/"}
     maven {url = "https://maven.terraformersmc.com/"}
     maven {url = "https://maven.wispforest.io/"}
     maven {url = "https://api.modrinth.com/maven/"}
+    maven {url = "https://jitpack.io"}
+    maven {url = "https://maven.jamieswhiteshirt.com/libs-release"}
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Cloth Config
@@ -30,8 +34,13 @@ dependencies {
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 
-    // MM
-    //modImplementation "maven.modrinth:mythicmetals:${project.mm_version}"
+    // ContainerLib
+    include ("curse.maven:ninjaphenixs-container-library-530668:${project.containerlib_id}")
+    modImplementation ("curse.maven:ninjaphenixs-container-library-530668:${project.containerlib_id}")
+
+    // MM + Magna
+    modImplementation "maven.modrinth:mythicmetals:${project.mm_version}"
+    modRuntimeOnly 'com.github.Draylar:magna:1.7.0-1.18'
 
     // AF
     modRuntimeOnly "maven.modrinth:alloy-forgery:${project.af_version}"

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "#": {
+      "item": "mythicmetals:banglum_ingot"
+    }
+  },
+  "result": {
+    "item": "mythicmetals_decorations:banglum_chest",
+    "count": 1
+  },
+  "group": "mm_chests"
+}
