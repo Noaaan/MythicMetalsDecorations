@@ -31,7 +31,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import ninjaphenix.container_library.Utils;
 import ninjaphenix.container_library.api.v2.OpenableBlockEntityProviderV2;
 import ninjaphenix.container_library.api.v2.OpenableBlockEntityV2;
 import org.jetbrains.annotations.Nullable;
@@ -43,7 +42,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
 public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity> implements OpenableBlockEntityProviderV2 {
-    private final int inventorySize;
+    private final int size;
     private final String name;
     public static final DirectionProperty FACING;
     public static final EnumProperty<ChestType> CHEST_TYPE;
@@ -70,7 +69,7 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
 
     public MythicChestBlock(String name, Settings settings, Supplier<BlockEntityType<? extends MythicChestBlockEntity>> supplier, int inventorySize) {
         super(settings, supplier);
-        this.inventorySize = inventorySize;
+        this.size = inventorySize;
         this.name = name;
     }
 
@@ -183,7 +182,7 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new MythicChestBlockEntity(this.name, pos, state, getInventorySize());
+        return new MythicChestBlockEntity(this.name, pos, state, getSize());
     }
 
     @Nullable
@@ -201,8 +200,8 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         return ncl_onBlockUse(world, state, pos, player, hand, hit);
     }
 
-    public int getInventorySize() {
-        return inventorySize;
+    public int getSize() {
+        return size;
     }
 
     public DoubleBlockProperties.PropertySource<? extends MythicChestBlockEntity> getBlockEntitySource(
@@ -273,8 +272,10 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
 
     @Override
     public void ncl_sOpenInventory(World world, BlockState state, BlockPos pos, ServerPlayerEntity player) {
-        OpenableBlockEntityProviderV2.super.ncl_sOpenInventory(world, state, pos, player, Utils.SCROLL_SCREEN_TYPE);
+        OpenableBlockEntityProviderV2.super.ncl_sOpenInventory(world, state, pos, player);
     }
+
+
 
     public static DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(ChestAnimationProgress progress) {
         return new DoubleBlockProperties.PropertyRetriever<>() {

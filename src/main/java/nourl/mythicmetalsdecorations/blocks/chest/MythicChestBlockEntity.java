@@ -30,7 +30,7 @@ import ninjaphenix.container_library.api.v2.OpenableBlockEntityV2;
 import nourl.mythicmetalsdecorations.blocks.Decorations;
 
 public class MythicChestBlockEntity extends ChestBlockEntity implements OpenableBlockEntityV2, ImplementedInventory, ChestAnimationProgress {
-    private int inventorySize;
+    private int size;
     private DefaultedList<ItemStack> inventory;
     private final ChestLidAnimator lidAnimator = new ChestLidAnimator();
     private String name;
@@ -65,13 +65,13 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
 
     public MythicChestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        this.inventorySize = ((MythicChestBlock)state.getBlock()).getInventorySize();
-        this.inventory = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
+        this.size = ((MythicChestBlock)state.getBlock()).getSize();
+        this.inventory = DefaultedList.ofSize(size, ItemStack.EMPTY);
     }
 
-    public MythicChestBlockEntity(String name, BlockPos pos, BlockState state, int inventorySize) {
+    public MythicChestBlockEntity(String name, BlockPos pos, BlockState state, int size) {
         this(MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, pos, state);
-        this.inventorySize = inventorySize;
+        this.size = size;
         this.name = name;
     }
 
@@ -96,7 +96,7 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
 
     @Override
     public int size() {
-        return inventorySize;
+        return size;
     }
 
     @Override
@@ -210,4 +210,8 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
     public float getAnimationProgress(float tickDelta) {
         return this.lidAnimator.getProgress(tickDelta);
     }
+
+
+
+
 }

@@ -110,7 +110,6 @@ public class DecorationSet {
         private final boolean fireproof;
         private ChainBlock chain = null;
         private MythicChestBlock chest = null;
-        private BlockSoundGroup currentSounds = BlockSoundGroup.METAL;
         private float currentHardness = -1;
         private float currentResistance = -1;
         private final Multimap<Block, Identifier> miningLevels = HashMultimap.create();
@@ -186,7 +185,6 @@ public class DecorationSet {
          * @param sounds    The {@link BlockSoundGroup} which should be played.
          */
         public Builder sounds(BlockSoundGroup sounds) {
-            this.currentSounds = sounds;
             return this;
         }
 
@@ -216,7 +214,7 @@ public class DecorationSet {
          * @see Builder
          */
         public Builder createChain(Identifier miningLevel) {
-            final var settings = blockSettings(currentHardness, currentResistance, currentSounds);
+            final var settings = blockSettings(currentHardness, currentResistance, BlockSoundGroup.CHAIN);
             settingsProcessor.accept(settings);
             this.chain = new ChainBlock(settings);
             miningLevels.put(chain, miningLevel);
@@ -231,7 +229,7 @@ public class DecorationSet {
          * @see Builder
          */
         public Builder createChest(int slots, Identifier miningLevel) {
-            final var settings = blockSettings(currentHardness, currentResistance, currentSounds);
+            final var settings = blockSettings(currentHardness, currentResistance, BlockSoundGroup.METAL);
             settingsProcessor.accept(settings);
             this.chest = new MythicChestBlock(this.name, settings, () -> MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, slots);
             miningLevels.put(chest, miningLevel);

@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "nourl.mythicmetalsdecorations.mixin",
   "compatibilityLevel": "JAVA_16",
+  "plugin": "nourl.mythicmetalsdecorations.mixin.MythicMetalsDecorationsMixinPlugin",
   "mixins": [
+    "MythicChestBlockEntityLithiumCompatMixin"
   ],
   "client": [
   ],
