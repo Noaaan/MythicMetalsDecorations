@@ -1,14 +1,12 @@
 package nourl.mythicmetalsdecorations.blocks.chest;
 
+import ellemes.container_library.api.inventory.AbstractHandler;
+import ellemes.container_library.api.v2.OpenableBlockEntityV2;
 import io.wispforest.owo.util.ImplementedInventory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.ChestLidAnimator;
-import net.minecraft.block.entity.ViewerCountManager;
+import net.minecraft.block.entity.*;
 import net.minecraft.block.enums.ChestType;
-import net.minecraft.client.block.ChestAnimationProgress;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.DoubleInventory;
 import net.minecraft.inventory.Inventory;
@@ -20,16 +18,13 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import ninjaphenix.container_library.api.inventory.AbstractHandler;
-import ninjaphenix.container_library.api.v2.OpenableBlockEntityV2;
 import nourl.mythicmetalsdecorations.blocks.Decorations;
 
-public class MythicChestBlockEntity extends ChestBlockEntity implements OpenableBlockEntityV2, ImplementedInventory, ChestAnimationProgress {
+public class MythicChestBlockEntity extends ChestBlockEntity implements OpenableBlockEntityV2, ImplementedInventory, LidOpenable {
     private int size;
     private DefaultedList<ItemStack> inventory;
     private final ChestLidAnimator lidAnimator = new ChestLidAnimator();
@@ -106,7 +101,7 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
 
     @Override
     public Text getInventoryTitle() {
-        return new TranslatableText("container.mythicmetals_decorations.chest." + ((MythicChestBlock)getCachedState().getBlock()).getChestName());
+        return Text.translatable("container.mythicmetals_decorations.chest." + ((MythicChestBlock)getCachedState().getBlock()).getChestName());
     }
 
     public String getChestName() {

@@ -1,13 +1,11 @@
 package nourl.mythicmetalsdecorations.blocks.chest;
 
+import ellemes.container_library.api.v2.OpenableBlockEntityProviderV2;
+import ellemes.container_library.api.v2.OpenableBlockEntityV2;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.entity.*;
 import net.minecraft.block.enums.ChestType;
-import net.minecraft.client.block.ChestAnimationProgress;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -27,16 +25,14 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import ninjaphenix.container_library.api.v2.OpenableBlockEntityProviderV2;
-import ninjaphenix.container_library.api.v2.OpenableBlockEntityV2;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.Random;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 
@@ -120,6 +116,8 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
             ((MythicChestBlockEntity) blockEntity).onScheduledTick();
         }
     }
+
+
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -277,7 +275,7 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
 
 
 
-    public static DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(ChestAnimationProgress progress) {
+    public static DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(final LidOpenable progress) {
         return new DoubleBlockProperties.PropertyRetriever<>() {
             public Float2FloatFunction getFromBoth(ChestBlockEntity chestBlockEntity, ChestBlockEntity chestBlockEntity2) {
                 return tickDelta -> Math.max(chestBlockEntity.getAnimationProgress(tickDelta), chestBlockEntity2.getAnimationProgress(tickDelta));
