@@ -9,14 +9,14 @@ group = project.maven_group
 
 repositories {
     mavenLocal()
-    maven {url = "https://www.cursemaven.com"}
-    maven {url = "https://maven.shedaniel.me/"}
-    maven {url = "https://maven.terraformersmc.com/"}
+    maven { url = "https://www.cursemaven.com" }
+    maven { url = "https://maven.shedaniel.me/" }
+    maven { url = "https://maven.terraformersmc.com/" }
     maven { url = "https://ladysnake.jfrog.io/artifactory/mods" }
-    maven {url = "https://maven.wispforest.io/"}
-    maven {url = "https://api.modrinth.com/maven/"}
-    maven {url = "https://jitpack.io"}
-    maven {url = "https://maven.jamieswhiteshirt.com/libs-release"}
+    maven { url = "https://maven.wispforest.io/" }
+    maven { url = "https://api.modrinth.com/maven/" }
+    maven { url = "https://jitpack.io" }
+    maven { url = "https://maven.jamieswhiteshirt.com/libs-release" }
 }
 
 dependencies {
@@ -33,16 +33,17 @@ dependencies {
     modImplementation "io.wispforest:owo-lib:${project.owo_version}"
 
     // REI
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    //modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+    //modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 
     // ContainerLib
-    include ("maven.modrinth:ellemes-container-library:${project.containerlib_version}")
-    modImplementation ("maven.modrinth:ellemes-container-library:${project.containerlib_version}")
+    //include("maven.modrinth:ellemes-container-library:${project.containerlib_version}")
+    //modImplementation("maven.modrinth:ellemes-container-library:${project.containerlib_version}")
+    modImplementation include("curse.maven:containerlib-530668:${project.containerlib_id}")
 
     // MM + AF + Magna + CCA
     modImplementation "maven.modrinth:mythicmetals:${project.mm_version}"
-//    modImplementation ("nourl:MythicMetals:${project.mm_version}")
+    //modImplementation ("nourl:MythicMetals:${project.mm_version}")
     modRuntimeOnly "maven.modrinth:alloy-forgery:${project.af_version}"
     modRuntimeOnly 'com.github.Technici4n:magna:1.8.1-1.19'
     // Cardinal Components
@@ -51,7 +52,7 @@ dependencies {
     modRuntimeOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 
     // Lithium
-    modImplementation ("maven.modrinth:lithium:${project.lithium_version}")
+    modImplementation("maven.modrinth:lithium:${project.lithium_version}")
 
 
 }
