@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChestBlock;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChests;
@@ -66,7 +67,7 @@ public class DecorationSet {
         }
 
         // Inject all the mining levels into their tags.
-        miningLevels.forEach((block, level) -> TagInjector.injectBlocks(level, block));
+        miningLevels.forEach((block, level) -> TagInjector.inject(Registry.BLOCK, level, block));
     }
 
     /**
