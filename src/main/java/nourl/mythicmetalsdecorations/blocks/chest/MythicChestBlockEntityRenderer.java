@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.LidOpenable;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.*;
@@ -49,7 +48,6 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
     private final ModelPart doubleChestRightLatch;
     private static final Dilation D = new Dilation(0.01F);
 
-
     public MythicChestBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         // Actually use my own rendering
         ModelPart modelSingle = getSingleTexturedModelData().createModel();
@@ -64,8 +62,6 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         this.doubleChestRightBase = modelRight.getChild(BASE);
         this.doubleChestRightLid = modelRight.getChild(LID);
         this.doubleChestRightLatch = modelRight.getChild(LATCH);
-
-
     }
 
     public static TexturedModelData getSingleTexturedModelData() {
@@ -102,7 +98,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         BlockState blockState = bl ? entity.getCachedState() : Decorations.ADAMANTITE.getChest().getDefaultState().with(MythicChestBlock.FACING, Direction.SOUTH);
         ChestType chestType = blockState.contains(MythicChestBlock.CHEST_TYPE) ? blockState.get(MythicChestBlock.CHEST_TYPE) : ChestType.SINGLE;
         Block block = blockState.getBlock();
-        if (block instanceof AbstractChestBlock abstractChestBlock) {
+        if (block instanceof AbstractChestBlock<?> abstractChestBlock) {
 
             boolean isDoubleChest = chestType != ChestType.SINGLE;
             matrices.push();
@@ -155,8 +151,8 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
     }
 
     /**
-     *  An inner class that contains an item renderer for the chests
-     *  This class initializes a Chest to ChestBE map when loaded from the chest blocks in {@link DecorationSet#CHEST_MAP}
+     * An inner class that contains an item renderer for the chests
+     * This class initializes a Chest to ChestBE map when loaded from the chest blocks in {@link DecorationSet#CHEST_MAP}
      */
     public static class ChestItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
         private final Map<Block, MythicChestBlockEntity> betterchestEntityMap = new HashMap<>();
@@ -164,18 +160,17 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         public ChestItemRenderer() {
             DecorationSet.CHEST_MAP.forEach((s, mythicChestBlock) ->
                     betterchestEntityMap.put(mythicChestBlock,
-                    new MythicChestBlockEntity(
-                            mythicChestBlock.getChestName(),
-                            BlockPos.ORIGIN,
-                            mythicChestBlock.getDefaultState(),
-                            0)));
+                            new MythicChestBlockEntity(
+                                    BlockPos.ORIGIN,
+                                    mythicChestBlock.getDefaultState()
+                            )));
         }
 
         /**
-         *  Used to render the MythicChestBlockEntity on the BlockItem
+         * Used to render the MythicChestBlockEntity on the BlockItem
          */
         public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-            MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(betterchestEntityMap.get(((BlockItem)stack.getItem()).getBlock()), matrices, vertexConsumers, light, overlay);
+            MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(betterchestEntityMap.get(((BlockItem) stack.getItem()).getBlock()), matrices, vertexConsumers, light, overlay);
         }
     }
 

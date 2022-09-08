@@ -1,34 +1,36 @@
 package nourl.mythicmetalsdecorations.blocks.chest;
 
-import ellemes.container_library.api.inventory.AbstractHandler;
-import ellemes.container_library.api.v2.OpenableBlockEntityV2;
 import io.wispforest.owo.util.ImplementedInventory;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.entity.*;
-import net.minecraft.block.enums.ChestType;
+import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.entity.ChestLidAnimator;
+import net.minecraft.block.entity.LidOpenable;
+import net.minecraft.block.entity.ViewerCountManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.ContainerLock;
 import net.minecraft.inventory.DoubleInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import nourl.mythicmetalsdecorations.blocks.Decorations;
+import nourl.mythicmetalsdecorations.MythicChestScreenHandler;
+import nourl.mythicmetalsdecorations.mixin.LockableContainerBlockEntityAccessor;
 
-public class MythicChestBlockEntity extends ChestBlockEntity implements OpenableBlockEntityV2, ImplementedInventory, LidOpenable {
-    private int size;
+public class MythicChestBlockEntity extends ChestBlockEntity implements ImplementedInventory, LidOpenable {
+
+    private final int size;
+    private final String name;
+
     private DefaultedList<ItemStack> inventory;
+
     private final ChestLidAnimator lidAnimator = new ChestLidAnimator();
-    private String name;
     private final ViewerCountManager stateManager = new ViewerCountManager() {
         @Override
         protected void onContainerOpen(World world, BlockPos pos, BlockState state) {
@@ -47,31 +49,21 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
 
         @Override
         protected boolean isPlayerViewing(PlayerEntity player) {
-            if (!(player.currentScreenHandler instanceof AbstractHandler)) {
-                return false;
+            if (player.currentScreenHandler instanceof MythicChestScreenHandler handler) {
+                var inventory = handler.chestInventory();
+                return inventory == MythicChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory) inventory).isPart(MythicChestBlockEntity.this);
             } else {
-                Inventory inventory = ((AbstractHandler)player.currentScreenHandler).getInventory();
-                return inventory == MythicChestBlockEntity.this
-                        || inventory instanceof DoubleInventory && ((DoubleInventory)inventory).isPart(MythicChestBlockEntity.this);
+                return false;
             }
         }
     };
 
-
-    public MythicChestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
-        this.size = ((MythicChestBlock)state.getBlock()).getSize();
-        this.inventory = DefaultedList.ofSize(size, ItemStack.EMPTY);
-    }
-
-    public MythicChestBlockEntity(String name, BlockPos pos, BlockState state, int size) {
-        this(MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, pos, state);
-        this.size = size;
-        this.name = name;
-    }
-
     public MythicChestBlockEntity(BlockPos pos, BlockState state) {
-        this(MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, pos, state);
+        super(MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, pos, state);
+
+        this.name = ((MythicChestBlock) state.getBlock()).getChestName();
+        this.size = ((MythicChestBlock) state.getBlock()).getSize();
+        this.inventory = DefaultedList.ofSize(size, ItemStack.EMPTY);
     }
 
     @Override
@@ -94,23 +86,8 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
         return size;
     }
 
-    @Override
-    public boolean canBeUsedBy(ServerPlayerEntity player) {
-        return OpenableBlockEntityV2.super.canBeUsedBy(player);
-    }
-
-    @Override
-    public Text getInventoryTitle() {
-        return Text.translatable("container.mythicmetals_decorations.chest." + ((MythicChestBlock)getCachedState().getBlock()).getChestName());
-    }
-
     public String getChestName() {
         return name;
-    }
-
-    @Override
-    public Inventory getInventory() {
-        return Decorations.ADAMANTITE.getChest().getBlockEntitySource(getCachedState(), world, pos, true).apply(MythicChestBlock.INVENTORY_RETRIEVER).orElseThrow();
     }
 
     public static void clientTick(World world, BlockPos pos, BlockState state, MythicChestBlockEntity blockEntity) {
@@ -143,25 +120,38 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
 
     @Override
     public void readNbt(NbtCompound nbt) {
-        this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        NbtList nbtList = nbt.getList("Items", 10);
+        ((LockableContainerBlockEntityAccessor) this).mm$setLock(ContainerLock.fromNbt(nbt));
 
-        for(int i = 0; i < nbtList.size(); ++i) {
-            NbtCompound nbtCompound = nbtList.getCompound(i);
-            int j = nbtCompound.getShort("Slot") & Short.MAX_VALUE;
-            if (j < this.inventory.size()) {
-                this.inventory.set(j, ItemStack.fromNbt(nbtCompound));
-            }
+        if (nbt.contains("CustomName", NbtElement.STRING_TYPE)) {
+            this.setCustomName(Text.Serializer.fromJson(nbt.getString("CustomName")));
         }
 
+        if (!this.deserializeLootTable(nbt)) {
+            this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
+            NbtList nbtList = nbt.getList("Items", 10);
+
+            for (int i = 0; i < nbtList.size(); ++i) {
+                NbtCompound nbtCompound = nbtList.getCompound(i);
+                int j = nbtCompound.getShort("Slot") & Short.MAX_VALUE;
+                if (j < this.inventory.size()) {
+                    this.inventory.set(j, ItemStack.fromNbt(nbtCompound));
+                }
+            }
+        }
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
+        ((LockableContainerBlockEntityAccessor) this).mm$getLock().writeNbt(nbt);
+
+        if (this.hasCustomName()) {
+            nbt.putString("CustomName", Text.Serializer.toJson(this.getCustomName()));
+        }
+
         if (!this.serializeLootTable(nbt)) {
             NbtList nbtList = new NbtList();
 
-            for(int i = 0; i < this.inventory.size(); i++) {
+            for (int i = 0; i < this.inventory.size(); i++) {
                 ItemStack itemStack = this.inventory.get(i);
                 if (!itemStack.isEmpty()) {
                     NbtCompound nbtCompound = new NbtCompound();
@@ -179,34 +169,20 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Openable
     }
 
     static void playSound(World world, BlockPos pos, BlockState state, SoundEvent soundEvent) {
-        ChestType chestType = state.get(ChestBlock.CHEST_TYPE);
-        if (chestType != ChestType.LEFT) {
-            double d = (double)pos.getX() + 0.5;
-            double e = (double)pos.getY() + 0.5;
-            double f = (double)pos.getZ() + 0.5;
-            if (chestType == ChestType.RIGHT) {
-                Direction direction = ChestBlock.getFacing(state);
-                d += (double)direction.getOffsetX() * 0.5;
-                f += (double)direction.getOffsetZ() * 0.5;
-            }
-
-            world.playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
-        }
+        double x = pos.getX() + .5d;
+        double y = pos.getY() + .5d;
+        double z = pos.getZ() + .5d;
+        world.playSound(null, x, y, z, soundEvent, SoundCategory.BLOCKS, .5f, world.random.nextFloat() * .1f + .9f);
     }
 
     public void onScheduledTick() {
         if (!this.removed) {
             this.stateManager.updateViewerCount(this.getWorld(), this.getPos(), this.getCachedState());
         }
-
     }
 
     @Override
     public float getAnimationProgress(float tickDelta) {
         return this.lidAnimator.getProgress(tickDelta);
     }
-
-
-
-
 }

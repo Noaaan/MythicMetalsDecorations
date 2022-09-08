@@ -1,17 +1,21 @@
 package nourl.mythicmetalsdecorations.blocks.chest;
 
-import ellemes.container_library.api.v2.OpenableBlockEntityProviderV2;
-import ellemes.container_library.api.v2.OpenableBlockEntityV2;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.block.enums.ChestType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.DoubleInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -19,6 +23,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -30,36 +35,52 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import nourl.mythicmetalsdecorations.MythicChestScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
 import java.util.function.BiPredicate;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity> implements OpenableBlockEntityProviderV2 {
+public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity> {
+
     private final int size;
     private final String name;
+
     public static final DirectionProperty FACING;
     public static final EnumProperty<ChestType> CHEST_TYPE;
     public static final BooleanProperty WATERLOGGED;
+
     protected static final VoxelShape DOUBLE_NORTH_SHAPE = Block.createCuboidShape(1.0, 0.0, 0.0, 15.0, 14.0, 15.0);
     protected static final VoxelShape DOUBLE_SOUTH_SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 14.0, 16.0);
     protected static final VoxelShape DOUBLE_WEST_SHAPE = Block.createCuboidShape(0.0, 0.0, 1.0, 15.0, 14.0, 15.0);
     protected static final VoxelShape DOUBLE_EAST_SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 16.0, 14.0, 15.0);
     protected static final VoxelShape SINGLE_SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 14.0, 15.0);
-    public static final DoubleBlockProperties.PropertyRetriever
-            <MythicChestBlockEntity, Optional<Inventory>> INVENTORY_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<>() {
-        public Optional<Inventory> getFromBoth(MythicChestBlockEntity first, MythicChestBlockEntity second) {
-            return Optional.of(new DoubleInventory(first, second));
+
+    public static final DoubleBlockProperties.PropertyRetriever<MythicChestBlockEntity, MythicChest> CHEST_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<>() {
+        public MythicChest getFromBoth(MythicChestBlockEntity first, MythicChestBlockEntity second) {
+            var name = first.hasCustomName()
+                    ? first.getCustomName()
+                    : second.hasCustomName() ? second.getCustomName() : Text.translatable("text.mythicmetals_decorations.large_chest", second.getCachedState().getBlock().getName());
+
+            return new MythicChest(
+                    new DoubleInventory(first, second),
+                    name,
+                    player -> first.checkUnlocked(player) && second.checkUnlocked(player),
+                    player -> {
+                        first.checkLootInteraction(player);
+                        second.checkLootInteraction(player);
+                    });
         }
 
-        public Optional<Inventory> getFrom(MythicChestBlockEntity blockEntity) {
-            return Optional.of(blockEntity);
+        public MythicChest getFrom(MythicChestBlockEntity chest) {
+            return new MythicChest(chest, chest.hasCustomName() ? chest.getCustomName() : chest.getCachedState().getBlock().getName(), chest::checkUnlocked, chest::checkLootInteraction);
         }
 
-        public Optional<Inventory> getFallback() {
-            return Optional.empty();
+        public MythicChest getFallback() {
+            return null;
         }
     };
 
@@ -116,7 +137,6 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
             ((MythicChestBlockEntity) blockEntity).onScheduledTick();
         }
     }
-
 
 
     @Override
@@ -180,38 +200,75 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new MythicChestBlockEntity(this.name, pos, state, getSize());
+        return new MythicChestBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? checkType(type, this.getExpectedEntityType(), MythicChestBlockEntity::clientTick) : null;
+        return world.isClient ? checkType(type, MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, MythicChestBlockEntity::clientTick) : null;
     }
 
-    public BlockEntityType<? extends MythicChestBlockEntity> getExpectedEntityType() {
-        return MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE;
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+        if (!itemStack.hasCustomName()) return;
+
+        if (world.getBlockEntity(pos) instanceof MythicChestBlockEntity chest) {
+            chest.setCustomName(itemStack.getName());
+        }
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        return ncl_onBlockUse(world, state, pos, player, hand, hit);
+
+        if (!world.isClient) {
+            world.createAndScheduleBlockTick(pos, this, 0);
+            var chest = MythicChestBlock.this.getBlockEntitySource(state, world, pos, false).apply(CHEST_RETRIEVER);
+            if (chest != null) {
+                player.openHandledScreen(
+                        new ExtendedScreenHandlerFactory() {
+                            @Override
+                            public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+                                buf.writeInt(chest.inventory.size());
+                            }
+
+                            @Override
+                            public Text getDisplayName() {
+                                return chest.name;
+                            }
+
+                            @Override
+                            public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                                if (!chest.canOpen.test(player)) return null;
+                                chest.lootGenerator.accept(player);
+                                return new MythicChestScreenHandler(syncId, inv, chest.inventory);
+                            }
+                        }
+                );
+            }
+        }
+
+        return ActionResult.SUCCESS;
     }
 
     public int getSize() {
         return size;
     }
 
+    @Override
     public DoubleBlockProperties.PropertySource<? extends MythicChestBlockEntity> getBlockEntitySource(
             BlockState state, World world, BlockPos pos, boolean ignoreBlocked) {
-        BiPredicate<WorldAccess, BlockPos> biPredicate;
+
+        BiPredicate<WorldAccess, BlockPos> fallbackTester;
         if (ignoreBlocked) {
-            biPredicate = (worldx, posx) -> false;
+            fallbackTester = (w, p) -> false;
         } else {
-            biPredicate = MythicChestBlock::isChestBlocked;
+            fallbackTester = MythicChestBlock::isChestBlocked;
         }
+
         return DoubleBlockProperties.toPropertySource(
-                MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, MythicChestBlock::getDoubleBlockType, MythicChestBlock::getFacing, FACING, state, world, pos, biPredicate
+                MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, MythicChestBlock::getDoubleBlockType,
+                MythicChestBlock::getFacing, FACING, state, world, pos, fallbackTester
         );
     }
 
@@ -253,28 +310,6 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         }
     }
 
-    @Override
-    public ActionResult ncl_onBlockUse(World world, BlockState state, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        return OpenableBlockEntityProviderV2.super.ncl_onBlockUse(world, state, pos, player, hand, hit);
-    }
-
-    @Override
-    public OpenableBlockEntityV2 getOpenableBlockEntity(World world, BlockState state, BlockPos pos) {
-        return OpenableBlockEntityProviderV2.super.getOpenableBlockEntity(world, state, pos);
-    }
-
-    @Override
-    public boolean ncl_cOpenInventory(BlockPos pos, Hand hand, BlockHitResult hit) {
-        return OpenableBlockEntityProviderV2.super.ncl_cOpenInventory(pos, hand, hit);
-    }
-
-    @Override
-    public void ncl_sOpenInventory(World world, BlockState state, BlockPos pos, ServerPlayerEntity player) {
-        OpenableBlockEntityProviderV2.super.ncl_sOpenInventory(world, state, pos, player);
-    }
-
-
-
     public static DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(final LidOpenable progress) {
         return new DoubleBlockProperties.PropertyRetriever<>() {
             public Float2FloatFunction getFromBoth(ChestBlockEntity chestBlockEntity, ChestBlockEntity chestBlockEntity2) {
@@ -291,11 +326,12 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         };
     }
 
-
     static {
         FACING = HorizontalFacingBlock.FACING;
         CHEST_TYPE = Properties.CHEST_TYPE;
         WATERLOGGED = Properties.WATERLOGGED;
     }
+
+    private record MythicChest(Inventory inventory, Text name, Predicate<PlayerEntity> canOpen, Consumer<PlayerEntity> lootGenerator) {}
 
 }
