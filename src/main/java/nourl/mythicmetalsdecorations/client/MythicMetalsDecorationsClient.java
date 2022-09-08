@@ -7,8 +7,10 @@ import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.block.enums.ChestType;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
+import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
 import nourl.mythicmetalsdecorations.blocks.DecorationSet;
 import nourl.mythicmetalsdecorations.blocks.Decorations;
 import nourl.mythicmetalsdecorations.blocks.chest.ChestTextureLayers;
@@ -35,6 +37,8 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
         ChestTextureLayers.init((loc, def) -> EntityModelLayerRegistry.registerModelLayer(loc, () -> def));
 
         makeOpaque();
+
+        HandledScreens.register(MythicMetalsDecorations.MYTHIC_CHEST_SCREEN_HANDLER_TYPE, MythicChestScreen::new);
     }
 
     // Makes custom model blocks see through, like chains

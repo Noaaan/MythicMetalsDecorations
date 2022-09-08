@@ -8,8 +8,6 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-    mavenLocal()
-    maven { url = "https://www.cursemaven.com" }
     maven { url = "https://maven.shedaniel.me/" }
     maven { url = "https://maven.terraformersmc.com/" }
     maven { url = "https://ladysnake.jfrog.io/artifactory/mods" }
@@ -35,11 +33,6 @@ dependencies {
     // REI
     //modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
     //modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-
-    // ContainerLib
-    //include("maven.modrinth:ellemes-container-library:${project.containerlib_version}")
-    //modImplementation("maven.modrinth:ellemes-container-library:${project.containerlib_version}")
-    modImplementation include("curse.maven:containerlib-530668:${project.containerlib_id}")
 
     // MM + AF + Magna + CCA
     modImplementation "maven.modrinth:mythicmetals:${project.mm_version}"

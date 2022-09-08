@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_16",
   "plugin": "nourl.mythicmetalsdecorations.mixin.MythicMetalsDecorationsMixinPlugin",
   "mixins": [
+    "LockableContainerBlockEntityAccessor",
     "MythicChestBlockEntityLithiumCompatMixin"
   ],
   "client": [
