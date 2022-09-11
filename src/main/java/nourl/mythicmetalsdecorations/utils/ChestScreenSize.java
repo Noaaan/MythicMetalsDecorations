@@ -36,6 +36,8 @@ public record ChestScreenSize(int columns, int rows, int extraRowSlots, boolean 
             needsScrolling = true;
         }
 
+        needsScrolling |= rows * columns < slotCount;
+
         return new ChestScreenSize(columns, rows, slotCount % columns, needsScrolling);
     }
 

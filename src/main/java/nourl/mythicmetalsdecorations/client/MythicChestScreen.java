@@ -170,6 +170,7 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (this.isInScrollbar(mouseX, mouseY)) {
+            this.scrolling = true;
             this.scrollTo(mouseY);
             return true;
         } else {
