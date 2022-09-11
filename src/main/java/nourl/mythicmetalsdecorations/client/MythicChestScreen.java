@@ -107,6 +107,8 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
         ((SlotAccessor) slot).owo$setY(y);
     }
 
+    // I am not scared of the ducks in the pond
+    @SuppressWarnings("UnstableApiUsage")
     private void toggleSlot(Slot slot, boolean enabled) {
         ((OwoSlotExtension) slot).owo$setDisabledOverride(!enabled);
     }
@@ -197,5 +199,21 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
         this.scroll((int) (this.scrollOffset - amount));
         return true;
+    }
+
+    public ChestScreenSize getSize() {
+        return size;
+    }
+
+    public int getHandledScreenX() {
+        return this.x;
+    }
+
+    public int getHandledScreenY() {
+        return this.y;
+    }
+
+    public int getBackgroundWidth() {
+        return this.backgroundWidth;
     }
 }
