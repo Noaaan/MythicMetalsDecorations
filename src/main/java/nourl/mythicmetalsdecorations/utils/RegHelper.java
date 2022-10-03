@@ -14,7 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import nourl.mythicmetals.mixin.AccessorEntityModelLayers;
+import nourl.mythicmetals.mixin.EntityModelLayersAccessor;
 import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
 
 
@@ -77,9 +77,10 @@ public class RegHelper {
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id(path), type);
     }
 
+    @Environment(EnvType.CLIENT)
     public static EntityModelLayer modelLayer(String name, String layer) {
         EntityModelLayer result = new EntityModelLayer(id(name), layer);
-        AccessorEntityModelLayers.getAllModels().add(result);
+        EntityModelLayersAccessor.getLAYERS().add(result);
         return result;
     }
 
