@@ -102,5 +102,6 @@
   "item.mythicmetals_decorations.steel_chain": "Steel Chain",
   "item.mythicmetals_decorations.stormyx_chain": "Stormyx Chain",
 
-  "itemGroup.mythicmetals_decorations.decorations": "Mythic Metals - Decorations"
+  "itemGroup.mythicmetals_decorations.decorations": "Mythic Metals - Decorations",
+  "tooltip.mythicmetals_decorations.chest_size": "Can hold %s stacks"
 }

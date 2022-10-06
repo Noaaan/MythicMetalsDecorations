@@ -2,6 +2,7 @@ package nourl.mythicmetalsdecorations.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -10,10 +11,12 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.item.BlockItem;
 import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
 import nourl.mythicmetalsdecorations.blocks.DecorationSet;
 import nourl.mythicmetalsdecorations.blocks.Decorations;
 import nourl.mythicmetalsdecorations.blocks.chest.ChestTextureLayers;
+import nourl.mythicmetalsdecorations.blocks.chest.MythicChestBlock;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChestBlockEntityRenderer;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChests;
 import nourl.mythicmetalsdecorations.utils.RegHelper;
@@ -87,6 +90,13 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
 
             BuiltinItemRendererRegistry.INSTANCE.register(mythicChestBlock, new MythicChestBlockEntityRenderer.ChestItemRenderer());
 
+        });
+
+        // Init chest tooltips
+        ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
+            if (stack.getItem() != null && stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof MythicChestBlock chest) {
+                lines.add(1, chest.getChestTooltip());
+            }
         });
     }
 

@@ -25,6 +25,7 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
@@ -330,6 +331,10 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         FACING = HorizontalFacingBlock.FACING;
         CHEST_TYPE = Properties.CHEST_TYPE;
         WATERLOGGED = Properties.WATERLOGGED;
+    }
+
+    public Text getChestTooltip() {
+        return Text.translatable("tooltip.mythicmetals_decorations.chest_size", this.getSize()).formatted(Formatting.GRAY);
     }
 
     private record MythicChest(Inventory inventory, Text name, Predicate<PlayerEntity> canOpen, Consumer<PlayerEntity> lootGenerator) {}
