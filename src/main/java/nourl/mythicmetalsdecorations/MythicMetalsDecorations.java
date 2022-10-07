@@ -8,7 +8,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.registry.Registry;
 import nourl.mythicmetalsdecorations.blocks.MythicDecorations;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChests;
-import nourl.mythicmetalsdecorations.item.MythicDecorationsArmor;
 import nourl.mythicmetalsdecorations.item.MythicDecorationsItemGroup;
 import nourl.mythicmetalsdecorations.item.MythicDecorationsItems;
 import nourl.mythicmetalsdecorations.utils.RegHelper;
@@ -25,7 +24,6 @@ public class MythicMetalsDecorations implements ModInitializer {
         MythicDecorations.init();
         MythicChests.init();
         FieldRegistrationHandler.register(MythicDecorationsItems.class, MOD_ID, false);
-        FieldRegistrationHandler.processSimple(MythicDecorationsArmor.class, false);
         MYTHICMETALS_DECOR.initialize();
 
         Registry.register(Registry.SCREEN_HANDLER, RegHelper.id("mythic_chest"), MYTHIC_CHEST_SCREEN_HANDLER_TYPE);

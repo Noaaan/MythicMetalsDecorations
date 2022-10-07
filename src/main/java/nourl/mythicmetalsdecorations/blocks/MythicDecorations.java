@@ -1,6 +1,7 @@
 package nourl.mythicmetalsdecorations.blocks;
 
 import net.minecraft.util.Identifier;
+import nourl.mythicmetalsdecorations.item.MythicDecorationsArmorMaterials;
 
 public class MythicDecorations {
     private static final Identifier STONE_MINING_LEVEL = new Identifier("minecraft:needs_stone_tool");
@@ -22,6 +23,8 @@ public class MythicDecorations {
             .createDefaultSet(10F, 25F, NETHERITE_MINING_LEVEL, 216).finish();
     public static final MythicDecorationSet DURASTEEL = MythicDecorationSet.Builder.begin("durasteel", false)
             .createDefaultSet(5.0F, IRON_MINING_LEVEL, 108).finish();
+    public static final MythicDecorationSet HYDRARGYM = MythicDecorationSet.Builder.begin("hydrargym", false)
+            .createRegalSet(MythicDecorationsArmorMaterials.HYDRARGYM).finish();
     public static final MythicDecorationSet HALLOWED = MythicDecorationSet.Builder.begin("hallowed", false)
             .createDefaultSet(6.0F, DIAMOND_MINING_LEVEL, 162).finish();
     public static final MythicDecorationSet KYBER = MythicDecorationSet.Builder.begin("kyber", false)

@@ -2,17 +2,22 @@ package nourl.mythicmetalsdecorations.blocks;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import io.wispforest.owo.itemgroup.OwoItemSettings;
 import io.wispforest.owo.util.TagInjector;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.ChainBlock;
 import net.minecraft.block.Material;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChestBlock;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChests;
+import nourl.mythicmetalsdecorations.item.RegalSet;
 import nourl.mythicmetalsdecorations.utils.RegHelper;
 
 import java.util.ArrayList;
@@ -29,6 +34,8 @@ import java.util.function.Consumer;
 public class MythicDecorationSet {
     private final ChainBlock chain;
     private final MythicChestBlock chest;
+    private final RegalSet regalSet;
+    private final ArmorItem crown;
 
     private final String name;
     private final boolean fireproof;
@@ -40,17 +47,24 @@ public class MythicDecorationSet {
      * This constructor collects the smaller constructors from the {@link Builder} and creates a set of blocks.
      * Use {@link Builder#begin(String, boolean) BlockSet.Builder.begin} to begin,
      * and call {@link Builder#finish()} when you are done.
-     * @param name              Common name for the entire set of blocks, applies to every block created.
-     * @param chain             Contains a vanilla {@link ChainBlock}.
-     * @param fireproof         Boolean for creating fireproof block sets.
-     * @param miningLevels      A map containing all the blocks being registered with their corresponding mining levels.
+     *
+     * @param name         Common name for the entire set of blocks, applies to every block created.
+     * @param chain        Contains a vanilla {@link ChainBlock}.
+     * @param regalSet     Contains a {@link RegalSet}, a set consisting of armor items.
+     * @param crown        Contains a single {@link ArmorItem}, which is used for a crown (helmet).
+     * @param fireproof    Boolean for creating fireproof block sets.
+     * @param miningLevels A map containing all the blocks being registered with their corresponding mining levels.
      */
     private MythicDecorationSet(String name,
                                 ChainBlock chain,
                                 MythicChestBlock chest,
+                                RegalSet regalSet,
+                                ArmorItem crown,
                                 boolean fireproof,
                                 Multimap<Block, Identifier> miningLevels) {
         this.name = name;
+        this.regalSet = regalSet;
+        this.crown = crown;
         this.fireproof = fireproof;
 
         this.chain = chain;
@@ -66,6 +80,12 @@ public class MythicDecorationSet {
         if (chest != null) {
             RegHelper.chest(name + "_chest", chest, fireproof, MythicMetalsDecorations.MYTHICMETALS_DECOR);
             CHEST_MAP.put(name, chest);
+        }
+        if (regalSet != null) {
+            regalSet.register(name);
+        }
+        if (crown != null) {
+            RegHelper.item(name + "_crown", crown);
         }
 
         // Inject all the mining levels into their tags.
@@ -120,6 +140,8 @@ public class MythicDecorationSet {
         };
 
         private final Identifier PICKAXE = new Identifier("mineable/pickaxe");
+        private RegalSet regalSet = null;
+        private ArmorItem crown = null;
 
         /**
          * @see #begin(String, boolean)
@@ -241,12 +263,37 @@ public class MythicDecorationSet {
         }
 
         /**
+         * Creates a regal set, which is a regular armor set with a crown instead of a helmet
+         * @param material  The Armor Material used for the set
+         * @see Builder
+         */
+        public Builder createRegalSet(ArmorMaterial material) {
+            this.regalSet = new RegalSet(material);
+            return this;
+        }
+
+        /**
+         * Creates a custom crown item, which is just a fancy looking helmet
+         * @param material  The Armor Material used for the crown
+         * @param fireproof Whether the crown is fireproof
+         * @see Builder
+         */
+        public Builder createCrown(ArmorMaterial material, boolean fireproof) {
+            if (fireproof) {
+                this.crown = new ArmorItem(material, EquipmentSlot.HEAD, new OwoItemSettings().tab(2));
+            } else {
+                this.crown = new ArmorItem(material, EquipmentSlot.HEAD, new OwoItemSettings());
+            }
+            return this;
+        }
+
+        /**
          * Finishes the creation of the block set, and returns the entire set using the settings declared.
          * For registering the blocks call {@link Builder#register() Builder.register} during mod initialization.
          * @return BlockSet
          */
         public MythicDecorationSet finish() {
-            final var set = new MythicDecorationSet(this.name, this.chain, this.chest, this.fireproof, this.miningLevels);
+            final var set = new MythicDecorationSet(this.name, this.chain, this.chest, this.regalSet, this.crown, this.fireproof, this.miningLevels);
             Builder.toBeRegistered.add(set);
             return set;
         }
