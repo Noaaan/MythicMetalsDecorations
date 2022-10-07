@@ -108,6 +108,16 @@
   "item.mythicmetals_decorations.hydrargym_boots": "Hydrargym Boots",
   "item.mythicmetals_decorations.hydrargym_ingot": "Hydrargym Ingot",
 
-  "itemGroup.mythicmetals_decorations.decorations": "Mythic Metals - Decorations",
+  "itemGroup.mythicmetals_decorations.main": "Mythic Metals - Decorations",
+  "itemGroup.mythicmetals_decorations.main.button.discord": "Mythic Metals Decorations Issue Tracker",
+  "itemGroup.mythicmetals_decorations.main.button.github": "Mythic Metals Decorations CurseForge Page",
+  "itemGroup.mythicmetals_decorations.main.button.curseforge": "Mythic Metals Decorations Modrinth Page",
+  "itemGroup.mythicmetals_decorations.main.button.modrinth": "Need help? Join the Wraith Coding Sesh Discord Server for support.",
+  "itemGroup.mythicmetals_decorations.main.tab.chains": "Chains",
+  "itemGroup.mythicmetals_decorations.main.tab.chests": "Chests",
+  "itemGroup.mythicmetals_decorations.main.tab.crowns": "Crowns",
+  "itemGroup.mythicmetals_decorations.main.tab.misc": "Misc",
+
+
   "tooltip.mythicmetals_decorations.chest_size": "Can hold %s stacks"
 }
