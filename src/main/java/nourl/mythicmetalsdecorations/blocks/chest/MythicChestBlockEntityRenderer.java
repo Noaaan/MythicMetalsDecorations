@@ -24,8 +24,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
-import nourl.mythicmetalsdecorations.blocks.DecorationSet;
-import nourl.mythicmetalsdecorations.blocks.Decorations;
+import nourl.mythicmetalsdecorations.blocks.MythicDecorationSet;
+import nourl.mythicmetalsdecorations.blocks.MythicDecorations;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -95,7 +95,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
     public void render(MythicChestBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();
         boolean bl = world != null;
-        BlockState blockState = bl ? entity.getCachedState() : Decorations.ADAMANTITE.getChest().getDefaultState().with(MythicChestBlock.FACING, Direction.SOUTH);
+        BlockState blockState = bl ? entity.getCachedState() : MythicDecorations.ADAMANTITE.getChest().getDefaultState().with(MythicChestBlock.FACING, Direction.SOUTH);
         ChestType chestType = blockState.contains(MythicChestBlock.CHEST_TYPE) ? blockState.get(MythicChestBlock.CHEST_TYPE) : ChestType.SINGLE;
         Block block = blockState.getBlock();
         if (block instanceof AbstractChestBlock<?> abstractChestBlock) {
@@ -152,13 +152,13 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
 
     /**
      * An inner class that contains an item renderer for the chests
-     * This class initializes a Chest to ChestBE map when loaded from the chest blocks in {@link DecorationSet#CHEST_MAP}
+     * This class initializes a Chest to ChestBE map when loaded from the chest blocks in {@link MythicDecorationSet#CHEST_MAP}
      */
     public static class ChestItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
         private final Map<Block, MythicChestBlockEntity> betterchestEntityMap = new HashMap<>();
 
         public ChestItemRenderer() {
-            DecorationSet.CHEST_MAP.forEach((s, mythicChestBlock) ->
+            MythicDecorationSet.CHEST_MAP.forEach((s, mythicChestBlock) ->
                     betterchestEntityMap.put(mythicChestBlock,
                             new MythicChestBlockEntity(
                                     BlockPos.ORIGIN,

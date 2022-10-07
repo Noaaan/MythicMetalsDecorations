@@ -11,7 +11,6 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import nourl.mythicmetals.mixin.EntityModelLayersAccessor;
@@ -33,28 +32,15 @@ public class RegHelper {
     }
 
 
-    public static void chest(String path, Block block, OwoItemGroup group, int tab) {
+    public static void chest(String path, Block block, OwoItemGroup group) {
         Registry.register(Registry.BLOCK, id(path), block);
-        Registry.register(Registry.ITEM, id(path), new BlockItem(block, new OwoItemSettings().group(group).tab(tab)));
+        Registry.register(Registry.ITEM, id(path), new BlockItem(block, new OwoItemSettings().group(group).tab(1)));
     }
 
-    public static void chest(String path, Block block, boolean fireproof, OwoItemGroup group, int tab) {
+    public static void chest(String path, Block block, boolean fireproof, OwoItemGroup group) {
         if (fireproof) {
             Registry.register(Registry.BLOCK, id(path), block);
-            Registry.register(Registry.ITEM, id(path), new BlockItem(block, new OwoItemSettings().group(group).tab(tab).fireproof()));
-        } else {
-            chest(path, block, group, tab);
-        }
-    }
-    public static void chest(String path, Block block, ItemGroup group) {
-        Registry.register(Registry.BLOCK, id(path), block);
-        Registry.register(Registry.ITEM, id(path), new BlockItem(block, new Item.Settings().group(group)));
-    }
-
-    public static void chest(String path, Block block, ItemGroup group, boolean fireproof) {
-        if (fireproof) {
-            Registry.register(Registry.BLOCK, id(path), block);
-            Registry.register(Registry.ITEM, id(path), new BlockItem(block, new Item.Settings().group(group).fireproof()));
+            Registry.register(Registry.ITEM, id(path), new BlockItem(block, new OwoItemSettings().group(group).tab(1).fireproof()));
         } else {
             chest(path, block, group);
         }
@@ -62,13 +48,13 @@ public class RegHelper {
 
     public static void chain(String path, Block block) {
         Registry.register(Registry.BLOCK, new Identifier(MythicMetalsDecorations.MOD_ID, path), block);
-        Registry.register(Registry.ITEM, new Identifier(MythicMetalsDecorations.MOD_ID, path), new BlockItem(block, new Item.Settings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR)));
+        Registry.register(Registry.ITEM, new Identifier(MythicMetalsDecorations.MOD_ID, path), new BlockItem(block, new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(0)));
     }
 
     public static void chain(String path, Block block, boolean fireproof) {
         if (fireproof) {
             Registry.register(Registry.BLOCK, new Identifier(MythicMetalsDecorations.MOD_ID, path), block);
-            Registry.register(Registry.ITEM, new Identifier(MythicMetalsDecorations.MOD_ID, path), new BlockItem(block, new Item.Settings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).fireproof()));
+            Registry.register(Registry.ITEM, new Identifier(MythicMetalsDecorations.MOD_ID, path), new BlockItem(block, new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(0).fireproof()));
         }
         else chain(path, block);
     }

@@ -13,8 +13,8 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.item.BlockItem;
 import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
-import nourl.mythicmetalsdecorations.blocks.DecorationSet;
-import nourl.mythicmetalsdecorations.blocks.Decorations;
+import nourl.mythicmetalsdecorations.blocks.MythicDecorationSet;
+import nourl.mythicmetalsdecorations.blocks.MythicDecorations;
 import nourl.mythicmetalsdecorations.blocks.chest.ChestTextureLayers;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChestBlock;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChestBlockEntityRenderer;
@@ -47,35 +47,35 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
     // Makes custom model blocks see through, like chains
     public void makeOpaque() {
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(),
-                Decorations.ADAMANTITE.getChain(),
-                Decorations.AQUARIUM.getChain(),
-                Decorations.BANGLUM.getChain(),
-                Decorations.BRONZE.getChain(),
-                Decorations.CARMOT.getChain(),
-                Decorations.CELESTIUM.getChain(),
-                Decorations.DURASTEEL.getChain(),
-                Decorations.KYBER.getChain(),
-                Decorations.HALLOWED.getChain(),
-                Decorations.MANGANESE.getChain(),
-                Decorations.METALLURGIUM.getChain(),
-                Decorations.MIDAS_GOLD.getChain(),
-                Decorations.MYTHRIL.getChain(),
-                Decorations.ORICHALCUM.getChain(),
-                Decorations.OSMIUM.getChain(),
-                Decorations.PLATINUM.getChain(),
-                Decorations.PROMETHEUM.getChain(),
-                Decorations.QUADRILLUM.getChain(),
-                Decorations.RUNITE.getChain(),
-                Decorations.SILVER.getChain(),
-                Decorations.STAR_PLATINUM.getChain(),
-                Decorations.STEEL.getChain(),
-                Decorations.STORMYX.getChain(),
-                Decorations.PALLADIUM.getChain()
+                MythicDecorations.ADAMANTITE.getChain(),
+                MythicDecorations.AQUARIUM.getChain(),
+                MythicDecorations.BANGLUM.getChain(),
+                MythicDecorations.BRONZE.getChain(),
+                MythicDecorations.CARMOT.getChain(),
+                MythicDecorations.CELESTIUM.getChain(),
+                MythicDecorations.DURASTEEL.getChain(),
+                MythicDecorations.KYBER.getChain(),
+                MythicDecorations.HALLOWED.getChain(),
+                MythicDecorations.MANGANESE.getChain(),
+                MythicDecorations.METALLURGIUM.getChain(),
+                MythicDecorations.MIDAS_GOLD.getChain(),
+                MythicDecorations.MYTHRIL.getChain(),
+                MythicDecorations.ORICHALCUM.getChain(),
+                MythicDecorations.OSMIUM.getChain(),
+                MythicDecorations.PLATINUM.getChain(),
+                MythicDecorations.PROMETHEUM.getChain(),
+                MythicDecorations.QUADRILLUM.getChain(),
+                MythicDecorations.RUNITE.getChain(),
+                MythicDecorations.SILVER.getChain(),
+                MythicDecorations.STAR_PLATINUM.getChain(),
+                MythicDecorations.STEEL.getChain(),
+                MythicDecorations.STORMYX.getChain(),
+                MythicDecorations.PALLADIUM.getChain()
         );
     }
 
     public void createChestModelsAndSprites() {
-        DecorationSet.CHEST_MAP.forEach((name, mythicChestBlock) -> {
+        MythicDecorationSet.CHEST_MAP.forEach((name, mythicChestBlock) -> {
             var single = RegHelper.modelLayer("chests/" + name + "_chest");
             var left = RegHelper.modelLayer("chests/" + name + "_chest_left");
             var right = RegHelper.modelLayer("chests/" + name + "_chest_right");

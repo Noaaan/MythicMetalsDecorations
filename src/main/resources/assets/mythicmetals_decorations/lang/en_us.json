@@ -102,6 +102,12 @@
   "item.mythicmetals_decorations.steel_chain": "Steel Chain",
   "item.mythicmetals_decorations.stormyx_chain": "Stormyx Chain",
 
+  "item.mythicmetals_decorations.hydrargym_crown": "Hydrargym Crown",
+  "item.mythicmetals_decorations.hydrargym_chestplate": "Hydrargym Chestplate",
+  "item.mythicmetals_decorations.hydrargym_leggings": "Hydrargym Leggings",
+  "item.mythicmetals_decorations.hydrargym_boots": "Hydrargym Boots",
+  "item.mythicmetals_decorations.hydrargym_ingot": "Hydrargym Ingot",
+
   "itemGroup.mythicmetals_decorations.decorations": "Mythic Metals - Decorations",
   "tooltip.mythicmetals_decorations.chest_size": "Can hold %s stacks"
 }

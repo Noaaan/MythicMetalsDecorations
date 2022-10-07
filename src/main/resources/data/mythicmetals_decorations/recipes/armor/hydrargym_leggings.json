@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "mmm",
+    "m m",
+    "m m"
+  ],
+  "key": {
+    "m": {
+      "item": "mythicmetals_decorations:hydrargym_ingot"
+    }
+  },
+  "result": {
+    "item": "mythicmetals_decorations:hydrargym_leggings",
+    "count": 1
+  }
+}

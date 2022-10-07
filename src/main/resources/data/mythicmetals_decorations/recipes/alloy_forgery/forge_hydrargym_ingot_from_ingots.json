@@ -1,0 +1,17 @@
+{
+  "type": "alloy_forgery:forging",
+  "inputs": [
+    {
+      "tag": "c:silver_ingots"
+    },
+    {
+      "item": "mythicmetals:mythril_ingot"
+    }
+  ],
+  "output": {
+    "id": "mythicmetals_decorations:hydrargym_ingot",
+    "count": 2
+  },
+  "min_forge_tier": 2,
+  "fuel_per_tick": 5
+}

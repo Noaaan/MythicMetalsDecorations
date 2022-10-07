@@ -26,8 +26,7 @@ import java.util.function.Consumer;
  *
  * @author Noaaan
  */
-@SuppressWarnings({"unused"})
-public class DecorationSet {
+public class MythicDecorationSet {
     private final ChainBlock chain;
     private final MythicChestBlock chest;
 
@@ -46,11 +45,11 @@ public class DecorationSet {
      * @param fireproof         Boolean for creating fireproof block sets.
      * @param miningLevels      A map containing all the blocks being registered with their corresponding mining levels.
      */
-    private DecorationSet(String name,
-                          ChainBlock chain,
-                          MythicChestBlock chest,
-                          boolean fireproof,
-                          Multimap<Block, Identifier> miningLevels) {
+    private MythicDecorationSet(String name,
+                                ChainBlock chain,
+                                MythicChestBlock chest,
+                                boolean fireproof,
+                                Multimap<Block, Identifier> miningLevels) {
         this.name = name;
         this.fireproof = fireproof;
 
@@ -65,7 +64,7 @@ public class DecorationSet {
         if (chain != null)
             RegHelper.chain(name + "_chain", chain, fireproof);
         if (chest != null) {
-            RegHelper.chest(name + "_chest", chest, MythicMetalsDecorations.MYTHICMETALS_DECOR, fireproof);
+            RegHelper.chest(name + "_chest", chest, fireproof, MythicMetalsDecorations.MYTHICMETALS_DECOR);
             CHEST_MAP.put(name, chest);
         }
 
@@ -91,7 +90,7 @@ public class DecorationSet {
      * This is the BlockSet Builder, which is used for constructing new sets of blocks.
      * <p>
      * To begin creating BlockSets you want to call:
-     * {@code public static final BlockSet SETNAME = }{@link Builder#begin(String, boolean) BlockSet.Builder.begin()}
+     * {@code public static final BlockSet SET_NAME = }{@link Builder#begin(String, boolean) BlockSet.Builder.begin()}
      * where you provide a {@code string} for the name/key, and the {@code fireproof} boolean.
      * <p>
      * When creating blocks it's important to call {@link #strength(float)} before creating a block or any set.
@@ -103,12 +102,12 @@ public class DecorationSet {
      * If you need any examples on how to apply this builder in practice, see the linked classes.
      *
      * @see Builder#begin(String, boolean) Builder.begin
-     * @see Decorations
+     * @see MythicDecorations
      * @author Noaaan
      */
     public static class Builder {
 
-        private static final List<DecorationSet> toBeRegistered = new ArrayList<>();
+        private static final List<MythicDecorationSet> toBeRegistered = new ArrayList<>();
 
         private final String name;
         private final boolean fireproof;
@@ -136,14 +135,14 @@ public class DecorationSet {
          * Call {@link Builder#finish()} when you are done.
          *
          * @param name          The name of the new block set
-         * @param fireproof     Boolean of whether or not the entire set should be fireproof
+         * @param fireproof     Boolean of whether the entire set should be fireproof
          */
         public static Builder begin(String name, boolean fireproof) {
             return new Builder(name, fireproof);
         }
 
         public static void register() {
-            toBeRegistered.forEach(DecorationSet::register);
+            toBeRegistered.forEach(MythicDecorationSet::register);
             toBeRegistered.clear();
         }
 
@@ -194,7 +193,7 @@ public class DecorationSet {
 
         /**
          * A simplified method to create a hardness and resistance value from a single int.
-         * @param strength  The base int value for the blocks strength.
+         * @param strength  The base int value for the following blocks strength.
          * @return hardness, resistance (strength + 1)
          */
         public Builder strength(float strength) {
@@ -246,8 +245,8 @@ public class DecorationSet {
          * For registering the blocks call {@link Builder#register() Builder.register} during mod initialization.
          * @return BlockSet
          */
-        public DecorationSet finish() {
-            final var set = new DecorationSet(this.name, this.chain, this.chest, this.fireproof, this.miningLevels);
+        public MythicDecorationSet finish() {
+            final var set = new MythicDecorationSet(this.name, this.chain, this.chest, this.fireproof, this.miningLevels);
             Builder.toBeRegistered.add(set);
             return set;
         }
