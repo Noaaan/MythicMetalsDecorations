@@ -5,7 +5,10 @@ import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.text.Style;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
+import nourl.mythicmetals.abilities.Abilities;
 import nourl.mythicmetalsdecorations.blocks.MythicDecorations;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChests;
 import nourl.mythicmetalsdecorations.item.MythicDecorationsItemGroup;
@@ -25,6 +28,12 @@ public class MythicMetalsDecorations implements ModInitializer {
         MythicChests.init();
         FieldRegistrationHandler.register(MythicDecorationsItems.class, MOD_ID, false);
         MYTHICMETALS_DECOR.initialize();
+
+        // Integrate with base MM
+        Abilities.AQUA_AFFINITY.addItem(MythicDecorations.AQUARIUM.getCrown(), Style.EMPTY.withColor(Formatting.AQUA));
+        Abilities.BLAST_PADDING.addItem(MythicDecorations.BANGLUM.getCrown(), Style.EMPTY.withColor(Formatting.GOLD));
+        Abilities.CARMOT_SHIELD.addItem(MythicDecorations.CARMOT.getCrown(), Style.EMPTY.withColor(15089267));
+        Abilities.MENDING.addItem(MythicDecorations.PROMETHEUM.getCrown(), Style.EMPTY.withColor(3828310));
 
         Registry.register(Registry.SCREEN_HANDLER, RegHelper.id("mythic_chest"), MYTHIC_CHEST_SCREEN_HANDLER_TYPE);
     }

@@ -6,13 +6,21 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import nourl.mythicmetals.item.MythicItems;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("CodeBlock2Expr")
 public enum MythicDecorationsArmorMaterials implements ArmorMaterial {
 
     HYDRARGYM("hydrargym", 30, new int[]{3, 6, 8, 3}, 22, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 2.0F, 0.0F, () -> {
         return Ingredient.ofItems(MythicDecorationsItems.HYDRARGYM_INGOT);
+    }),
+    MANGANESE("manganese_crown", 15, new int[]{2, 4, 5, 2}, 7, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0, 0, () -> {
+        return Ingredient.ofItems(MythicItems.Ingots.MANGANESE_INGOT);
+    }),
+    PLATINUM("platinum_crown", 20, new int[]{2, 5, 6, 2}, 13, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0, 0, () -> {
+        return Ingredient.ofItems(MythicItems.Ingots.PLATINUM_INGOT);
     });
 
     private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 12};

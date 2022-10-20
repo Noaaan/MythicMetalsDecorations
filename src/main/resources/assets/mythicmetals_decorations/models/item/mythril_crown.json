@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mythicmetals_decorations:armor/chain/mythril_crown"
+  }
+}

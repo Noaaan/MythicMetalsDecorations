@@ -11,6 +11,7 @@ import net.minecraft.block.Material;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -106,6 +107,10 @@ public class MythicDecorationSet {
         return chest;
     }
 
+    public ArmorItem getCrown() {
+        return crown;
+    }
+
     /**
      * This is the BlockSet Builder, which is used for constructing new sets of blocks.
      * <p>
@@ -121,9 +126,9 @@ public class MythicDecorationSet {
      * call {@link Builder#finish() Builder.finish} when you are done.
      * If you need any examples on how to apply this builder in practice, see the linked classes.
      *
+     * @author Noaaan
      * @see Builder#begin(String, boolean) Builder.begin
      * @see MythicDecorations
-     * @author Noaaan
      */
     public static class Builder {
 
@@ -156,8 +161,8 @@ public class MythicDecorationSet {
          * You can add as many blocks as you want in the set
          * Call {@link Builder#finish()} when you are done.
          *
-         * @param name          The name of the new block set
-         * @param fireproof     Boolean of whether the entire set should be fireproof
+         * @param name      The name of the new block set
+         * @param fireproof Boolean of whether the entire set should be fireproof
          */
         public static Builder begin(String name, boolean fireproof) {
             return new Builder(name, fireproof);
@@ -170,9 +175,10 @@ public class MythicDecorationSet {
 
         /**
          * Used internally for configuring blocks
-         * @param hardness      Determines the breaking time of the block.
-         * @param resistance    Determines blast resistance of a block.
-         * @param sounds        Determines the sounds that blocks play when interacted with.
+         *
+         * @param hardness   Determines the breaking time of the block.
+         * @param resistance Determines blast resistance of a block.
+         * @param sounds     Determines the sounds that blocks play when interacted with.
          */
         private static FabricBlockSettings blockSettings(float hardness, float resistance, BlockSoundGroup sounds) {
             return FabricBlockSettings.of(Material.METAL)
@@ -183,31 +189,34 @@ public class MythicDecorationSet {
 
         /**
          * Puts an ore, a storage block and an ore in the blockset, with slightly more configurable settings.
-         * @param strength           The strength of the ore block.
-         * @param miningLevel        The mining level of the ore block.
+         *
+         * @param strength    The strength of the ore block.
+         * @param miningLevel The mining level of the ore block.
          * @see #strength(float)     The strength of the block. Higher value takes longer to break.
          */
         public Builder createDefaultSet(float strength, Identifier miningLevel, int slots) {
-            return  strength(strength)
+            return strength(strength)
                     .createChain(miningLevel)
                     .createChest(slots, miningLevel);
         }
 
         /**
          * Puts an ore, a storage block and an ore in the blockset, with slightly more configurable settings.
-         * @param strength           The strength of the ore block.
-         * @param miningLevel        The mining level of the ore block.
+         *
+         * @param strength    The strength of the ore block.
+         * @param miningLevel The mining level of the ore block.
          * @see #strength(float)     The strength of the block. Higher value takes longer to break.
          */
         public Builder createDefaultSet(float strength, float resistance, Identifier miningLevel, int slots) {
-            return  strength(strength, resistance)
+            return strength(strength, resistance)
                     .createChain(miningLevel)
                     .createChest(slots, miningLevel);
         }
 
         /**
          * Applies sounds to the block(s) in the set.
-         * @param sounds    The {@link BlockSoundGroup} which should be played.
+         *
+         * @param sounds The {@link BlockSoundGroup} which should be played.
          */
         public Builder sounds(BlockSoundGroup sounds) {
             return this;
@@ -215,7 +224,8 @@ public class MythicDecorationSet {
 
         /**
          * A simplified method to create a hardness and resistance value from a single int.
-         * @param strength  The base int value for the following blocks strength.
+         *
+         * @param strength The base int value for the following blocks strength.
          * @return hardness, resistance (strength + 1)
          */
         public Builder strength(float strength) {
@@ -224,8 +234,9 @@ public class MythicDecorationSet {
 
         /**
          * Gives the block(s) in the set the specified strength.
-         * @param hardness      Hardness of the block, determines breaking speed.
-         * @param resistance    Blast resistance of the block.
+         *
+         * @param hardness   Hardness of the block, determines breaking speed.
+         * @param resistance Blast resistance of the block.
          */
         public Builder strength(float hardness, float resistance) {
             this.currentHardness = hardness;
@@ -235,7 +246,8 @@ public class MythicDecorationSet {
 
         /**
          * Creates a chain block.
-         * @param miningLevel   The mining level of the ore block.
+         *
+         * @param miningLevel The mining level of the ore block.
          * @see Builder
          */
         public Builder createChain(Identifier miningLevel) {
@@ -249,8 +261,9 @@ public class MythicDecorationSet {
 
         /**
          * Creates a Mythic Chest block.
-         * @param slots         The amount of slots the chest has.
-         * @param miningLevel   The mining level required to break the chest.
+         *
+         * @param slots       The amount of slots the chest has.
+         * @param miningLevel The mining level required to break the chest.
          * @see Builder
          */
         public Builder createChest(int slots, Identifier miningLevel) {
@@ -264,7 +277,8 @@ public class MythicDecorationSet {
 
         /**
          * Creates a regal set, which is a regular armor set with a crown instead of a helmet
-         * @param material  The Armor Material used for the set
+         *
+         * @param material The Armor Material used for the set
          * @see Builder
          */
         public Builder createRegalSet(ArmorMaterial material) {
@@ -274,22 +288,39 @@ public class MythicDecorationSet {
 
         /**
          * Creates a custom crown item, which is just a fancy looking helmet
+         *
          * @param material  The Armor Material used for the crown
          * @param fireproof Whether the crown is fireproof
          * @see Builder
          */
         public Builder createCrown(ArmorMaterial material, boolean fireproof) {
             if (fireproof) {
-                this.crown = new ArmorItem(material, EquipmentSlot.HEAD, new OwoItemSettings().tab(2));
+                this.crown = new ArmorItem(material, EquipmentSlot.HEAD, new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2).fireproof());
             } else {
-                this.crown = new ArmorItem(material, EquipmentSlot.HEAD, new OwoItemSettings());
+                this.crown = new ArmorItem(material, EquipmentSlot.HEAD, new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2));
             }
+            return this;
+        }
+
+        /**
+         * Creates a custom crown item, which is just a fancy looking helmet
+         *
+         * @param material          The Armor Material used for the crown
+         * @param settingsProcessor A consumer that accepts customized {@link OwoItemSettings}, which can be used
+         *                          for configuring items further
+         * @see Builder
+         */
+        public Builder createCrown(ArmorMaterial material, Consumer<Item.Settings> settingsProcessor) {
+            OwoItemSettings settings = new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2);
+            settingsProcessor.accept(settings);
+            this.crown = new ArmorItem(material, EquipmentSlot.HEAD, settings);
             return this;
         }
 
         /**
          * Finishes the creation of the block set, and returns the entire set using the settings declared.
          * For registering the blocks call {@link Builder#register() Builder.register} during mod initialization.
+         *
          * @return BlockSet
          */
         public MythicDecorationSet finish() {

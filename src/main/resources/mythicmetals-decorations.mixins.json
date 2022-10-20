@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "nourl.mythicmetalsdecorations.mixin.MythicMetalsDecorationsMixinPlugin",
   "mixins": [
+    "ArmorItemMixin",
     "MythicChestBlockEntityLithiumCompatMixin"
   ],
   "client": [
