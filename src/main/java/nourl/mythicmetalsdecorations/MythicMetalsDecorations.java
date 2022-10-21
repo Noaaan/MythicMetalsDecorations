@@ -1,9 +1,11 @@
 package nourl.mythicmetalsdecorations;
 
 import io.wispforest.owo.itemgroup.OwoItemGroup;
+import io.wispforest.owo.itemgroup.OwoItemSettings;
 import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.minecraft.item.Item;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.text.Style;
 import net.minecraft.util.Formatting;
@@ -22,6 +24,7 @@ public class MythicMetalsDecorations implements ModInitializer {
 
     public static final ScreenHandlerType<MythicChestScreenHandler> MYTHIC_CHEST_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(MythicChestScreenHandler::new);
 
+    public static final Item CROWN_CHISEL = new Item(new OwoItemSettings().group(MYTHICMETALS_DECOR).tab(2));
     @Override
     public void onInitialize() {
         MythicDecorations.init();
@@ -36,5 +39,6 @@ public class MythicMetalsDecorations implements ModInitializer {
         Abilities.MENDING.addItem(MythicDecorations.PROMETHEUM.getCrown(), Style.EMPTY.withColor(3828310));
 
         Registry.register(Registry.SCREEN_HANDLER, RegHelper.id("mythic_chest"), MYTHIC_CHEST_SCREEN_HANDLER_TYPE);
+        Registry.register(Registry.ITEM, RegHelper.id("crown_chisel"), CROWN_CHISEL);
     }
 }

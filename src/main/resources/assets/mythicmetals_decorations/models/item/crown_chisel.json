@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  q",
+    " q ",
+    "s  "
+  ],
+  "key": {
+    "q": {
+      "item": "mythicmetals:quadrillum_nugget"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "mythicmetals_decorations:manganese_crown",
+    "count": 1
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "mythicmetals:nuggets_enabled"
+    }
+  ]
+}

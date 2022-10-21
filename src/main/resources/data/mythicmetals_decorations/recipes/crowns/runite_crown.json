@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mythicmetals:runite_helmet"
+    },
+    {
+      "item": "mythicmetals_decorations:crown_chisel"
+    }
+  ],
+  "result": {
+    "item": "mythicmetals_decorations:runite_crown",
+    "count": 1
+  },
+  "owo:remainders": {
+    "mythicmetals_decorations:crown_chisel": "mythicmetals_decorations:crown_chisel"
+  }
+}

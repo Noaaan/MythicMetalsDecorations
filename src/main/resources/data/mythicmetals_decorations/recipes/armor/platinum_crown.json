@@ -6,14 +6,14 @@
   ],
   "key": {
     "m": {
-      "item": "mythicmetals_decorations:hydrargym_ingot"
+      "item": "mythicmetals:platinum_ingot"
     },
     "c": {
       "item": "mythicmetals_decorations:crown_chisel"
     }
   },
   "result": {
-    "item": "mythicmetals_decorations:hydrargym_crown",
+    "item": "mythicmetals_decorations:platinum_crown",
     "count": 1
   }
 }

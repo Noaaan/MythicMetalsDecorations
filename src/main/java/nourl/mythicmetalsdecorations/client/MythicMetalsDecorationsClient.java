@@ -12,6 +12,9 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.item.BlockItem;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import nourl.mythicmetals.MythicMetals;
 import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
 import nourl.mythicmetalsdecorations.blocks.MythicDecorationSet;
 import nourl.mythicmetalsdecorations.blocks.MythicDecorations;
@@ -31,6 +34,7 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
         createChestModelsAndSprites();
 
         // Add the chest models to the atlas
+        //noinspection deprecation
         ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
             ChestTextureLayers.modelList.forEach(entityModelLayer -> registry.register(entityModelLayer.getId()));
             ChestTextureLayers.chestSpriteMap.forEach((s, spriteIdentifier) -> registry.register(spriteIdentifier.getTextureId()));
@@ -94,8 +98,18 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
 
         // Init chest tooltips
         ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
-            if (stack.getItem() != null && stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof MythicChestBlock chest) {
-                lines.add(1, chest.getChestTooltip());
+            if (stack.getItem() != null) {
+                if (stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof MythicChestBlock chest) {
+                    lines.add(1, chest.getChestTooltip());
+                }
+
+                if (stack.getItem().equals(MythicMetalsDecorations.CROWN_CHISEL)) {
+                    lines.add(1, Text.translatable("item.mythicmetals_decorations.crown_chisel.tooltip").formatted(Formatting.GRAY));
+                    lines.add(2, Text.translatable("item.mythicmetals_decorations.crown_chisel.tooltip2").formatted(Formatting.GRAY).formatted(Formatting.UNDERLINE));
+                    if (!MythicMetals.CONFIG.enableNuggets()) {
+                        lines.add(3, Text.translatable("item.mythicmetals_decorations.crown_chisel.disabled").formatted(Formatting.GRAY));
+                    }
+                }
             }
         });
     }
