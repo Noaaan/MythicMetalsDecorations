@@ -8,6 +8,7 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+    mavenLocal()
     maven { url = "https://maven.shedaniel.me/" }
     maven { url = "https://maven.terraformersmc.com/" }
     maven { url = "https://ladysnake.jfrog.io/artifactory/mods" }
@@ -34,9 +35,8 @@ dependencies {
 
     // MM + AF + Magna + CCA
     modImplementation "maven.modrinth:mythicmetals:${project.mm_version}"
-    //modImplementation ("nourl:MythicMetals:${project.mm_version}")
+    //modImplementation ("nourl.mythicmetals:MythicGit:${project.mm_version}")
     modRuntimeOnly "maven.modrinth:alloy-forgery:${project.af_version}"
-    modRuntimeOnly 'com.github.Technici4n:magna:1.8.1-1.19'
     // Cardinal Components
     modRuntimeOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
     // Adds a dependency on a specific module

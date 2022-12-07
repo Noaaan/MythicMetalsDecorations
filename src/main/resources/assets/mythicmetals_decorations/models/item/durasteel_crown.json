@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "mythicmetals_decorations:armor/chain/durasteel_crown"
+    "layer0": "mythicmetals_decorations:items/armor/durasteel_crown"
   }
 }
