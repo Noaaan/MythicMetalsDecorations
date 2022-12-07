@@ -32,6 +32,6 @@
     "fabric": "*",
     "minecraft": "1.19.x",
     "mythicmetals": ">=0.16.4",
-    "owo": ">=0.9.1"
+    "owo": ">=0.8.5"
   }
 }
