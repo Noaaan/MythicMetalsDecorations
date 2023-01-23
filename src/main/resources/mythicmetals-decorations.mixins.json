@@ -2,10 +2,10 @@
   "required": true,
   "minVersion": "0.8",
   "package": "nourl.mythicmetalsdecorations.mixin",
-  "compatibilityLevel": "JAVA_16",
+  "compatibilityLevel": "JAVA_17",
   "plugin": "nourl.mythicmetalsdecorations.mixin.MythicMetalsDecorationsMixinPlugin",
   "mixins": [
-    "LockableContainerBlockEntityAccessor",
+    "ArmorItemMixin",
     "MythicChestBlockEntityLithiumCompatMixin"
   ],
   "client": [

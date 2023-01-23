@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "mmm",
+    "mcm"
+  ],
+  "key": {
+    "m": {
+      "item": "mythicmetals:platinum_ingot"
+    },
+    "c": {
+      "item": "mythicmetals_decorations:crown_chisel"
+    }
+  },
+  "result": {
+    "item": "mythicmetals_decorations:platinum_crown",
+    "count": 1
+  },
+  "owo:remainders": {
+    "mythicmetals_decorations:crown_chisel": "mythicmetals_decorations:crown_chisel"
+  }
+}

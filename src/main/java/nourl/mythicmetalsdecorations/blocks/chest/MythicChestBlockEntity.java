@@ -21,7 +21,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import nourl.mythicmetalsdecorations.MythicChestScreenHandler;
-import nourl.mythicmetalsdecorations.mixin.LockableContainerBlockEntityAccessor;
 
 public class MythicChestBlockEntity extends ChestBlockEntity implements ImplementedInventory, LidOpenable {
 
@@ -120,7 +119,7 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Implemen
 
     @Override
     public void readNbt(NbtCompound nbt) {
-        ((LockableContainerBlockEntityAccessor) this).mm$setLock(ContainerLock.fromNbt(nbt));
+        this.lock = ContainerLock.fromNbt(nbt);
 
         if (nbt.contains("CustomName", NbtElement.STRING_TYPE)) {
             this.setCustomName(Text.Serializer.fromJson(nbt.getString("CustomName")));
@@ -142,7 +141,7 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Implemen
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        ((LockableContainerBlockEntityAccessor) this).mm$getLock().writeNbt(nbt);
+        this.lock.writeNbt(nbt);
 
         if (this.hasCustomName()) {
             nbt.putString("CustomName", Text.Serializer.toJson(this.getCustomName()));

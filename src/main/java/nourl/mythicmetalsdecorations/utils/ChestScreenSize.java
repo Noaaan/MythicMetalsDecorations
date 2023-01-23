@@ -31,7 +31,7 @@ public record ChestScreenSize(int columns, int rows, int extraRowSlots, boolean 
             columns = Math.max(9, columns - MathHelper.ceilDiv((tempSize.paddedWidth() - maxWidth), 18));
             needsScrolling = true;
         }
-        if (tempSize.paddedHeight() + PLAYER_INVENTORY_HEIGHT > maxHeight) {
+        if (tempSize.paddedHeight() + PLAYER_INVENTORY_HEIGHT > maxHeight || rows > 15) {
             rows = MathHelper.clamp(rows - MathHelper.ceilDiv(tempSize.paddedHeight() + PLAYER_INVENTORY_HEIGHT - maxHeight, 18), 6, 15);
             needsScrolling = true;
         }

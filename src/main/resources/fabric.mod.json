@@ -13,6 +13,7 @@
   "license": "MIT",
   "icon": "assets/mythicmetals_decorations/icon.png",
   "environment": "*",
+  "accessWidener": "mythicmetals-decorations.accesswidener",
   "entrypoints": {
     "client": [
       "nourl.mythicmetalsdecorations.client.MythicMetalsDecorationsClient"
@@ -33,6 +34,7 @@
   "depends": {
     "fabric": "*",
     "minecraft": "1.19.x",
-    "mythicmetals": ">=0.15.0"
+    "mythicmetals": ">=0.16.4",
+    "owo": ">=0.8.5"
   }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "mmm",
+    "mcm"
+  ],
+  "key": {
+    "m": {
+      "item": "mythicmetals:manganese_ingot"
+    },
+    "c": {
+      "item": "mythicmetals_decorations:crown_chisel"
+    }
+  },
+  "result": {
+    "item": "mythicmetals_decorations:manganese_crown",
+    "count": 1
+  }
+}
