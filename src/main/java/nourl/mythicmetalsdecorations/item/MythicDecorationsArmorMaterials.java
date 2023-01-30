@@ -17,10 +17,10 @@ public enum MythicDecorationsArmorMaterials implements ArmorMaterial {
         return Ingredient.ofItems(MythicDecorationsItems.HYDRARGYM_INGOT);
     }),
     MANGANESE("manganese_crown", 15, new int[]{2, 4, 5, 2}, 7, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0, 0, () -> {
-        return Ingredient.ofItems(MythicItems.Ingots.MANGANESE_INGOT);
+        return Ingredient.ofItems(MythicItems.MANGANESE.getIngot());
     }),
     PLATINUM("platinum_crown", 20, new int[]{2, 5, 6, 2}, 13, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0, 0, () -> {
-        return Ingredient.ofItems(MythicItems.Ingots.PLATINUM_INGOT);
+        return Ingredient.ofItems(MythicItems.PLATINUM.getIngot());
     });
 
     private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 12};

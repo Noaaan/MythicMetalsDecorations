@@ -45,7 +45,10 @@ dependencies {
     // Lithium
     modImplementation("maven.modrinth:lithium:${project.lithium_version}")
 
-
+    // Mixin Extras
+    annotationProcessor modImplementation("com.github.LlamaLad7:MixinExtras:${project.me_version}")
+    // Additional Entity Attributes
+    modImplementation include("com.github.DaFuqs:AdditionalEntityAttributes:${project.aea_versionite}")
 }
 
 processResources {

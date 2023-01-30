@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "Mythic Metals Decorations",
   "description": "A bunch of metal-themed decorations for Mythic Metals",
-  "authors": ["Noaaan"],
+  "authors": ["Noaaan, glisco"],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/mythicmetals-decorations",
     "sources": "https://github.com/Noaaan/MythicMetalsDecorations",
@@ -31,7 +31,7 @@
   "depends": {
     "fabric": "*",
     "minecraft": "1.19.x",
-    "mythicmetals": ">=0.16.4",
-    "owo": ">=0.8.5"
+    "mythicmetals": ">=0.17.0",
+    "owo": ">=0.9.3"
   }
 }
