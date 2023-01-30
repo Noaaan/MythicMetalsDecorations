@@ -17,7 +17,7 @@ public class MythicMetalsDecorationsREIPlugin implements REIClientPlugin {
             if (screen.getSize().needsScrolling()) {
                 int x = screen.getHandledScreenX() + screen.getBackgroundWidth();
                 int y = screen.getHandledScreenY();
-                rectangles.add(new Rectangle(x, y, 16, screen.getSize().paddedHeight() + 10));
+                rectangles.add(new Rectangle(x, y, 16, screen.getSize().paddedHeight() + 15));
             }
 
             return rectangles;

@@ -33,6 +33,9 @@ dependencies {
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
     modRuntimeOnly "dev.architectury:architectury-fabric:${project.architectury_version}"
 
+    // emi
+    modImplementation "dev.emi:emi:${emi_version}"
+
     // MM + AF + Magna + CCA
     modImplementation "maven.modrinth:mythicmetals:${project.mm_version}"
     //modImplementation ("nourl.mythicmetals:MythicGit:${project.mm_version}")
