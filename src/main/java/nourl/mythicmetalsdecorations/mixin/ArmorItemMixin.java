@@ -31,21 +31,21 @@ public class ArmorItemMixin {
     private Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
-    private void constructor(ArmorMaterial material, EquipmentSlot slot, Item.Settings settings, CallbackInfo ci) {
+    private void mythicmetalsdecorations$constructor(ArmorMaterial material, EquipmentSlot slot, Item.Settings settings, CallbackInfo ci) {
         UUID uUID = MODIFIERS[slot.getEntitySlotId()];
 
         if (material == MythicDecorationsCrownMaterials.CELESTIUM) {
-            armorMapBuilder(uUID, EntityAttributes.GENERIC_MOVEMENT_SPEED, "Speed bonus", 0.08F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_MOVEMENT_SPEED, "Speed bonus", 0.08F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
         }
         if (material == MythicDecorationsCrownMaterials.STAR_PLATINUM) {
-            armorMapBuilder(uUID, EntityAttributes.GENERIC_ATTACK_DAMAGE, "Attack bonus", 0.5F, EntityAttributeModifier.Operation.ADDITION);
+            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_ATTACK_DAMAGE, "Attack bonus", 0.5F, EntityAttributeModifier.Operation.ADDITION);
         }
         if (material == MythicDecorationsCrownMaterials.CARMOT) {
-            armorMapBuilder(uUID, EntityAttributes.GENERIC_MAX_HEALTH, "Health bonus", 2.0F, EntityAttributeModifier.Operation.ADDITION);
+            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_MAX_HEALTH, "Health bonus", 2.0F, EntityAttributeModifier.Operation.ADDITION);
         }
     }
 
-    private void armorMapBuilder(UUID uUID, EntityAttribute attributes, String name, float value, EntityAttributeModifier.Operation operation) {
+    private void mythicmetalsdecorations$armorMapBuilder(UUID uUID, EntityAttribute attributes, String name, float value, EntityAttributeModifier.Operation operation) {
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
         this.attributeModifiers.forEach(builder::put);
         builder.put(attributes,
