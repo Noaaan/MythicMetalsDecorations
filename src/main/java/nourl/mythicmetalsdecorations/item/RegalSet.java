@@ -5,7 +5,8 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
 import nourl.mythicmetalsdecorations.utils.RegHelper;
 
@@ -40,10 +41,10 @@ public class RegalSet {
     }
 
     public void register(String name) {
-        Registry.register(Registry.ITEM, RegHelper.id(name + "_crown"), this.helmet);
-        Registry.register(Registry.ITEM, RegHelper.id(name + "_chestplate"), this.chestplate);
-        Registry.register(Registry.ITEM, RegHelper.id(name + "_leggings"), this.leggings);
-        Registry.register(Registry.ITEM, RegHelper.id(name + "_boots"), this.boots);
+        Registry.register(Registries.ITEM, RegHelper.id(name + "_crown"), this.helmet);
+        Registry.register(Registries.ITEM, RegHelper.id(name + "_chestplate"), this.chestplate);
+        Registry.register(Registries.ITEM, RegHelper.id(name + "_leggings"), this.leggings);
+        Registry.register(Registries.ITEM, RegHelper.id(name + "_boots"), this.boots);
     }
 
     protected ArmorItem makeItem(ArmorMaterial material, EquipmentSlot slot, Item.Settings settings) {

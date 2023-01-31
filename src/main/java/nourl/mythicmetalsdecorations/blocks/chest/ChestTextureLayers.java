@@ -6,10 +6,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.SpriteIdentifier;
 import nourl.mythicmetalsdecorations.client.MythicMetalsDecorationsClient;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 public class ChestTextureLayers {

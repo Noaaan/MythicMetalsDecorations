@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/chest",
   "textures": {
-    "particle": "mythicmetals:blocks/celestium_block"
+    "particle": "mythicmetals:block/celestium_block"
   }
 }

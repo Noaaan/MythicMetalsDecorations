@@ -1,7 +1,7 @@
 {
   "parent": "mythicmetals_decorations:block/chain_base",
   "textures": {
-    "all": "mythicmetals_decorations:blocks/stormyx_chain",
-    "particle": "mythicmetals_decorations:blocks/stormyx_chain"
+    "all": "mythicmetals_decorations:block/stormyx_chain",
+    "particle": "mythicmetals_decorations:block/stormyx_chain"
   }
 }

@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/durasteel_block"
+    "particle": "mythicmetals:block/durasteel_block"
   },
   "display": {
     "gui": {

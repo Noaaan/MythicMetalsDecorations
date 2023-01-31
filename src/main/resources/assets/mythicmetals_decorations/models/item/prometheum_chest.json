@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/prometheum_block"
+    "particle": "mythicmetals:block/prometheum_block"
   },
   "display": {
     "gui": {

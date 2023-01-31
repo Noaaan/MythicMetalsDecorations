@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/carmot_block"
+    "particle": "mythicmetals:block/carmot_block"
   },
   "display": {
     "gui": {

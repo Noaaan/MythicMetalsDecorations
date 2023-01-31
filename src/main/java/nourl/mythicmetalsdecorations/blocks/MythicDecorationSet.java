@@ -11,10 +11,9 @@ import net.minecraft.block.Material;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChestBlock;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChests;
@@ -90,7 +89,7 @@ public class MythicDecorationSet {
         }
 
         // Inject all the mining levels into their tags.
-        miningLevels.forEach((block, level) -> TagInjector.inject(Registry.BLOCK, level, block));
+        miningLevels.forEach((block, level) -> TagInjector.inject(Registries.BLOCK, level, block));
     }
 
     /**
@@ -310,7 +309,7 @@ public class MythicDecorationSet {
          *                          for configuring items further
          * @see Builder
          */
-        public Builder createCrown(ArmorMaterial material, Consumer<Item.Settings> settingsProcessor) {
+        public Builder createCrown(ArmorMaterial material, Consumer<OwoItemSettings> settingsProcessor) {
             OwoItemSettings settings = new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2);
             settingsProcessor.accept(settings);
             this.crown = new ArmorItem(material, EquipmentSlot.HEAD, settings);

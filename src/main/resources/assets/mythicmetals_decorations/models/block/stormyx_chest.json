@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/chest",
   "textures": {
-    "particle": "mythicmetals:blocks/stormyx_block"
+    "particle": "mythicmetals:block/stormyx_block"
   }
 }

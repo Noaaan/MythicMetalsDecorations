@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/hallowed_block"
+    "particle": "mythicmetals:block/hallowed_block"
   },
   "display": {
     "gui": {

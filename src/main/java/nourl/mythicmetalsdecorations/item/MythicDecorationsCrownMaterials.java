@@ -21,7 +21,6 @@ public enum MythicDecorationsCrownMaterials implements ArmorMaterial {
     DURASTEEL(MythicArmorMaterials.DURASTEEL),
     HALLOWED(MythicArmorMaterials.HALLOWED),
     KYBER(MythicArmorMaterials.KYBER),
-    // LEGENDARY_BANGLUM(MythicArmorMaterials.LEGENDARY_BANGLUM), TODO - Should we have legendary banglum crowns?
     METALLURGIUM(MythicArmorMaterials.METALLURGIUM),
     MYTHRIL(MythicArmorMaterials.MYTHRIL),
     ORICHALCUM(MythicArmorMaterials.ORICHALCUM),

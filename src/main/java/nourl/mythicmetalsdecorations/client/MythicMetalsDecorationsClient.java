@@ -3,14 +3,12 @@ package nourl.mythicmetalsdecorations.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.item.BlockItem;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -26,21 +24,14 @@ import nourl.mythicmetalsdecorations.utils.RegHelper;
 
 public class MythicMetalsDecorationsClient implements ClientModInitializer {
 
-
     @Override
     public void onInitializeClient() {
-        BlockEntityRendererRegistry.register(MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, MythicChestBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, MythicChestBlockEntityRenderer::new);
 
+        // Create chest models and sprites
         createChestModelsAndSprites();
 
-        // Add the chest models to the atlas
-        //noinspection deprecation
-        ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
-            ChestTextureLayers.modelList.forEach(entityModelLayer -> registry.register(entityModelLayer.getId()));
-            ChestTextureLayers.chestSpriteMap.forEach((s, spriteIdentifier) -> registry.register(spriteIdentifier.getTextureId()));
-        });
-
-        // Register the chest models
+        // Register them
         ChestTextureLayers.init((loc, def) -> EntityModelLayerRegistry.registerModelLayer(loc, () -> def));
 
         makeOpaque();
@@ -80,9 +71,9 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
 
     public void createChestModelsAndSprites() {
         MythicDecorationSet.CHEST_MAP.forEach((name, mythicChestBlock) -> {
-            var single = RegHelper.modelLayer("chests/" + name + "_chest");
-            var left = RegHelper.modelLayer("chests/" + name + "_chest_left");
-            var right = RegHelper.modelLayer("chests/" + name + "_chest_right");
+            var single = RegHelper.modelLayer("mythic_chests/" + name + "_chest");
+            var left = RegHelper.modelLayer("mythic_chests/" + name + "_chest_left");
+            var right = RegHelper.modelLayer("mythic_chests/" + name + "_chest_right");
 
             ChestTextureLayers.modelList.add(single);
             ChestTextureLayers.modelList.add(left);
@@ -99,7 +90,7 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
         // Init chest tooltips
         ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
             if (stack.getItem() != null) {
-                if (stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof MythicChestBlock chest) {
+                if (stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof MythicChestBlock chest) {
                     lines.add(1, chest.getChestTooltip());
                 }
 

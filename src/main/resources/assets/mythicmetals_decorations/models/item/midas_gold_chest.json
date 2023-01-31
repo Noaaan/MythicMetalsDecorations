@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/midas_gold_block"
+    "particle": "mythicmetals:block/midas_gold_block"
   },
   "display": {
     "gui": {

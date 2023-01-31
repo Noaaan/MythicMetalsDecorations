@@ -9,6 +9,7 @@
     "MythicChestBlockEntityLithiumCompatMixin"
   ],
   "client": [
+    "AtlasPooper"
   ],
   "injectors": {
     "defaultRequire": 1

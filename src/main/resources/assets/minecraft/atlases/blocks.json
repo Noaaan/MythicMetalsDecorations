@@ -1,0 +1,9 @@
+{
+  "sources": [
+    {
+      "type": "directory",
+      "source": "mythic_chests",
+      "prefix": "mythic_chests/"
+    }
+  ]
+}

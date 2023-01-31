@@ -1,7 +1,7 @@
 {
     "parent": "builtin/entity",
     "textures": {
-        "particle": "mythicmetals:blocks/adamantite_block"
+        "particle": "mythicmetals:block/adamantite_block"
     },
     "display": {
         "gui": {

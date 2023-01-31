@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/star_platinum_block"
+    "particle": "mythicmetals:block/star_platinum_block"
   },
   "display": {
     "gui": {

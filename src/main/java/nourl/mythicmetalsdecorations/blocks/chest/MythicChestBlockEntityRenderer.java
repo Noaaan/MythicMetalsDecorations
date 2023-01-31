@@ -22,7 +22,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 import nourl.mythicmetalsdecorations.blocks.MythicDecorationSet;
 import nourl.mythicmetalsdecorations.blocks.MythicDecorations;
@@ -92,7 +92,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
     }
 
     @Override
-    public void render(MythicChestBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(MythicChestBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int light, int overlay) {
         World world = entity.getWorld();
         boolean bl = world != null;
         BlockState blockState = bl ? entity.getCachedState() : MythicDecorations.ADAMANTITE.getChest().getDefaultState().with(MythicChestBlock.FACING, Direction.SOUTH);
@@ -104,7 +104,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
             matrices.push();
             float f = blockState.get(MythicChestBlock.FACING).asRotation();
             matrices.translate(0.5, 0.5, 0.5);
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-f));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-f));
             matrices.translate(-0.5, -0.5, -0.5);
 
             DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> propertySource;
@@ -123,7 +123,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
 
             // Get custom chest sprites
             SpriteIdentifier spriteIdentifier = ChestTextureLayers.getChestIdentifier((entity.getChestName()), chestType);
-            VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
+            var vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumerProvider, renderlayer -> RenderLayer.getEntityCutout(spriteIdentifier.getAtlasId()));
 
             if (isDoubleChest) {
                 // Left chest rendering
@@ -155,22 +155,22 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
      * This class initializes a Chest to ChestBE map when loaded from the chest blocks in {@link MythicDecorationSet#CHEST_MAP}
      */
     public static class ChestItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
-        private final Map<Block, MythicChestBlockEntity> betterchestEntityMap = new HashMap<>();
+        private final Map<Block, MythicChestBlockEntity> mythicChestBlockEntityMap = new HashMap<>();
 
         public ChestItemRenderer() {
             MythicDecorationSet.CHEST_MAP.forEach((s, mythicChestBlock) ->
-                    betterchestEntityMap.put(mythicChestBlock,
-                            new MythicChestBlockEntity(
-                                    BlockPos.ORIGIN,
-                                    mythicChestBlock.getDefaultState()
-                            )));
+                mythicChestBlockEntityMap.put(mythicChestBlock,
+                    new MythicChestBlockEntity(
+                            BlockPos.ORIGIN,
+                            mythicChestBlock.getDefaultState()
+                    )));
         }
 
         /**
          * Used to render the MythicChestBlockEntity on the BlockItem
          */
         public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-            MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(betterchestEntityMap.get(((BlockItem) stack.getItem()).getBlock()), matrices, vertexConsumers, light, overlay);
+            MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(mythicChestBlockEntityMap.get(((BlockItem) stack.getItem()).getBlock()), matrices, vertexConsumers, light, overlay);
         }
     }
 
