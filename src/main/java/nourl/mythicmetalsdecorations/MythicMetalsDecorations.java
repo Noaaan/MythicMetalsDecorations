@@ -7,6 +7,8 @@ import io.wispforest.owo.itemgroup.gui.ItemGroupButton;
 import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -17,6 +19,7 @@ import net.minecraft.text.Style;
 import net.minecraft.util.Formatting;
 import nourl.mythicmetals.abilities.Abilities;
 import nourl.mythicmetalsdecorations.blocks.MythicDecorations;
+import nourl.mythicmetalsdecorations.blocks.chest.MythicChestBlock;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChests;
 import nourl.mythicmetalsdecorations.item.MythicDecorationsItems;
 import nourl.mythicmetalsdecorations.utils.RegHelper;
@@ -58,6 +61,19 @@ public class MythicMetalsDecorations implements ModInitializer {
         Registry.register(Registries.SCREEN_HANDLER, RegHelper.id("mythic_chest"), MYTHIC_CHEST_SCREEN_HANDLER_TYPE);
         Registry.register(Registries.ITEM, RegHelper.id("crown_chisel"), CROWN_CHISEL);
 
+        // TODO - Figure out Lithium compat, and remove this if not needed
+        //registerChestStorage();
+    }
 
+    @SuppressWarnings("UnstableApiUsage")
+    private void registerChestStorage() {
+        ItemStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> InventoryStorage.of(
+                MythicChestBlock.getInventory(
+                        (MythicChestBlock) blockEntity.getCachedState().getBlock(),
+                        blockEntity.getCachedState(),
+                        blockEntity.getWorld(),
+                        blockEntity.getPos(),
+                        false),
+                direction), MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE);
     }
 }

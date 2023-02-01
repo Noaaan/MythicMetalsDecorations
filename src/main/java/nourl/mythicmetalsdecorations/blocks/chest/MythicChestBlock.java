@@ -45,7 +45,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity> {
+public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity> implements Waterloggable {
 
     private final int size;
     private final String name;
@@ -81,6 +81,20 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         }
 
         public MythicChest getFallback() {
+            return null;
+        }
+    };
+
+    public static final DoubleBlockProperties.PropertyRetriever<MythicChestBlockEntity, Inventory> INVENTORY_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<>() {
+        public Inventory getFromBoth(MythicChestBlockEntity first, MythicChestBlockEntity second) {
+            return new DoubleInventory(first, second);
+        }
+
+        public Inventory getFrom(MythicChestBlockEntity chest) {
+            return chest;
+        }
+
+        public Inventory getFallback() {
             return null;
         }
     };
@@ -277,6 +291,10 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         return world.getBlockState(blockPos).isSolidBlock(world, blockPos);
     }
 
+    @Nullable
+    public static Inventory getInventory(MythicChestBlock block, BlockState state, World world, BlockPos pos, boolean ignoreBlocked) {
+        return block.getBlockEntitySource(state, world, pos, ignoreBlocked).apply(INVENTORY_RETRIEVER);
+    }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -332,6 +350,8 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         return Text.translatable("tooltip.mythicmetals_decorations.chest_size", this.getSize()).formatted(Formatting.GRAY);
     }
 
-    private record MythicChest(Inventory inventory, Text name, Predicate<PlayerEntity> canOpen, Consumer<PlayerEntity> lootGenerator) {}
+    private record MythicChest(Inventory inventory, Text name, Predicate<PlayerEntity> canOpen,
+                               Consumer<PlayerEntity> lootGenerator) {
+    }
 
 }

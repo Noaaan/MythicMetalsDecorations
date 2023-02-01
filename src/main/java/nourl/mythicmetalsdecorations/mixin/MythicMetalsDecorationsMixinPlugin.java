@@ -21,8 +21,10 @@ public class MythicMetalsDecorationsMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        // Right now there is only a single mixin, so checking for the name does not matter
-        return FabricLoader.getInstance().isModLoaded("lithium");
+        if (mixinClassName.equals("nourl.mythicmetalsdecorations.mixin.MythicChestBlockEntityLithiumCompatMixin")) {
+            return FabricLoader.getInstance().isModLoaded("lithium");
+        }
+        return true;
     }
 
     @Override
