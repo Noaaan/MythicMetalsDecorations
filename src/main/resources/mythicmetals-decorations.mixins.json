@@ -6,6 +6,7 @@
   "plugin": "nourl.mythicmetalsdecorations.mixin.MythicMetalsDecorationsMixinPlugin",
   "mixins": [
     "ArmorItemMixin",
+    "HopperBlockEntityMixin",
     "MythicChestBlockEntityLithiumCompatMixin"
   ],
   "client": [

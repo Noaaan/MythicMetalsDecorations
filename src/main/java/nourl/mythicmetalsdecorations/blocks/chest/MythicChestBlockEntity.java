@@ -21,9 +21,8 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import nourl.mythicmetalsdecorations.MythicChestScreenHandler;
-
+// TODO - Do we need implemented inventory here?
 public class MythicChestBlockEntity extends ChestBlockEntity implements ImplementedInventory, LidOpenable {
-
     private final int size;
     private final String name;
 
