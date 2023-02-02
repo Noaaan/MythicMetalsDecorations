@@ -9,8 +9,6 @@
     "HopperBlockEntityMixin",
     "MythicChestBlockEntityLithiumCompatMixin"
   ],
-  "client": [
-  ],
   "injectors": {
     "defaultRequire": 1
   }
