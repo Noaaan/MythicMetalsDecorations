@@ -58,7 +58,6 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Implemen
 
     public MythicChestBlockEntity(BlockPos pos, BlockState state) {
         super(MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, pos, state);
-
         this.name = ((MythicChestBlock) state.getBlock()).getChestName();
         this.size = ((MythicChestBlock) state.getBlock()).getSize();
         this.inventory = DefaultedList.ofSize(size, ItemStack.EMPTY);
