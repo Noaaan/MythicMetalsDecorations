@@ -6,8 +6,7 @@
   "plugin": "nourl.mythicmetalsdecorations.mixin.MythicMetalsDecorationsMixinPlugin",
   "mixins": [
     "ArmorItemMixin",
-    "HopperBlockEntityMixin",
-    "MythicChestBlockEntityLithiumCompatMixin"
+    "HopperBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
