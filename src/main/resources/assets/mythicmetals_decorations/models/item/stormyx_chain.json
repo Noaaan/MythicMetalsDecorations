@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "mythicmetals_decorations:items/chain/stormyx_chain"
+    "layer0": "mythicmetals_decorations:item/chain/stormyx_chain"
   }
 }

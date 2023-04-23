@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/manganese_block"
+    "particle": "mythicmetals:block/manganese_block"
   },
   "display": {
     "gui": {

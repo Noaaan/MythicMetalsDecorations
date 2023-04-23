@@ -1,6 +1,5 @@
 package nourl.mythicmetalsdecorations.blocks.chest;
 
-import io.wispforest.owo.util.ImplementedInventory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.ChestLidAnimator;
@@ -21,8 +20,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import nourl.mythicmetalsdecorations.MythicChestScreenHandler;
-// TODO - Do we need implemented inventory here?
-public class MythicChestBlockEntity extends ChestBlockEntity implements ImplementedInventory, LidOpenable {
+public class MythicChestBlockEntity extends ChestBlockEntity implements LidOpenable {
     private final int size;
     private final String name;
 
@@ -42,7 +40,7 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Implemen
 
         @Override
         protected void onViewerCountUpdate(World world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
-            MythicChestBlockEntity.this.onInvOpenOrClose(world, pos, state, oldViewerCount, newViewerCount);
+            MythicChestBlockEntity.this.onViewerCountUpdate(world, pos, state, oldViewerCount, newViewerCount);
         }
 
         @Override
@@ -71,11 +69,6 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements Implemen
     @Override
     protected void setInvStackList(DefaultedList<ItemStack> list) {
         inventory = list;
-    }
-
-    @Override
-    public DefaultedList<ItemStack> getItems() {
-        return inventory;
     }
 
     @Override

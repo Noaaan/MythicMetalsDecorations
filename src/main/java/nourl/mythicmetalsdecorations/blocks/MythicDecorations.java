@@ -108,7 +108,6 @@ public class MythicDecorations {
     public static final MythicDecorationSet STORMYX = MythicDecorationSet.Builder.begin("stormyx", false)
             .createDefaultSet(6.0F, IRON_MINING_LEVEL, 108).finish();
 
-
     public static void init() {
         MythicDecorationSet.Builder.register();
     }

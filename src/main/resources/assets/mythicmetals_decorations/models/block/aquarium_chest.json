@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/chest",
   "textures": {
-    "particle": "mythicmetals:blocks/aquarium_block"
+    "particle": "mythicmetals:block/aquarium_block"
   }
 }

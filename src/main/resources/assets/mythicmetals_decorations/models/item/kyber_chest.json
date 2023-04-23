@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/kyber_block"
+    "particle": "mythicmetals:block/kyber_block"
   },
   "display": {
     "gui": {

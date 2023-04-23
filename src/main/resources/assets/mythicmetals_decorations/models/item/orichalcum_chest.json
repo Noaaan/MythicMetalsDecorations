@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/orichalcum_block"
+    "particle": "mythicmetals:block/orichalcum_block"
   },
   "display": {
     "gui": {

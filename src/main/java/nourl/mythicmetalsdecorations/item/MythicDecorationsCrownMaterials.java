@@ -1,6 +1,6 @@
 package nourl.mythicmetalsdecorations.item;
 
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
@@ -38,13 +38,13 @@ public enum MythicDecorationsCrownMaterials implements ArmorMaterial {
     }
 
     @Override
-    public int getDurability(EquipmentSlot slot) {
-        return delegate.getDurability(slot);
+    public int getDurability(ArmorItem.Type type) {
+        return delegate.getDurability(type);
     }
 
     @Override
-    public int getProtectionAmount(EquipmentSlot slot) {
-        return delegate.getProtectionAmount(slot);
+    public int getProtection(ArmorItem.Type type) {
+        return delegate.getProtection(type);
     }
 
     @Override

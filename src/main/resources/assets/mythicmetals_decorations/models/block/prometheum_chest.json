@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/chest",
   "textures": {
-    "particle": "mythicmetals:blocks/prometheum_block"
+    "particle": "mythicmetals:block/prometheum_block"
   }
 }

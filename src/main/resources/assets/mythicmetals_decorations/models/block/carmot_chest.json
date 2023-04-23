@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/chest",
   "textures": {
-    "particle": "mythicmetals:blocks/carmot_block"
+    "particle": "mythicmetals:block/carmot_block"
   }
 }

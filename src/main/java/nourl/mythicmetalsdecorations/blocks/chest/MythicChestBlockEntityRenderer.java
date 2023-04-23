@@ -15,14 +15,14 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
-import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 import nourl.mythicmetalsdecorations.blocks.MythicDecorationSet;
 import nourl.mythicmetalsdecorations.blocks.MythicDecorations;
@@ -104,7 +104,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
             matrices.push();
             float f = blockState.get(MythicChestBlock.FACING).asRotation();
             matrices.translate(0.5, 0.5, 0.5);
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-f));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-f));
             matrices.translate(-0.5, -0.5, -0.5);
 
             DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> propertySource;
@@ -169,7 +169,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         /**
          * Used to render the MythicChestBlockEntity on the BlockItem
          */
-        public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
             MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(betterchestEntityMap.get(((BlockItem) stack.getItem()).getBlock()), matrices, vertexConsumers, light, overlay);
         }
     }

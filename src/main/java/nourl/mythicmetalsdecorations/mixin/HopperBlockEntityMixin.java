@@ -17,7 +17,7 @@ public class HopperBlockEntityMixin {
     @ModifyVariable(method = "getInventoryAt(Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;", at = @At(value = "RETURN", shift = At.Shift.BEFORE))
     private static Inventory mythicmetalsdecorations$getMythicDoubleChest(Inventory value, World world, double x, double y, double z) {
 
-        var pos = new BlockPos(x, y, z);
+        var pos = BlockPos.ofFloored(x, y, z);
         BlockEntity blockEntity = world.getBlockEntity(pos);
         BlockState state = world.getBlockState(pos);
 

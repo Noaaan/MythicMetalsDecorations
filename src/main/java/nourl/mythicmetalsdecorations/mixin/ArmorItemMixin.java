@@ -2,7 +2,6 @@ package nourl.mythicmetalsdecorations.mixin;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -18,21 +17,22 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.EnumMap;
 import java.util.UUID;
 
 @Mixin(ArmorItem.class)
 public class ArmorItemMixin {
     @Shadow
     @Final
-    private static UUID[] MODIFIERS;
+    private static EnumMap<ArmorItem.Type, UUID> MODIFIERS;
     @Shadow
     @Final
     @Mutable
     private Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
-    private void mythicmetalsdecorations$constructor(ArmorMaterial material, EquipmentSlot slot, Item.Settings settings, CallbackInfo ci) {
-        UUID uUID = MODIFIERS[slot.getEntitySlotId()];
+    private void mythicmetalsdecorations$constructor(ArmorMaterial material, ArmorItem.Type type, Item.Settings settings, CallbackInfo ci) {
+        UUID uUID = MODIFIERS.get(type);
 
         if (material == MythicDecorationsCrownMaterials.CELESTIUM) {
             mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_MOVEMENT_SPEED, "Speed bonus", 0.08F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);

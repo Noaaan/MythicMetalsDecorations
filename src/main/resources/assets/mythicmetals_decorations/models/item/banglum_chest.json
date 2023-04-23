@@ -1,7 +1,7 @@
 {
     "parent": "builtin/entity",
     "textures": {
-        "particle": "mythicmetals:blocks/banglum_block"
+        "particle": "mythicmetals:block/banglum_block"
     },
     "display": {
         "gui": {

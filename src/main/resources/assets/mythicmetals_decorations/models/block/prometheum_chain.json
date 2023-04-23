@@ -1,7 +1,7 @@
 {
   "parent": "mythicmetals_decorations:block/chain_base",
   "textures": {
-    "all": "mythicmetals_decorations:blocks/prometheum_chain",
-    "particle": "mythicmetals_decorations:blocks/prometheum_chain"
+    "all": "mythicmetals_decorations:block/prometheum_chain",
+    "particle": "mythicmetals_decorations:block/prometheum_chain"
   }
 }

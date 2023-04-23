@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/chest",
   "textures": {
-    "particle": "mythicmetals:blocks/runite_block"
+    "particle": "mythicmetals:block/runite_block"
   }
 }

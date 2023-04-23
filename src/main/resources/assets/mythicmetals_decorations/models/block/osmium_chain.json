@@ -1,7 +1,7 @@
 {
   "parent": "mythicmetals_decorations:block/chain_base",
   "textures": {
-    "all": "mythicmetals_decorations:blocks/osmium_chain",
-    "particle": "mythicmetals_decorations:blocks/osmium_chain"
+    "all": "mythicmetals_decorations:block/osmium_chain",
+    "particle": "mythicmetals_decorations:block/osmium_chain"
   }
 }

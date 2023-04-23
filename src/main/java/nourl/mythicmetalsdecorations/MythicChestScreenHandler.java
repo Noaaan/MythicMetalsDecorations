@@ -32,8 +32,8 @@ public class MythicChestScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public ItemStack transferSlot(PlayerEntity player, int index) {
-        return ScreenUtils.handleSlotTransfer(this, index, this.chestInventory.size());
+    public ItemStack quickMove(PlayerEntity player, int slot) {
+        return ScreenUtils.handleSlotTransfer(this, slot, this.chestInventory.size());
     }
 
     @Override

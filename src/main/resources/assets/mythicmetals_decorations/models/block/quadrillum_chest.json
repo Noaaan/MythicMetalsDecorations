@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/chest",
   "textures": {
-    "particle": "mythicmetals:blocks/quadrillum_block"
+    "particle": "mythicmetals:block/quadrillum_block"
   }
 }

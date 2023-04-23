@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/mythril_block"
+    "particle": "mythicmetals:block/mythril_block"
   },
   "display": {
     "gui": {

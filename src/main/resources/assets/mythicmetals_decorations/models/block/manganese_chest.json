@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/chest",
   "textures": {
-    "particle": "mythicmetals:blocks/manganese_block"
+    "particle": "mythicmetals:block/manganese_block"
   }
 }

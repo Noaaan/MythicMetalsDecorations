@@ -127,7 +127,7 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
             BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos
     ) {
         if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
         if (neighborState.isOf(this) && direction.getAxis().isHorizontal()) {
@@ -159,17 +159,12 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         if (state.get(CHEST_TYPE) == ChestType.SINGLE) {
             return SINGLE_SHAPE;
         } else {
-            switch (getFacing(state)) {
-                case NORTH:
-                default:
-                    return DOUBLE_NORTH_SHAPE;
-                case SOUTH:
-                    return DOUBLE_SOUTH_SHAPE;
-                case WEST:
-                    return DOUBLE_WEST_SHAPE;
-                case EAST:
-                    return DOUBLE_EAST_SHAPE;
-            }
+            return switch (getFacing(state)) {
+                default -> DOUBLE_NORTH_SHAPE;
+                case SOUTH -> DOUBLE_SOUTH_SHAPE;
+                case WEST -> DOUBLE_WEST_SHAPE;
+                case EAST -> DOUBLE_EAST_SHAPE;
+            };
         }
     }
 
@@ -181,7 +176,7 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         ChestType chestType = ChestType.SINGLE;
-        Direction direction = ctx.getPlayerFacing().getOpposite();
+        Direction direction = ctx.getHorizontalPlayerFacing().getOpposite();
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         boolean bl = ctx.shouldCancelInteraction();
         Direction direction2 = ctx.getSide();
@@ -237,7 +232,7 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 
         if (!world.isClient) {
-            world.createAndScheduleBlockTick(pos, this, 0);
+            world.scheduleBlockTick(pos, this, 0);
             var chest = MythicChestBlock.this.getBlockEntitySource(state, world, pos, false).apply(CHEST_RETRIEVER);
             if (chest != null) {
                 player.openHandledScreen(

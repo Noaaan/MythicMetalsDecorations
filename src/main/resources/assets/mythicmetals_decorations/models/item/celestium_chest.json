@@ -1,7 +1,7 @@
 {
     "parent": "builtin/entity",
     "textures": {
-        "particle": "mythicmetals:blocks/celestium_block"
+        "particle": "mythicmetals:block/celestium_block"
     },
     "display": {
         "gui": {

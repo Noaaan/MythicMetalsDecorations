@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/osmium_block"
+    "particle": "mythicmetals:block/osmium_block"
   },
   "display": {
     "gui": {

@@ -1,7 +1,7 @@
 {
   "parent": "mythicmetals_decorations:block/chain_base",
   "textures": {
-    "all": "mythicmetals_decorations:blocks/metallurgium_chain",
-    "particle": "mythicmetals_decorations:blocks/metallurgium_chain"
+    "all": "mythicmetals_decorations:block/metallurgium_chain",
+    "particle": "mythicmetals_decorations:block/metallurgium_chain"
   }
 }

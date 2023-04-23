@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/chest",
   "textures": {
-    "particle": "mythicmetals:blocks/kyber_block"
+    "particle": "mythicmetals:block/kyber_block"
   }
 }

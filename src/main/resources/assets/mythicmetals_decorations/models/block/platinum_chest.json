@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/chest",
   "textures": {
-    "particle": "mythicmetals:blocks/platinum_block"
+    "particle": "mythicmetals:block/platinum_block"
   }
 }

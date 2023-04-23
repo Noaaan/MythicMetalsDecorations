@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "mythicmetals:blocks/metallurgium_block"
+    "particle": "mythicmetals:block/metallurgium_block"
   },
   "display": {
     "gui": {

@@ -1,7 +1,7 @@
 {
   "parent": "mythicmetals_decorations:block/chain_base",
   "textures": {
-    "all": "mythicmetals_decorations:blocks/runite_chain",
-    "particle": "mythicmetals_decorations:blocks/runite_chain"
+    "all": "mythicmetals_decorations:block/runite_chain",
+    "particle": "mythicmetals_decorations:block/runite_chain"
   }
 }
