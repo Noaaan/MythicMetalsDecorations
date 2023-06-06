@@ -49,8 +49,7 @@ dependencies {
     implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:${project.me_version}"))
 
     // Additional Entity Attributes
-    //modImplementation ("de.dafuqs:AdditionalEntityAttributes:${project.aea_versionite}")
-    modImplementation ("com.github.DaFuqs:AdditionalEntityAttributes:${project.aea_jitpack}")
+    modImplementation ("maven.modrinth:additionalentityattributes:${project.aea_version}")
 }
 
 processResources {
