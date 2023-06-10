@@ -35,10 +35,10 @@ public class ArmorItemMixin {
         UUID uUID = MODIFIERS.get(type);
 
         if (material == MythicDecorationsCrownMaterials.CELESTIUM) {
-            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_MOVEMENT_SPEED, "Speed bonus", 0.08F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_MOVEMENT_SPEED, "Speed bonus", 0.01F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
         }
-        if (material == MythicDecorationsCrownMaterials.STAR_PLATINUM) {
-            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_ATTACK_DAMAGE, "Attack bonus", 0.5F, EntityAttributeModifier.Operation.ADDITION);
+        if (material == MythicDecorationsCrownMaterials.STAR_PLATINUM || material == MythicDecorationsCrownMaterials.CELESTIUM) {
+            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_ATTACK_DAMAGE, "Attack bonus", 1.0F, EntityAttributeModifier.Operation.ADDITION);
         }
         if (material == MythicDecorationsCrownMaterials.CARMOT) {
             mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_MAX_HEALTH, "Health bonus", 2.0F, EntityAttributeModifier.Operation.ADDITION);

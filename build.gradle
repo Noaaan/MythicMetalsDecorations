@@ -34,7 +34,7 @@ dependencies {
     modRuntimeOnly "dev.architectury:architectury-fabric:${project.architectury_version}"
 
     // emi
-    modImplementation "dev.emi:emi:${emi_version}"
+    modCompileOnly "dev.emi:emi:${emi_version}"
 
     // MM + AF + Magna + CCA
     modImplementation "maven.modrinth:mythicmetals:${project.mm_version}"

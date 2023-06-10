@@ -3,8 +3,8 @@ package nourl.mythicmetalsdecorations.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.wispforest.owo.mixin.ui.SlotAccessor;
 import io.wispforest.owo.util.pond.OwoSlotExtension;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
@@ -114,32 +114,33 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        super.render(matrices, mouseX, mouseY, delta);
-        this.drawMouseoverTooltip(matrices, mouseX, mouseY);
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+        super.render(drawContext, mouseX, mouseY, delta);
+        this.drawMouseoverTooltip(drawContext, mouseX, mouseY);
     }
 
     @Override
-    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        this.renderBackground(matrices);
+    protected void drawBackground(DrawContext drawContext, float delta, int mouseX, int mouseY) {
+        this.renderBackground(drawContext);
+        // TODO - Needed?
         RenderSystem.setShaderTexture(0, TEXTURE);
 
-        drawTexture(matrices, this.x, this.y, 0, 0, this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
-        drawTexture(matrices, this.x + this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.y, 331, 0, ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
+        drawContext.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
+        drawContext.drawTexture(TEXTURE, this.x + this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.y, 331, 0, ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
 
         int playerInventoryX = this.size.playerInventoryX();
-        drawTexture(matrices, this.x + playerInventoryX, this.y + this.size.paddedHeight(), 81, 287, 176, 97, 368, 416);
+        drawContext.drawTexture(TEXTURE, this.x + playerInventoryX, this.y + this.size.paddedHeight(), 81, 287, 176, 97, 368, 416);
 
         if (this.size.columns() > 9) {
-            drawTexture(matrices, this.x, this.y + this.size.paddedHeight(), 0, 384, playerInventoryX, 17, 368, 416);
-            drawTexture(matrices, this.x + playerInventoryX, this.y + this.size.paddedHeight(), 81, 384, 3, 17, 368, 416);
+            drawContext.drawTexture(TEXTURE, this.x, this.y + this.size.paddedHeight(), 0, 384, playerInventoryX, 17, 368, 416);
+            drawContext.drawTexture(TEXTURE, this.x + playerInventoryX, this.y + this.size.paddedHeight(), 81, 384, 3, 17, 368, 416);
 
-            drawTexture(matrices, this.x + playerInventoryX + 176, this.y + this.size.paddedHeight(), 257 + 81 - playerInventoryX, 384, playerInventoryX, 17, 368, 416);
-            drawTexture(matrices, this.x + playerInventoryX + 176 - 3, this.y + this.size.paddedHeight(), 254, 384, 3, 17, 368, 416);
+            drawContext.drawTexture(TEXTURE, this.x + playerInventoryX + 176, this.y + this.size.paddedHeight(), 257 + 81 - playerInventoryX, 384, playerInventoryX, 17, 368, 416);
+            drawContext.drawTexture(TEXTURE, this.x + playerInventoryX + 176 - 3, this.y + this.size.paddedHeight(), 254, 384, 3, 17, 368, 416);
         }
 
         if (this.scrollOffset == this.maxScroll && this.size.hasExtraRow()) {
-            drawTexture(matrices,
+            drawContext.drawTexture(TEXTURE,
                     this.x + ChestScreenSize.HORIZONTAL_PADDING + this.size.extraRowSlots() * 18, this.y + this.size.paddedHeight() - 18,
                     this.size.width() - (this.size.extraRowSlots() * 18), 18,
                     339, 287, 14, 14,
@@ -148,13 +149,13 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
         }
 
         if (this.size.needsScrolling()) {
-            drawTexture(matrices, this.x + this.size.paddedWidth() - 4, this.y, 338, 0, 22, this.size.paddedHeight(), 368, 416);
+            drawContext.drawTexture(TEXTURE, this.x + this.size.paddedWidth() - 4, this.y, 338, 0, 22, this.size.paddedHeight(), 368, 416);
             if (this.size.columns() > 9) {
-                drawTexture(matrices, this.x + this.size.paddedWidth() - 4, this.y + size.paddedHeight() - 1, 338, 286, 22, 18, 368, 416);
-                drawTexture(matrices, this.x + this.size.paddedWidth() - 2, this.y + 18 + this.scrollOffset * (this.size.paddedHeight() - 34) / this.maxScroll, 338, 322, 12, 15, 368, 416);
+                drawContext.drawTexture(TEXTURE, this.x + this.size.paddedWidth() - 4, this.y + size.paddedHeight() - 1, 338, 286, 22, 18, 368, 416);
+                drawContext.drawTexture(TEXTURE, this.x + this.size.paddedWidth() - 2, this.y + 18 + this.scrollOffset * (this.size.paddedHeight() - 34) / this.maxScroll, 338, 322, 12, 15, 368, 416);
             } else {
-                drawTexture(matrices, this.x + this.size.paddedWidth() - 4, this.y + size.paddedHeight() - 18, 338, 304, 22, 18, 368, 416);
-                drawTexture(matrices, this.x + this.size.paddedWidth() - 2, this.y + 18 + this.scrollOffset * (this.size.paddedHeight() - 51) / this.maxScroll, 338, 322, 12, 15, 368, 416);
+                drawContext.drawTexture(TEXTURE, this.x + this.size.paddedWidth() - 4, this.y + size.paddedHeight() - 18, 338, 304, 22, 18, 368, 416);
+                drawContext.drawTexture(TEXTURE, this.x + this.size.paddedWidth() - 2, this.y + 18 + this.scrollOffset * (this.size.paddedHeight() - 51) / this.maxScroll, 338, 322, 12, 15, 368, 416);
             }
         }
     }

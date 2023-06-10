@@ -33,7 +33,7 @@
   ],
   "depends": {
     "fabric": "*",
-    "minecraft": "1.19.x",
+    "minecraft": "1.20.x",
     "mythicmetals": ">=0.17.4",
     "owo": ">=0.10.3"
   }

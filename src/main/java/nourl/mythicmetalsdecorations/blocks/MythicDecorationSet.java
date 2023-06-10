@@ -7,7 +7,6 @@ import io.wispforest.owo.util.TagInjector;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.ChainBlock;
-import net.minecraft.block.Material;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.registry.Registries;
@@ -179,7 +178,7 @@ public class MythicDecorationSet {
          * @param sounds     Determines the sounds that blocks play when interacted with.
          */
         private static FabricBlockSettings blockSettings(float hardness, float resistance, BlockSoundGroup sounds) {
-            return FabricBlockSettings.of(Material.METAL)
+            return FabricBlockSettings.create()
                     .strength(hardness, resistance)
                     .sounds(sounds)
                     .requiresTool();
