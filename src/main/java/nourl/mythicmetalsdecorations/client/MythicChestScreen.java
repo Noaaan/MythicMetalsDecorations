@@ -11,6 +11,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import nourl.mythicmetalsdecorations.MythicChestScreenHandler;
+import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
 import nourl.mythicmetalsdecorations.utils.ChestScreenSize;
 import nourl.mythicmetalsdecorations.utils.RegHelper;
 
@@ -198,6 +199,13 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+        if (MythicMetalsDecorations.CONFIG.onlyScrollOnScrollbar()) {
+            if (isInScrollbar(mouseX, mouseY)) {
+                this.scroll((int) (this.scrollOffset - amount));
+                return true;
+            }
+            return false;
+        }
         this.scroll((int) (this.scrollOffset - amount));
         return true;
     }

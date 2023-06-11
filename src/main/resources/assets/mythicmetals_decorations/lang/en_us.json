@@ -146,5 +146,9 @@
   "item.mythicmetals_decorations.crown_chisel.tooltip2": "This is not reversible!",
   "item.mythicmetals_decorations.crown_chisel.disabled": "Since MM Nuggets are disabled, this item might not have a recipe.",
 
+  "text.config.mythicmetalsdecorations.title": "Mythic Metals Decorations Config",
+  "text.config.mythicmetalsdecorations.option.onlyScrollOnScrollbar": "Only Scroll When Hovering Scrollbar",
+  "text.config.mythicmetalsdecorations.option.onlyScrollOnScrollbar.tooltip": "Applies inside Metal Chest Screens which have a scrollbar",
+
   "tooltip.mythicmetals_decorations.chest_size": "Can hold %s stacks"
 }

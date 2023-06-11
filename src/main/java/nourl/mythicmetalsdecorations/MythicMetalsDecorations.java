@@ -21,12 +21,14 @@ import nourl.mythicmetals.abilities.Abilities;
 import nourl.mythicmetalsdecorations.blocks.MythicDecorations;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChestBlock;
 import nourl.mythicmetalsdecorations.blocks.chest.MythicChests;
+import nourl.mythicmetalsdecorations.config.MythicDecorationsConfig;
 import nourl.mythicmetalsdecorations.item.MythicDecorationsItems;
 import nourl.mythicmetalsdecorations.utils.RegHelper;
 
 public class MythicMetalsDecorations implements ModInitializer {
 
     public static final String MOD_ID = "mythicmetals_decorations";
+    public static MythicDecorationsConfig CONFIG = MythicDecorationsConfig.createAndLoad();
     public static final OwoItemGroup MYTHICMETALS_DECOR = OwoItemGroup.builder(RegHelper.id("main"),
                     () -> Icon.of(MythicDecorations.CELESTIUM.getChain().asItem().getDefaultStack()))
             .initializer(group -> {
