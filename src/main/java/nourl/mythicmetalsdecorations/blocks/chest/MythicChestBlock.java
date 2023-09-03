@@ -44,8 +44,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-@SuppressWarnings("deprecation")
-public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity> implements Waterloggable {
+public class MythicChestBlock extends ChestBlock implements Waterloggable {
 
     private final int size;
     private final String name;
@@ -99,27 +98,10 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         }
     };
 
-    public MythicChestBlock(String name, Settings settings, Supplier<BlockEntityType<? extends MythicChestBlockEntity>> supplier, int inventorySize) {
+    public MythicChestBlock(String name, Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, int inventorySize) {
         super(settings, supplier);
         this.size = inventorySize;
         this.name = name;
-    }
-
-
-    public static DoubleBlockProperties.Type getDoubleBlockType(BlockState state) {
-        ChestType chestType = state.get(CHEST_TYPE);
-        if (chestType == ChestType.SINGLE) {
-            return DoubleBlockProperties.Type.SINGLE;
-        }
-        if (chestType == ChestType.RIGHT) {
-            return DoubleBlockProperties.Type.FIRST;
-        }
-        return DoubleBlockProperties.Type.SECOND;
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
@@ -277,18 +259,9 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         }
 
         return DoubleBlockProperties.toPropertySource(
-                MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, MythicChestBlock::getDoubleBlockType,
+                MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, ChestBlock::getDoubleBlockType,
                 MythicChestBlock::getFacing, FACING, state, world, pos, fallbackTester
         );
-    }
-
-    private static boolean isChestBlocked(WorldAccess world, BlockPos pos) {
-        return hasBlockOnTop(world, pos);
-    }
-
-    private static boolean hasBlockOnTop(BlockView world, BlockPos pos) {
-        BlockPos blockPos = pos.up();
-        return world.getBlockState(blockPos).isSolidBlock(world, blockPos);
     }
 
     @Nullable
@@ -350,7 +323,7 @@ public class MythicChestBlock extends AbstractChestBlock<MythicChestBlockEntity>
         return Text.translatable("tooltip.mythicmetals_decorations.chest_size", this.getSize()).formatted(Formatting.GRAY);
     }
 
-    private record MythicChest(Inventory inventory, Text name, Predicate<PlayerEntity> canOpen,
+    public record MythicChest(Inventory inventory, Text name, Predicate<PlayerEntity> canOpen,
                                Consumer<PlayerEntity> lootGenerator) {
     }
 

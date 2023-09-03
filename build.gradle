@@ -43,7 +43,8 @@ dependencies {
     modRuntimeOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 
     // Lithium
-    modImplementation("maven.modrinth:lithium:${project.leetheum_version}")
+    modCompileOnly("maven.modrinth:lithium:${project.leetheum_version}")
+    modRuntimeOnly("maven.modrinth:lithium:${project.leetheum_version}")
 
     // Mixin Extras
     implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:${project.me_version}"))

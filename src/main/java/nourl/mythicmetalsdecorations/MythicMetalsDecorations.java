@@ -62,22 +62,22 @@ public class MythicMetalsDecorations implements ModInitializer {
 
         Registry.register(Registries.SCREEN_HANDLER, RegHelper.id("mythic_chest"), MYTHIC_CHEST_SCREEN_HANDLER_TYPE);
         Registry.register(Registries.ITEM, RegHelper.id("crown_chisel"), CROWN_CHISEL);
-        registerChestStorage();
+        //registerChestStorage();
     }
 
-    @SuppressWarnings({"UnstableApiUsage", "DataFlowIssue", "CodeBlock2Expr"})
-    private void registerChestStorage() {
-        ItemStorage.SIDED.registerForBlockEntity(
-                (blockEntity, direction) -> {
-                    return InventoryStorage.of(
-                            MythicChestBlock.getInventory(
-                                    (MythicChestBlock) blockEntity.getCachedState().getBlock(),
-                                    blockEntity.getCachedState(),
-                                    blockEntity.getWorld(),
-                                    blockEntity.getPos(),
-                                    false),
-                            direction);
-                },
-                MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE);
-    }
+//    @SuppressWarnings({"UnstableApiUsage", "DataFlowIssue", "CodeBlock2Expr"})
+//    private void registerChestStorage() {
+//        ItemStorage.SIDED.registerForBlockEntity(
+//                (blockEntity, direction) -> {
+//                    return InventoryStorage.of(
+//                            MythicChestBlock.getInventory(
+//                                    (MythicChestBlock) blockEntity.getCachedState().getBlock(),
+//                                    blockEntity.getCachedState(),
+//                                    blockEntity.getWorld(),
+//                                    blockEntity.getPos(),
+//                                    false),
+//                            direction);
+//                },
+//                MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE);
+//    }
 }
