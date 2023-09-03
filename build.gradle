@@ -11,7 +11,7 @@ repositories {
     mavenLocal()
     maven { url = "https://maven.shedaniel.me/" }
     maven { url = "https://maven.terraformersmc.com/" }
-    maven { url = "https://ladysnake.jfrog.io/artifactory/mods" }
+    maven { url = "https://maven.ladysnake.org/releases" }
     maven { url = "https://maven.wispforest.io/" }
     maven { url = "https://api.modrinth.com/maven/" }
     maven { url = "https://jitpack.io" }
