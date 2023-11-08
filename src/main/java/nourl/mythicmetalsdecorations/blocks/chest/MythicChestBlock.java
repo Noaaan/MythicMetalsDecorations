@@ -8,17 +8,13 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.DoubleInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
@@ -27,13 +23,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import nourl.mythicmetalsdecorations.MythicChestScreenHandler;
@@ -52,12 +45,6 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
     public static final DirectionProperty FACING;
     public static final EnumProperty<ChestType> CHEST_TYPE;
     public static final BooleanProperty WATERLOGGED;
-
-    protected static final VoxelShape DOUBLE_NORTH_SHAPE = Block.createCuboidShape(1.0, 0.0, 0.0, 15.0, 14.0, 15.0);
-    protected static final VoxelShape DOUBLE_SOUTH_SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 14.0, 16.0);
-    protected static final VoxelShape DOUBLE_WEST_SHAPE = Block.createCuboidShape(0.0, 0.0, 1.0, 15.0, 14.0, 15.0);
-    protected static final VoxelShape DOUBLE_EAST_SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 16.0, 14.0, 15.0);
-    protected static final VoxelShape SINGLE_SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 14.0, 15.0);
 
     public static final DoubleBlockProperties.PropertyRetriever<MythicChestBlockEntity, MythicChest> CHEST_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<>() {
         public MythicChest getFromBoth(MythicChestBlockEntity first, MythicChestBlockEntity second) {
@@ -84,47 +71,10 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
         }
     };
 
-    public static final DoubleBlockProperties.PropertyRetriever<MythicChestBlockEntity, Inventory> INVENTORY_RETRIEVER = new DoubleBlockProperties.PropertyRetriever<>() {
-        public Inventory getFromBoth(MythicChestBlockEntity first, MythicChestBlockEntity second) {
-            return new DoubleInventory(first, second);
-        }
-
-        public Inventory getFrom(MythicChestBlockEntity chest) {
-            return chest;
-        }
-
-        public Inventory getFallback() {
-            return null;
-        }
-    };
-
     public MythicChestBlock(String name, Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, int inventorySize) {
         super(settings, supplier);
         this.size = inventorySize;
         this.name = name;
-    }
-
-    @Override
-    public BlockState getStateForNeighborUpdate(
-            BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos
-    ) {
-        if (state.get(WATERLOGGED)) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
-        }
-
-        if (neighborState.isOf(this) && direction.getAxis().isHorizontal()) {
-            ChestType chestType = neighborState.get(CHEST_TYPE);
-            if (state.get(CHEST_TYPE) == ChestType.SINGLE
-                    && chestType != ChestType.SINGLE
-                    && state.get(FACING) == neighborState.get(FACING)
-                    && getFacing(neighborState) == direction.getOpposite()) {
-                return state.with(CHEST_TYPE, chestType.getOpposite());
-            }
-        } else if (getFacing(state) == direction) {
-            return state.with(CHEST_TYPE, ChestType.SINGLE);
-        }
-
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
@@ -135,58 +85,9 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
         }
     }
 
-
-    @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(CHEST_TYPE) == ChestType.SINGLE) {
-            return SINGLE_SHAPE;
-        } else {
-            return switch (getFacing(state)) {
-                default -> DOUBLE_NORTH_SHAPE;
-                case SOUTH -> DOUBLE_SOUTH_SHAPE;
-                case WEST -> DOUBLE_WEST_SHAPE;
-                case EAST -> DOUBLE_EAST_SHAPE;
-            };
-        }
-    }
-
     public static Direction getFacing(BlockState state) {
         Direction direction = state.get(FACING);
         return state.get(CHEST_TYPE) == ChestType.LEFT ? direction.rotateYClockwise() : direction.rotateYCounterclockwise();
-    }
-
-    @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        ChestType chestType = ChestType.SINGLE;
-        Direction direction = ctx.getHorizontalPlayerFacing().getOpposite();
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        boolean bl = ctx.shouldCancelInteraction();
-        Direction direction2 = ctx.getSide();
-        if (direction2.getAxis().isHorizontal() && bl) {
-            Direction direction3 = this.getNeighborChestDirection(ctx, direction2.getOpposite());
-            if (direction3 != null && direction3.getAxis() != direction2.getAxis()) {
-                direction = direction3;
-                chestType = direction3.rotateYCounterclockwise() == direction2.getOpposite() ? ChestType.RIGHT : ChestType.LEFT;
-            }
-        }
-
-        if (chestType == ChestType.SINGLE && !bl) {
-            if (direction == this.getNeighborChestDirection(ctx, direction.rotateYClockwise())) {
-                chestType = ChestType.LEFT;
-            } else if (direction == this.getNeighborChestDirection(ctx, direction.rotateYCounterclockwise())) {
-                chestType = ChestType.RIGHT;
-            }
-        }
-
-        return this.getDefaultState()
-                .with(FACING, direction)
-                .with(CHEST_TYPE, chestType)
-                .with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
-    }
-
-    @Override
-    public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
     @Nullable
@@ -264,37 +165,8 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
         );
     }
 
-    @Nullable
-    public static Inventory getInventory(MythicChestBlock block, BlockState state, World world, BlockPos pos, boolean ignoreBlocked) {
-        return block.getBlockEntitySource(state, world, pos, ignoreBlocked).apply(INVENTORY_RETRIEVER);
-    }
-
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, CHEST_TYPE, WATERLOGGED);
-    }
-
-    @Nullable
-    private Direction getNeighborChestDirection(ItemPlacementContext ctx, Direction dir) {
-        BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos().offset(dir));
-        return blockState.isOf(this) && blockState.get(CHEST_TYPE) == ChestType.SINGLE ? blockState.get(FACING) : null;
-    }
-
     public String getChestName() {
         return name;
-    }
-
-    @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (!state.isOf(newState.getBlock())) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof Inventory) {
-                ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
-                world.updateComparators(pos, this);
-            }
-
-            super.onStateReplaced(state, world, pos, newState, moved);
-        }
     }
 
     public static DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(final LidOpenable progress) {
@@ -323,8 +195,7 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
         return Text.translatable("tooltip.mythicmetals_decorations.chest_size", this.getSize()).formatted(Formatting.GRAY);
     }
 
-    public record MythicChest(Inventory inventory, Text name, Predicate<PlayerEntity> canOpen,
-                               Consumer<PlayerEntity> lootGenerator) {
+    public record MythicChest(Inventory inventory, Text name, Predicate<PlayerEntity> canOpen, Consumer<PlayerEntity> lootGenerator) {
     }
 
 }
