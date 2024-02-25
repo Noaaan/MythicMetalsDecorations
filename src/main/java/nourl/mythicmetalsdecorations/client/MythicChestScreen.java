@@ -1,6 +1,5 @@
 package nourl.mythicmetalsdecorations.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import io.wispforest.owo.mixin.ui.SlotAccessor;
 import io.wispforest.owo.util.pond.OwoSlotExtension;
 import net.minecraft.client.gui.DrawContext;
@@ -123,8 +122,6 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
     @Override
     protected void drawBackground(DrawContext drawContext, float delta, int mouseX, int mouseY) {
         this.renderBackground(drawContext);
-        // TODO - Needed?
-        RenderSystem.setShaderTexture(0, TEXTURE);
 
         drawContext.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
         drawContext.drawTexture(TEXTURE, this.x + this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.y, 331, 0, ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
@@ -140,10 +137,11 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
             drawContext.drawTexture(TEXTURE, this.x + playerInventoryX + 176 - 3, this.y + this.size.paddedHeight(), 254, 384, 3, 17, 368, 416);
         }
 
-        if (this.scrollOffset == this.maxScroll && this.size.hasExtraRow()) {
+        if (this.scrollOffset == this.maxScroll && (this.size.hasExtraRow() || this.size.rows() * this.size.columns() > this.handler.inventorySize())) {
+            var finalRowSlots = this.size.hasExtraRow() ? this.size.extraRowSlots() : (this.handler.inventorySize()) % this.size.columns();
             drawContext.drawTexture(TEXTURE,
-                    this.x + ChestScreenSize.HORIZONTAL_PADDING + this.size.extraRowSlots() * 18, this.y + this.size.paddedHeight() - 18,
-                    this.size.width() - (this.size.extraRowSlots() * 18), 18,
+                    this.x + ChestScreenSize.HORIZONTAL_PADDING + finalRowSlots * 18, this.y + this.size.paddedHeight() - 18,
+                    this.size.width() - (finalRowSlots * 18), 18,
                     339, 287, 14, 14,
                     368, 416
             );
