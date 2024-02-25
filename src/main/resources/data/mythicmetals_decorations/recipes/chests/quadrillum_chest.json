@@ -7,7 +7,7 @@
   ],
   "key": {
     "C": {
-      "item": "minecraft:chest"
+      "tag": "c:wooden_chests"
     },
     "#": {
       "item": "mythicmetals:quadrillum_ingot"

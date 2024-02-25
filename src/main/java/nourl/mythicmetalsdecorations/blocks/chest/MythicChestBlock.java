@@ -90,7 +90,6 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
         return state.get(CHEST_TYPE) == ChestType.LEFT ? direction.rotateYClockwise() : direction.rotateYCounterclockwise();
     }
 
-    @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new MythicChestBlockEntity(pos, state);
