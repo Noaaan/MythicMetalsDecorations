@@ -23,6 +23,7 @@ public record ChestScreenSize(int columns, int rows, int extraRowSlots, boolean 
         }
 
         int rows = slotCount / columns;
+        if (rows * columns < slotCount) rows++;
 
         var tempSize = new ChestScreenSize(columns, rows, 0, false);
         boolean needsScrolling = false;
@@ -36,9 +37,7 @@ public record ChestScreenSize(int columns, int rows, int extraRowSlots, boolean 
             needsScrolling = true;
         }
 
-        needsScrolling |= rows * columns < slotCount;
-
-        return new ChestScreenSize(columns, rows, slotCount % columns, needsScrolling);
+        return new ChestScreenSize(columns, rows, rows * columns < slotCount ? slotCount % columns : 0, needsScrolling);
     }
 
     public int width() {
