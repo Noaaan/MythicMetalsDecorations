@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mythicmetals_decorations:hydrargym_ingot"
+    }
+  ],
+  "result": {
+    "item": "mythicmetals_decorations:hydrargym_nugget",
+    "count": 9
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "mythicmetals:nuggets_enabled"
+    }
+  ]
+}

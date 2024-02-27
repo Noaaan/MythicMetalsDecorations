@@ -1,10 +1,16 @@
 package nourl.mythicmetalsdecorations.blocks;
 
+import io.wispforest.owo.itemgroup.OwoItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import nourl.mythicmetals.blocks.MythicBlocks;
 import nourl.mythicmetalsdecorations.MythicMetalsDecorations;
 import nourl.mythicmetalsdecorations.item.MythicDecorationsArmorMaterials;
 import nourl.mythicmetalsdecorations.item.MythicDecorationsCrownMaterials;
+import nourl.mythicmetalsdecorations.utils.RegHelper;
 
 @SuppressWarnings("CodeBlock2Expr")
 public class MythicDecorations {
@@ -43,8 +49,13 @@ public class MythicDecorations {
             .finish();
 
     public static final MythicDecorationSet HYDRARGYM = MythicDecorationSet.Builder.begin("hydrargym", false)
+            .createDefaultSet(5.5F, DIAMOND_MINING_LEVEL, 162)
             .createRegalSet(MythicDecorationsArmorMaterials.HYDRARGYM)
             .finish();
+
+    // TODO - Consider refactoring this
+    public static final Block HYDRARGYM_BLOCK = new Block(FabricBlockSettings.copyOf(MythicBlocks.MYTHRIL.getStorageBlock()));
+    public static final Item HYDRARGYM_NUGGET = new Item(new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2));
     public static final MythicDecorationSet HALLOWED = MythicDecorationSet.Builder.begin("hallowed", false)
             .createDefaultSet(6.0F, DIAMOND_MINING_LEVEL, 162)
             .createCrown(MythicDecorationsCrownMaterials.HALLOWED, settings -> {
@@ -110,5 +121,7 @@ public class MythicDecorations {
 
     public static void init() {
         MythicDecorationSet.Builder.register();
+        RegHelper.item("hydrargym_nugget", HYDRARGYM_NUGGET);
+        RegHelper.block("hydrargym_block", HYDRARGYM_BLOCK);
     }
 }

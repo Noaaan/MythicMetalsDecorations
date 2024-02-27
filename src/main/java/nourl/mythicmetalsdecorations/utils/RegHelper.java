@@ -48,14 +48,14 @@ public class RegHelper {
     }
 
     public static void chain(String path, Block block) {
-        Registry.register(Registries.BLOCK, new Identifier(MythicMetalsDecorations.MOD_ID, path), block);
-        Registry.register(Registries.ITEM, new Identifier(MythicMetalsDecorations.MOD_ID, path), new BlockItem(block, new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(0)));
+        Registry.register(Registries.BLOCK, id(path), block);
+        Registry.register(Registries.ITEM, id(path), new BlockItem(block, new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(0)));
     }
 
     public static void chain(String path, Block block, boolean fireproof) {
         if (fireproof) {
-            Registry.register(Registries.BLOCK, new Identifier(MythicMetalsDecorations.MOD_ID, path), block);
-            Registry.register(Registries.ITEM, new Identifier(MythicMetalsDecorations.MOD_ID, path), new BlockItem(block, new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(0).fireproof()));
+            Registry.register(Registries.BLOCK, id(path), block);
+            Registry.register(Registries.ITEM, id(path), new BlockItem(block, new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(0).fireproof()));
         }
         else chain(path, block);
     }
@@ -81,4 +81,8 @@ public class RegHelper {
         return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, id);
     }
 
+    public static void block(String path, Block block) {
+        Registry.register(Registries.BLOCK, id(path), block);
+        Registry.register(Registries.ITEM, id(path), new BlockItem(block, new OwoItemSettings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2)));
+    }
 }

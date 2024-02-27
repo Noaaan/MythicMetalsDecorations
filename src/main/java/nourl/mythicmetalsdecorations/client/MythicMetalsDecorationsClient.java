@@ -58,6 +58,7 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
                 MythicDecorations.DURASTEEL.getChain(),
                 MythicDecorations.KYBER.getChain(),
                 MythicDecorations.HALLOWED.getChain(),
+                MythicDecorations.HYDRARGYM.getChain(),
                 MythicDecorations.MANGANESE.getChain(),
                 MythicDecorations.METALLURGIUM.getChain(),
                 MythicDecorations.MIDAS_GOLD.getChain(),

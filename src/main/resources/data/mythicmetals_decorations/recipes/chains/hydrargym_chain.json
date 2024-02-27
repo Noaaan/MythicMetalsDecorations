@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    " R ",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "mythicmetals_decorations:hydrargym_nugget"
+    },
+    "R": {
+      "item": "mythicmetals_decorations:hydrargym_ingot"
+    }
+  },
+  "result": {
+    "item": "mythicmetals_decorations:hydrargym_chain",
+    "count": 1
+  },
+  "group": "mm_chains"
+}
