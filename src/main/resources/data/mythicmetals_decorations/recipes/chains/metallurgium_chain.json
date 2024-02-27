@@ -17,5 +17,10 @@
     "item": "mythicmetals_decorations:metallurgium_chain",
     "count": 1
   },
-  "group": "mm_chains"
+  "group": "mm_chains",
+  "fabric:load_conditions": [
+    {
+      "condition": "mythicmetals:nuggets_enabled"
+    }
+  ]
 }
