@@ -2,6 +2,8 @@ package nourl.mythicmetalsdecorations.mixin;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -32,13 +34,17 @@ public class ArmorItemMixin {
         UUID uUID = MODIFIERS.get(type);
 
         if (material == MythicDecorationsCrownMaterials.CELESTIUM) {
-            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_MOVEMENT_SPEED, "Speed bonus", 0.01F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_MOVEMENT_SPEED, "Celestium Crown Speed bonus", 0.1F, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_ATTACK_DAMAGE, "Celestium Crown Attack bonus", 1.0F, EntityAttributeModifier.Operation.ADDITION);
         }
-        if (material == MythicDecorationsCrownMaterials.STAR_PLATINUM || material == MythicDecorationsCrownMaterials.CELESTIUM) {
-            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_ATTACK_DAMAGE, "Attack bonus", 1.0F, EntityAttributeModifier.Operation.ADDITION);
+        if (material == MythicDecorationsCrownMaterials.STAR_PLATINUM) {
+            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_ATTACK_DAMAGE, "Star Platinum Crown Attack bonus", 1.0F, EntityAttributeModifier.Operation.ADDITION);
         }
         if (material == MythicDecorationsCrownMaterials.CARMOT) {
-            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_MAX_HEALTH, "Health bonus", 2.0F, EntityAttributeModifier.Operation.ADDITION);
+            mythicmetalsdecorations$armorMapBuilder(uUID, EntityAttributes.GENERIC_MAX_HEALTH, "Carmot Health bonus", 2.0F, EntityAttributeModifier.Operation.ADDITION);
+        }
+        if (material == MythicDecorationsCrownMaterials.PALLADIUM && type.getEquipmentSlot().equals(EquipmentSlot.HEAD)) {
+            mythicmetalsdecorations$armorMapBuilder(uUID, AdditionalEntityAttributes.LAVA_VISIBILITY, "Palladium Crown Lava visibility bonus", 8.0F, EntityAttributeModifier.Operation.ADDITION);
         }
     }
 

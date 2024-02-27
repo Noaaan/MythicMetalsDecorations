@@ -6,3 +6,4 @@
 - Chest recipes now use the `c:wooden_chests` tag for crafting recipes.
 - Added a block set for Hydrargym (Storage Block, Anvil, nuggets).
 - Add load conditions for nugget-related recipes. This prevents errors in logs if they are disabled.
+- Updated and fixed attributes on crowns
