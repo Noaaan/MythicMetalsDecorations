@@ -121,7 +121,7 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
 
     @Override
     protected void drawBackground(DrawContext drawContext, float delta, int mouseX, int mouseY) {
-        this.renderBackground(drawContext);
+        //super.renderBackground(drawContext, mouseX, mouseY, delta);
 
         drawContext.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
         drawContext.drawTexture(TEXTURE, this.x + this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.y, 331, 0, ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
@@ -196,15 +196,15 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if (MythicMetalsDecorations.CONFIG.onlyScrollOnScrollbar()) {
             if (isInScrollbar(mouseX, mouseY)) {
-                this.scroll((int) (this.scrollOffset - amount));
+                this.scroll((int) (this.scrollOffset - verticalAmount));
                 return true;
             }
             return false;
         }
-        this.scroll((int) (this.scrollOffset - amount));
+        this.scroll((int) (this.scrollOffset - verticalAmount));
         return true;
     }
 

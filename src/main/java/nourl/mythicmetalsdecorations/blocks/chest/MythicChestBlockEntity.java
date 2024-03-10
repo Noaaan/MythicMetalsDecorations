@@ -62,7 +62,7 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements LidOpena
     }
 
     @Override
-    protected DefaultedList<ItemStack> getInvStackList() {
+    protected DefaultedList<ItemStack> method_11282() {
         return inventory;
     }
 
@@ -113,10 +113,10 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements LidOpena
         this.lock = ContainerLock.fromNbt(nbt);
 
         if (nbt.contains("CustomName", NbtElement.STRING_TYPE)) {
-            this.setCustomName(Text.Serializer.fromJson(nbt.getString("CustomName")));
+            this.setCustomName(Text.Serialization.fromJson(nbt.getString("CustomName")));
         }
 
-        if (!this.deserializeLootTable(nbt)) {
+        if (!this.readLootTable(nbt)) {
             this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
             NbtList nbtList = nbt.getList("Items", 10);
 
@@ -135,10 +135,10 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements LidOpena
         this.lock.writeNbt(nbt);
 
         if (this.hasCustomName()) {
-            nbt.putString("CustomName", Text.Serializer.toJson(this.getCustomName()));
+            nbt.putString("CustomName", Text.Serialization.toJsonString(this.getCustomName()));
         }
 
-        if (!this.serializeLootTable(nbt)) {
+        if (!this.readLootTable(nbt)) {
             NbtList nbtList = new NbtList();
 
             for (int i = 0; i < this.inventory.size(); i++) {

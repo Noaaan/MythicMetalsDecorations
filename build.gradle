@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.11-SNAPSHOT'
+    id 'fabric-loom' version '1.5-SNAPSHOT'
     id 'maven-publish'
     id 'io.github.juuxel.loom-quiltflower' version '1.7.1'
 }
@@ -29,12 +29,13 @@ dependencies {
     annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_version}")
 
     // REI
+    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${project.rei_version}")
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-    modRuntimeOnly "dev.architectury:architectury-fabric:${project.architectury_version}"
+    //modRuntimeOnly "dev.architectury:architectury-fabric:${project.architectury_version}"
 
     // emi
-    modCompileOnly "dev.emi:emi:${emi_version}"
+    modCompileOnly "dev.emi:emi-fabric:${emi_version}"
 
     // MM + AF + Magna + CCA
     modImplementation "maven.modrinth:mythicmetals:${project.mm_version}"
@@ -45,9 +46,6 @@ dependencies {
     // Lithium
     modCompileOnly("maven.modrinth:lithium:${project.leetheum_version}")
     modRuntimeOnly("maven.modrinth:lithium:${project.leetheum_version}")
-
-    // Mixin Extras
-    implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:${project.me_version}"))
 
     // Additional Entity Attributes
     modImplementation ("maven.modrinth:additionalentityattributes:${project.aea_version}")

@@ -57,13 +57,13 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
                     name,
                     player -> first.checkUnlocked(player) && second.checkUnlocked(player),
                     player -> {
-                        first.checkLootInteraction(player);
-                        second.checkLootInteraction(player);
+                        first.generateLoot(player);
+                        second.generateLoot(player);
                     });
         }
 
         public MythicChest getFrom(MythicChestBlockEntity chest) {
-            return new MythicChest(chest, chest.hasCustomName() ? chest.getCustomName() : chest.getCachedState().getBlock().getName(), chest::checkUnlocked, chest::checkLootInteraction);
+            return new MythicChest(chest, chest.hasCustomName() ? chest.getCustomName() : chest.getCachedState().getBlock().getName(), chest::checkUnlocked, chest::generateLoot);
         }
 
         public MythicChest getFallback() {
@@ -98,7 +98,7 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? checkType(type, MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, MythicChestBlockEntity::clientTick) : null;
+        return world.isClient ? validateTicker(type, MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, MythicChestBlockEntity::clientTick) : null;
     }
 
     @Override
