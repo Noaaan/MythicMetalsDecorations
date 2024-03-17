@@ -66,6 +66,10 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements LidOpena
         return inventory;
     }
 
+    public DefaultedList<ItemStack> getMythicChestInventory() {
+        return inventory;
+    }
+
     @Override
     protected void setInvStackList(DefaultedList<ItemStack> list) {
         inventory = list;
