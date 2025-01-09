@@ -43,7 +43,7 @@ public class MythicDecorations {
     public static final MythicDecorationSet CELESTIUM = MythicDecorationSet.Builder.begin("celestium", false)
             .createDefaultSet(10F, 25F, NETHERITE_MINING_LEVEL, 216)
             .createCrown(RegistryEntry.of(MythicDecorationsCrownMaterials.CELESTIUM), settings -> {
-                settings.group(MythicMetalsDecorations.MYTHICMETALS_DECOR).fireproof().rarity(Rarity.RARE);
+                settings.group(MythicMetalsDecorations.MYTHICMETALS_DECOR).maxDamage(41 * CROWN_DURA_MOD).fireproof().rarity(Rarity.RARE);
             })
             .finish();
     public static final MythicDecorationSet DURASTEEL = MythicDecorationSet.Builder.begin("durasteel", false)
@@ -62,7 +62,7 @@ public class MythicDecorations {
     public static final MythicDecorationSet HALLOWED = MythicDecorationSet.Builder.begin("hallowed", false)
             .createDefaultSet(6.0F, DIAMOND_MINING_LEVEL, 162)
             .createCrown(RegistryEntry.of(MythicDecorationsCrownMaterials.HALLOWED), settings -> {
-                settings.group(MythicMetalsDecorations.MYTHICMETALS_DECOR).rarity(Rarity.UNCOMMON);
+                settings.group(MythicMetalsDecorations.MYTHICMETALS_DECOR).maxDamage(41 * CROWN_DURA_MOD).rarity(Rarity.UNCOMMON);
             })
             .finish();
     public static final MythicDecorationSet KYBER = MythicDecorationSet.Builder.begin("kyber", false)
