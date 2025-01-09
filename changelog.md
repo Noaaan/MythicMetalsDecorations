@@ -1,3 +1,3 @@
-# 0.6.1
+# 0.8.1
 
-- Update and fix Lithium compat
+- Updated Lithium compat to use 0.14.x+ (#26, thanks muon-rw!)
