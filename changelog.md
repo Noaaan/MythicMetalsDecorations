@@ -1,5 +1,7 @@
-# 0.8.1
+# 0.8.2
 
-- Updated Lithium compat to use 0.14.x+ (#26, thanks muon-rw!)
-- Fix various bugs related to enchanting Crowns
-- Fixed Celestium and Hallowed Crowns not having correct Data Components
+- Various fixes related to Hydrargym blocks (thanks zplan!)
+  - Missing loot tables for chest and storage block
+  - Missing recipe to convert storage block back into ingots
+  - Missing mining level for chest and storage block
+  - Missing break particle on storage block
