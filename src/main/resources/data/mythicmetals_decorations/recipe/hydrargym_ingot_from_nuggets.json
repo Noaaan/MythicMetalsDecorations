@@ -14,6 +14,7 @@
     "id": "mythicmetals_decorations:hydrargym_ingot",
     "count": 1
   },
+  "group": "mm_deco_hydrargym_ingot",
   "fabric:load_conditions": [
     {
       "condition": "mythicmetals:nuggets_enabled"

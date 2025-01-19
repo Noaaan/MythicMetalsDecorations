@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mythicmetals_decorations:hydrargym_block"
+    }
+  ],
+  "result": {
+    "id": "mythicmetals_decorations:hydrargym_ingot",
+    "count": 9
+  },
+  "group": "mm_deco_hydrargym_ingot"
+}
