@@ -1,9 +1,9 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "nourl.mythicmetalsdecorations.mixin",
+  "package": "com.mythicmetalsdecorations.mixin",
   "compatibilityLevel": "JAVA_21",
-  "plugin": "nourl.mythicmetalsdecorations.mixin.MythicMetalsDecorationsMixinPlugin",
+  "plugin": "com.mythicmetalsdecorations.mixin.MythicMetalsDecorationsMixinPlugin",
   "mixins": [
     "ArmorItemMixin",
     "HopperBlockEntityMixin",
