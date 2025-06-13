@@ -1,5 +1,3 @@
-# 0.6.2
+# 0.6.3
 
-- Updated to support Mythic Metals 0.19.9
-- Fixed Star Platinum Chain recipe
-- Add recipe for Hydrargym Chest
+- Fix the Hydrargym Chest not dropping on break (#28)
