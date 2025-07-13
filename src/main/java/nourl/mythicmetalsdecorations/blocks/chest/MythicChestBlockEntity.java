@@ -175,4 +175,10 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements LidOpena
     public float getAnimationProgress(float tickDelta) {
         return this.lidAnimator.getProgress(tickDelta);
     }
+
+    @Override
+    public boolean canPlayerUse(PlayerEntity player) {
+        if (this.world == null) return false;
+        return this.world.getBlockEntity(this.pos) == this && player.canInteractWithBlockAt(this.pos, 4);
+    }
 }
