@@ -38,7 +38,7 @@ public class MythicChestScreenHandler extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return true;
+        return this.chestInventory.canPlayerUse(player);
     }
 
     public int inventorySize() {
