@@ -179,6 +179,6 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements LidOpena
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
         if (this.world == null) return false;
-        return this.world.getBlockEntity(this.pos) == this && player.canInteractWithBlockAt(this.pos, 4);
+        return this.world.getBlockEntity(this.pos) == this && this.pos.getSquaredDistance(player.getX(), player.getY(), player.getZ()) <= 100;
     }
 }
