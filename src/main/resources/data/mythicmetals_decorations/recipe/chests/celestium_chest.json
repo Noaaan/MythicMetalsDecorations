@@ -7,7 +7,7 @@
   ],
   "key": {
     "C": {
-      "tag": "c:wooden_chests"
+      "tag": "c:chests/wooden"
     },
     "#": {
       "item": "mythicmetals:celestium_ingot"
