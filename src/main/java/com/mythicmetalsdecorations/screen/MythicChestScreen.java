@@ -121,6 +121,7 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
     protected void drawBackground(DrawContext drawContext, float delta, int mouseX, int mouseY) {
         //super.renderBackground(drawContext, mouseX, mouseY, delta);
 
+        // FIXME
         drawContext.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
         drawContext.drawTexture(TEXTURE, this.x + this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.y, 331, 0, ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
 

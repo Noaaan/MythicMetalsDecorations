@@ -5,8 +5,9 @@ import com.google.common.collect.Multimap;
 import io.wispforest.owo.util.TagInjector;
 import net.minecraft.block.*;
 import net.minecraft.item.*;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import com.mythicmetalsdecorations.MythicDecorations;
@@ -275,8 +276,8 @@ public class MythicDecorationSet {
          * @param material The Armor Material used for the set
          * @see Builder
          */
-        public Builder createRegalSet(ArmorMaterial material, int duraMod) {
-            this.regalSet = new RegalSet(material, duraMod);
+        public Builder createRegalSet(ArmorMaterial material) {
+            this.regalSet = new RegalSet(name, material);
             return this;
         }
 
@@ -287,11 +288,11 @@ public class MythicDecorationSet {
          * @param fireproof Whether the crown is fireproof
          * @see Builder
          */
-        public Builder createCrown(RegistryEntry<ArmorMaterial> material, int maxDamage, boolean fireproof) {
+        public Builder createCrown(ArmorMaterial material, int maxDamage, boolean fireproof) {
             if (fireproof) {
-                this.crown = new ArmorItem(material, ArmorItem.Type.HELMET, new Item.Settings().maxDamage(maxDamage).group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2).fireproof());
+                this.crown = new ArmorItem(material, EquipmentType.HELMET, new Item.Settings().maxDamage(maxDamage).group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2).fireproof());
             } else {
-                this.crown = new ArmorItem(material, ArmorItem.Type.HELMET, new Item.Settings().maxDamage(maxDamage).group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2));
+                this.crown = new ArmorItem(material, EquipmentType.HELMET, new Item.Settings().maxDamage(maxDamage).group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2));
             }
             return this;
         }
@@ -304,10 +305,10 @@ public class MythicDecorationSet {
          *                          for configuring items further
          * @see Builder
          */
-        public Builder createCrown(RegistryEntry<ArmorMaterial> material, Consumer<Item.Settings> settingsProcessor) {
+        public Builder createCrown(ArmorMaterial material, Consumer<Item.Settings> settingsProcessor) {
             var settings = new Item.Settings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2);
             settingsProcessor.accept(settings);
-            this.crown = new ArmorItem(material, ArmorItem.Type.HELMET, settings);
+            this.crown = new ArmorItem(material, EquipmentType.HELMET, settings);
             return this;
         }
 

@@ -1,5 +1,7 @@
 package com.mythicmetalsdecorations.utils;
 
+import com.mythicmetals.mixin.client.EntityModelLayersAccessor;
+import com.mythicmetalsdecorations.MythicMetalsDecorations;
 import io.wispforest.owo.itemgroup.OwoItemGroup;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,11 +12,10 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.item.equipment.EquipmentAsset;
+import net.minecraft.item.equipment.EquipmentAssetKeys;
+import net.minecraft.registry.*;
 import net.minecraft.util.Identifier;
-import com.mythicmetals.mixin.EntityModelLayersAccessor;
-import com.mythicmetalsdecorations.MythicMetalsDecorations;
 
 
 /*
@@ -55,8 +56,7 @@ public class RegHelper {
         if (fireproof) {
             Registry.register(Registries.BLOCK, id(path), block);
             Registry.register(Registries.ITEM, id(path), new BlockItem(block, new Item.Settings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(0).fireproof()));
-        }
-        else chain(path, block);
+        } else chain(path, block);
     }
 
     public static void blockEntityType(String path, BlockEntityType<?> type) {
@@ -83,5 +83,13 @@ public class RegHelper {
     public static void block(String path, Block block) {
         Registry.register(Registries.BLOCK, id(path), block);
         Registry.register(Registries.ITEM, id(path), new BlockItem(block, new Item.Settings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2)));
+    }
+
+    public static RegistryKey<Item> itemKey(String name) {
+        return RegistryKey.of(RegistryKeys.ITEM, id(name));
+    }
+
+    public static RegistryKey<EquipmentAsset> equipmentAsset(String name) {
+        return RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, id(name));
     }
 }

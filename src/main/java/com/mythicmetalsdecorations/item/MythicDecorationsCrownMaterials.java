@@ -1,8 +1,8 @@
 package com.mythicmetalsdecorations.item;
 
-import net.minecraft.item.ArmorMaterial;
 import com.mythicmetals.armor.MythicArmorMaterials;
-import java.util.List;
+import com.mythicmetalsdecorations.utils.RegHelper;
+import net.minecraft.item.equipment.ArmorMaterial;
 
 public class MythicDecorationsCrownMaterials {
 
@@ -25,13 +25,14 @@ public class MythicDecorationsCrownMaterials {
 
     public static ArmorMaterial fromMaterial(ArmorMaterial material, String name) {
         return new ArmorMaterial(
+            material.durability(),
             material.defense(),
-            material.enchantability(),
+            material.enchantmentValue(),
             material.equipSound(),
-            material.repairIngredient(),
-            List.of(MythicDecorationsArmorMaterials.layer(name)),
             material.toughness(),
-            material.knockbackResistance()
+            material.knockbackResistance(),
+            material.repairIngredient(),
+            RegHelper.equipmentAsset(name)
         );
     }
 }

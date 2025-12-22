@@ -48,7 +48,7 @@ public class MythicMetalsDecorations implements ModInitializer {
     public void onInitialize() {
         MythicDecorations.init();
         MythicChests.init();
-        FieldRegistrationHandler.register(MythicDecorationsItems.class, MOD_ID, false);
+        MythicDecorationsItems.init();
         MYTHICMETALS_DECOR.initialize();
 
         // Integrate with base MM

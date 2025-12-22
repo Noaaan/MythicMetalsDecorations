@@ -1,5 +1,6 @@
 package com.mythicmetalsdecorations.blocks.chest;
 
+import com.mythicmetalsdecorations.screen.MythicChestScreenHandler;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;
@@ -22,8 +23,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import com.mythicmetalsdecorations.screen.MythicChestScreenHandler;
-import org.jetbrains.annotations.Nullable;
 import java.util.function.*;
 
 public class MythicChestBlock extends ChestBlock implements Waterloggable {
@@ -31,7 +30,7 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
     private final int size;
     private final String name;
 
-    public static final DirectionProperty FACING;
+    public static final EnumProperty<Direction> FACING;
     public static final EnumProperty<ChestType> CHEST_TYPE;
     public static final BooleanProperty WATERLOGGED;
 
@@ -61,7 +60,7 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
     };
 
     public MythicChestBlock(String name, Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, int inventorySize) {
-        super(settings, supplier);
+        super(supplier, settings);
         this.size = inventorySize;
         this.name = name;
     }
@@ -84,7 +83,6 @@ public class MythicChestBlock extends ChestBlock implements Waterloggable {
         return new MythicChestBlockEntity(pos, state);
     }
 
-    @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return world.isClient ? validateTicker(type, MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, MythicChestBlockEntity::clientTick) : null;

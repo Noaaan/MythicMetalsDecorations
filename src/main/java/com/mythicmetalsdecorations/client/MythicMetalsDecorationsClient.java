@@ -1,9 +1,15 @@
 package com.mythicmetalsdecorations.client;
 
+import com.mythicmetals.MythicMetals;
+import com.mythicmetalsdecorations.MythicDecorations;
+import com.mythicmetalsdecorations.MythicMetalsDecorations;
+import com.mythicmetalsdecorations.blocks.MythicDecorationSet;
+import com.mythicmetalsdecorations.blocks.chest.*;
+import com.mythicmetalsdecorations.screen.MythicChestScreen;
+import com.mythicmetalsdecorations.utils.RegHelper;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -12,16 +18,6 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.item.BlockItem;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import com.mythicmetals.MythicMetals;
-import com.mythicmetalsdecorations.MythicMetalsDecorations;
-import com.mythicmetalsdecorations.blocks.MythicDecorationSet;
-import com.mythicmetalsdecorations.MythicDecorations;
-import com.mythicmetalsdecorations.blocks.chest.ChestTextureLayers;
-import com.mythicmetalsdecorations.blocks.chest.MythicChestBlock;
-import com.mythicmetalsdecorations.blocks.chest.MythicChestBlockEntityRenderer;
-import com.mythicmetalsdecorations.blocks.chest.MythicChests;
-import com.mythicmetalsdecorations.screen.MythicChestScreen;
-import com.mythicmetalsdecorations.utils.RegHelper;
 
 public class MythicMetalsDecorationsClient implements ClientModInitializer {
 
@@ -81,11 +77,11 @@ public class MythicMetalsDecorationsClient implements ClientModInitializer {
             ChestTextureLayers.modelList.add(left);
             ChestTextureLayers.modelList.add(right);
 
-            ChestTextureLayers.chestSpriteMap.put(name + ChestType.SINGLE.name(), RegHelper.chestSprite(single.getId()));
-            ChestTextureLayers.chestSpriteMap.put(name + ChestType.LEFT.name(), RegHelper.chestSprite(left.getId()));
-            ChestTextureLayers.chestSpriteMap.put(name + ChestType.RIGHT.name(), RegHelper.chestSprite(right.getId()));
+            ChestTextureLayers.chestSpriteMap.put(name + ChestType.SINGLE.name(), RegHelper.chestSprite(single.id()));
+            ChestTextureLayers.chestSpriteMap.put(name + ChestType.LEFT.name(), RegHelper.chestSprite(left.id()));
+            ChestTextureLayers.chestSpriteMap.put(name + ChestType.RIGHT.name(), RegHelper.chestSprite(right.id()));
 
-            BuiltinItemRendererRegistry.INSTANCE.register(mythicChestBlock, new MythicChestBlockEntityRenderer.ChestItemRenderer());
+//            BuiltinItemRendererRegistry.INSTANCE.register(mythicChestBlock, new MythicChestBlockEntityRenderer.ChestItemRenderer());
 
         });
 

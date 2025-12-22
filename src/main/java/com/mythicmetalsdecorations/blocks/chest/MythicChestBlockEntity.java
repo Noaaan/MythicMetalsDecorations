@@ -109,7 +109,7 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements LidOpena
 
     @Override
     public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup lookup) {
-        this.lock = ContainerLock.fromNbt(nbt);
+        this.lock = ContainerLock.fromNbt(nbt, lookup);
 
         if (!this.readLootTable(nbt)) {
             this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
@@ -119,7 +119,7 @@ public class MythicChestBlockEntity extends ChestBlockEntity implements LidOpena
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup lookup) {
-        this.lock.writeNbt(nbt);
+        this.lock.writeNbt(nbt, lookup);
 
         if (!this.readLootTable(nbt)) {
             Inventories.writeNbt(nbt, this.inventory, lookup);

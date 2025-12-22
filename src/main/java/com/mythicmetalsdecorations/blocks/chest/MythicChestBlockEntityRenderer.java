@@ -1,6 +1,5 @@
 package com.mythicmetalsdecorations.blocks.chest;
 
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.block.AbstractChestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -15,7 +14,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
@@ -102,7 +100,8 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
 
             boolean isDoubleChest = chestType != ChestType.SINGLE;
             matrices.push();
-            float f = blockState.get(MythicChestBlock.FACING).asRotation();
+            // TODO - Review
+            float f = blockState.get(MythicChestBlock.FACING).getHorizontalQuarterTurns();
             matrices.translate(0.5, 0.5, 0.5);
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-f));
             matrices.translate(-0.5, -0.5, -0.5);
@@ -150,28 +149,29 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
         base.render(matrices, vertices, light, overlay);
     }
 
-    /**
-     * An inner class that contains an item renderer for the chests
-     * This class initializes a Chest to ChestBE map when loaded from the chest blocks in {@link MythicDecorationSet#CHEST_MAP}
-     */
-    public static class ChestItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
-        private final Map<Block, MythicChestBlockEntity> betterchestEntityMap = new HashMap<>();
-
-        public ChestItemRenderer() {
-            MythicDecorationSet.CHEST_MAP.forEach((s, mythicChestBlock) ->
-                    betterchestEntityMap.put(mythicChestBlock,
-                            new MythicChestBlockEntity(
-                                    BlockPos.ORIGIN,
-                                    mythicChestBlock.getDefaultState()
-                            )));
-        }
-
-        /**
-         * Used to render the MythicChestBlockEntity on the BlockItem
-         */
-        public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-            MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(betterchestEntityMap.get(((BlockItem) stack.getItem()).getBlock()), matrices, vertexConsumers, light, overlay);
-        }
-    }
+    // FIXME
+//    /**
+//     * An inner class that contains an item renderer for the chests
+//     * This class initializes a Chest to ChestBE map when loaded from the chest blocks in {@link MythicDecorationSet#CHEST_MAP}
+//     */
+//    public static class ChestItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
+//        private final Map<Block, MythicChestBlockEntity> betterchestEntityMap = new HashMap<>();
+//
+//        public ChestItemRenderer() {
+//            MythicDecorationSet.CHEST_MAP.forEach((s, mythicChestBlock) ->
+//                    betterchestEntityMap.put(mythicChestBlock,
+//                            new MythicChestBlockEntity(
+//                                    BlockPos.ORIGIN,
+//                                    mythicChestBlock.getDefaultState()
+//                            )));
+//        }
+//
+//        /**
+//         * Used to render the MythicChestBlockEntity on the BlockItem
+//         */
+//        public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+//            MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(betterchestEntityMap.get(((BlockItem) stack.getItem()).getBlock()), matrices, vertexConsumers, light, overlay);
+//        }
+//    }
 
 }
