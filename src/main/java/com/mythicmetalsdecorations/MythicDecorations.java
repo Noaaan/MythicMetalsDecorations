@@ -57,8 +57,8 @@ public class MythicDecorations {
             .finish();
 
     // TODO - Consider refactoring this
-    public static final Block HYDRARGYM_BLOCK = new Block(AbstractBlock.Settings.copy(MythicBlocks.MYTHRIL.getStorageBlock()));
-    public static final Item HYDRARGYM_NUGGET = new Item(new Item.Settings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2));
+    public static final Block HYDRARGYM_BLOCK = new Block(AbstractBlock.Settings.copy(MythicBlocks.MYTHRIL.getStorageBlock()).registryKey(RegHelper.blockKey("hydrargym_block")));
+    public static final Item HYDRARGYM_NUGGET = new Item(new Item.Settings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2).registryKey(RegHelper.itemKey("hydrargym_nugget")));
     public static final MythicDecorationSet HALLOWED = MythicDecorationSet.Builder.begin("hallowed", false)
             .createDefaultSet(6.0F, DIAMOND_MINING_LEVEL, 162)
             .createCrown(MythicDecorationsCrownMaterials.HALLOWED, settings -> {

@@ -1,6 +1,9 @@
 package com.mythicmetalsdecorations.screen;
 
+import com.mythicmetalsdecorations.MythicMetalsDecorations;
+import com.mythicmetalsdecorations.utils.RegHelper;
 import io.wispforest.owo.mixin.ui.SlotAccessor;
+import io.wispforest.owo.ui.core.OwoUIRenderLayers;
 import io.wispforest.owo.util.pond.OwoSlotExtension;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -9,8 +12,6 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import com.mythicmetalsdecorations.MythicMetalsDecorations;
-import com.mythicmetalsdecorations.utils.RegHelper;
 
 public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
 
@@ -36,8 +37,8 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
         this.playerInventoryTitleY = this.backgroundHeight - 94;
 
         this.maxScroll = this.size.hasExtraRow()
-                ? (this.handler.inventorySize() - this.size.rows() * this.size.columns()) / this.size.columns() + 1
-                : (this.handler.inventorySize() - this.size.rows() * this.size.columns()) / this.size.columns();
+            ? (this.handler.inventorySize() - this.size.rows() * this.size.columns()) / this.size.columns() + 1
+            : (this.handler.inventorySize() - this.size.rows() * this.size.columns()) / this.size.columns();
         this.scrollOffset = MathHelper.clamp(this.scrollOffset, 0, this.maxScroll);
 
         this.configureSlots(true);
@@ -120,40 +121,35 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
     @Override
     protected void drawBackground(DrawContext drawContext, float delta, int mouseX, int mouseY) {
         //super.renderBackground(drawContext, mouseX, mouseY, delta);
-
-        // FIXME
-        drawContext.drawTexture(TEXTURE, this.x, this.y, 0, 0, this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
-        drawContext.drawTexture(TEXTURE, this.x + this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.y, 331, 0, ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight(), 368, 416);
+        renderMarkiplier(drawContext, this.x, this.y, 0, 0, this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight());
+        renderMarkiplier(drawContext, this.x + this.size.width() + ChestScreenSize.HORIZONTAL_PADDING, this.y, 331, 0, ChestScreenSize.HORIZONTAL_PADDING, this.size.paddedHeight());
 
         int playerInventoryX = this.size.playerInventoryX();
-        drawContext.drawTexture(TEXTURE, this.x + playerInventoryX, this.y + this.size.paddedHeight(), 81, 287, 176, 97, 368, 416);
+        renderMarkiplier(drawContext, this.x + playerInventoryX, this.y + this.size.paddedHeight(), 81, 287, 176, 97);
 
         if (this.size.columns() > 9) {
-            drawContext.drawTexture(TEXTURE, this.x, this.y + this.size.paddedHeight(), 0, 384, playerInventoryX, 17, 368, 416);
-            drawContext.drawTexture(TEXTURE, this.x + playerInventoryX, this.y + this.size.paddedHeight(), 81, 384, 3, 17, 368, 416);
+            renderMarkiplier(drawContext, this.x, this.y + this.size.paddedHeight(), 0, 384, playerInventoryX, 17);
+            renderMarkiplier(drawContext, this.x + playerInventoryX, this.y + this.size.paddedHeight(), 81, 384, 3, 17);
 
-            drawContext.drawTexture(TEXTURE, this.x + playerInventoryX + 176, this.y + this.size.paddedHeight(), 257 + 81 - playerInventoryX, 384, playerInventoryX, 17, 368, 416);
-            drawContext.drawTexture(TEXTURE, this.x + playerInventoryX + 176 - 3, this.y + this.size.paddedHeight(), 254, 384, 3, 17, 368, 416);
+            renderMarkiplier(drawContext, this.x + playerInventoryX + 176, this.y + this.size.paddedHeight(), 257 + 81 - playerInventoryX, 384, playerInventoryX, 17);
+            renderMarkiplier(drawContext, this.x + playerInventoryX + 176 - 3, this.y + this.size.paddedHeight(), 254, 384, 3, 17);
         }
 
         if (this.scrollOffset == this.maxScroll && (this.size.hasExtraRow() || this.size.rows() * this.size.columns() > this.handler.inventorySize())) {
             var finalRowSlots = this.size.hasExtraRow() ? this.size.extraRowSlots() : (this.handler.inventorySize()) % this.size.columns();
-            drawContext.drawTexture(TEXTURE,
-                    this.x + ChestScreenSize.HORIZONTAL_PADDING + finalRowSlots * 18, this.y + this.size.paddedHeight() - 18,
-                    this.size.width() - (finalRowSlots * 18), 18,
-                    339, 287, 14, 14,
-                    368, 416
+            renderFnafParody(drawContext, this.x + ChestScreenSize.HORIZONTAL_PADDING + finalRowSlots * 18, this.y + this.size.paddedHeight() - 18,
+                this.size.width() - (finalRowSlots * 18), 18
             );
         }
 
         if (this.size.needsScrolling()) {
-            drawContext.drawTexture(TEXTURE, this.x + this.size.paddedWidth() - 4, this.y, 338, 0, 22, this.size.paddedHeight(), 368, 416);
+            renderMarkiplier(drawContext, this.x + this.size.paddedWidth() - 4, this.y, 338, 0, 22, this.size.paddedHeight());
             if (this.size.columns() > 9) {
-                drawContext.drawTexture(TEXTURE, this.x + this.size.paddedWidth() - 4, this.y + size.paddedHeight() - 1, 338, 286, 22, 18, 368, 416);
-                drawContext.drawTexture(TEXTURE, this.x + this.size.paddedWidth() - 2, this.y + 18 + this.scrollOffset * (this.size.paddedHeight() - 34) / this.maxScroll, 338, 322, 12, 15, 368, 416);
+                renderMarkiplier(drawContext, this.x + this.size.paddedWidth() - 4, this.y + size.paddedHeight() - 1, 338, 286, 22, 18);
+                renderMarkiplier(drawContext, this.x + this.size.paddedWidth() - 2, this.y + 18 + this.scrollOffset * (this.size.paddedHeight() - 34) / this.maxScroll, 338, 322, 12, 15);
             } else {
-                drawContext.drawTexture(TEXTURE, this.x + this.size.paddedWidth() - 4, this.y + size.paddedHeight() - 18, 338, 304, 22, 18, 368, 416);
-                drawContext.drawTexture(TEXTURE, this.x + this.size.paddedWidth() - 2, this.y + 18 + this.scrollOffset * (this.size.paddedHeight() - 51) / this.maxScroll, 338, 322, 12, 15, 368, 416);
+                renderMarkiplier(drawContext, this.x + this.size.paddedWidth() - 4, this.y + size.paddedHeight() - 18, 338, 304, 22, 18);
+                renderMarkiplier(drawContext, this.x + this.size.paddedWidth() - 2, this.y + 18 + this.scrollOffset * (this.size.paddedHeight() - 51) / this.maxScroll, 338, 322, 12, 15);
             }
         }
     }
@@ -180,6 +176,38 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
         }
     }
 
+    // TODO - Rename, improve, and does it blend?
+    private void renderMarkiplier(DrawContext drawContext, int x, int y, int u, int v, int width, int height) {
+        drawContext.drawTexture(
+            identifier -> OwoUIRenderLayers.getGuiTextured(identifier, false),
+            TEXTURE,
+            x,
+            y,
+            u,
+            v,
+            width,
+            height,
+            368,
+            416
+        );
+    }
+    private void renderFnafParody(DrawContext drawContext, int x, int y, int u, int v) {
+        drawContext.drawTexture(
+            identifier -> OwoUIRenderLayers.getGuiTextured(identifier, false),
+            TEXTURE,
+            x,
+            y,
+            u,
+            v,
+            339,
+            287,
+            14,
+            14,
+            368,
+            416
+        );
+    }
+
     private void scrollTo(double mouseY) {
         double scrollbarTop = this.y + ChestScreenSize.TOP_PADDING + 1;
         double scrollbarBottom = this.size.rows() * 18 + (this.size.columns() > 9 ? 17 : 0);
@@ -189,9 +217,9 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
 
     private boolean isInScrollbar(double mouseX, double mouseY) {
         return mouseX >= this.x + this.size.paddedWidth() - 2
-                && mouseX <= this.x + this.size.paddedWidth() + 10
-                && mouseY >= this.y + ChestScreenSize.TOP_PADDING + 1
-                && mouseY <= this.y + ChestScreenSize.TOP_PADDING + 1 + this.size.rows() * 18 + (this.size.columns() > 9 ? 17 : 0);
+            && mouseX <= this.x + this.size.paddedWidth() + 10
+            && mouseY >= this.y + ChestScreenSize.TOP_PADDING + 1
+            && mouseY <= this.y + ChestScreenSize.TOP_PADDING + 1 + this.size.rows() * 18 + (this.size.columns() > 9 ? 17 : 0);
     }
 
     @Override

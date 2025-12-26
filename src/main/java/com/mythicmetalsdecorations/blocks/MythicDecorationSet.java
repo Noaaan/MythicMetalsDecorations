@@ -175,8 +175,9 @@ public class MythicDecorationSet {
          * @param resistance Determines blast resistance of a block.
          * @param sounds     Determines the sounds that blocks play when interacted with.
          */
-        private static AbstractBlock.Settings blockSettings(float hardness, float resistance, BlockSoundGroup sounds) {
+        private static AbstractBlock.Settings blockSettings(String blockKey, float hardness, float resistance, BlockSoundGroup sounds) {
             return AbstractBlock.Settings.create()
+                    .registryKey(RegHelper.blockKey(blockKey))
                     .strength(hardness, resistance)
                     .sounds(sounds)
                     .requiresTool();
@@ -246,7 +247,7 @@ public class MythicDecorationSet {
          * @see Builder
          */
         public Builder createChain(Identifier miningLevel) {
-            final var settings = blockSettings(currentHardness, currentResistance, BlockSoundGroup.CHAIN);
+            final var settings = blockSettings(this.name + "_chain", currentHardness, currentResistance, BlockSoundGroup.CHAIN);
             settingsProcessor.accept(settings);
             this.chain = new ChainBlock(settings);
             miningLevels.put(chain, miningLevel);
@@ -262,7 +263,7 @@ public class MythicDecorationSet {
          * @see Builder
          */
         public Builder createChest(int slots, Identifier miningLevel) {
-            final var settings = blockSettings(currentHardness, currentResistance, BlockSoundGroup.METAL);
+            final var settings = blockSettings(this.name + "_chest", currentHardness, currentResistance, BlockSoundGroup.METAL);
             settingsProcessor.accept(settings);
             this.chest = new MythicChestBlock(this.name, settings, () -> MythicChests.MYTHIC_CHEST_BLOCK_ENTITY_TYPE, slots);
             miningLevels.put(chest, miningLevel);
@@ -289,11 +290,15 @@ public class MythicDecorationSet {
          * @see Builder
          */
         public Builder createCrown(ArmorMaterial material, int maxDamage, boolean fireproof) {
+            var settings = new Item.Settings()
+                .registryKey(RegHelper.itemKey(this.name + "_crown"))
+                .maxDamage(maxDamage)
+                .group(MythicMetalsDecorations.MYTHICMETALS_DECOR)
+                .tab(2);
             if (fireproof) {
-                this.crown = new ArmorItem(material, EquipmentType.HELMET, new Item.Settings().maxDamage(maxDamage).group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2).fireproof());
-            } else {
-                this.crown = new ArmorItem(material, EquipmentType.HELMET, new Item.Settings().maxDamage(maxDamage).group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2));
+                settings = settings.fireproof();
             }
+            this.crown = new ArmorItem(material, EquipmentType.HELMET, settings);
             return this;
         }
 
@@ -306,7 +311,10 @@ public class MythicDecorationSet {
          * @see Builder
          */
         public Builder createCrown(ArmorMaterial material, Consumer<Item.Settings> settingsProcessor) {
-            var settings = new Item.Settings().group(MythicMetalsDecorations.MYTHICMETALS_DECOR).tab(2);
+            var settings = new Item.Settings()
+                .registryKey(RegHelper.itemKey(this.name + "_crown"))
+                .group(MythicMetalsDecorations.MYTHICMETALS_DECOR)
+                .tab(2);
             settingsProcessor.accept(settings);
             this.crown = new ArmorItem(material, EquipmentType.HELMET, settings);
             return this;

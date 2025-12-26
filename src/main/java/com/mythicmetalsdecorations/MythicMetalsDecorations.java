@@ -4,7 +4,6 @@ import io.wispforest.endec.Endec;
 import io.wispforest.owo.itemgroup.Icon;
 import io.wispforest.owo.itemgroup.OwoItemGroup;
 import io.wispforest.owo.itemgroup.gui.ItemGroupButton;
-import io.wispforest.owo.registration.reflect.FieldRegistrationHandler;
 import io.wispforest.owo.serialization.CodecUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
@@ -42,7 +41,7 @@ public class MythicMetalsDecorations implements ModInitializer {
 
     public static final ScreenHandlerType<MythicChestScreenHandler> MYTHIC_CHEST_SCREEN_HANDLER_TYPE = new ExtendedScreenHandlerType<>(MythicChestScreenHandler::new, CodecUtils.toPacketCodec(Endec.INT));
 
-    public static final Item CROWN_CHISEL = new Item(new Item.Settings().group(MYTHICMETALS_DECOR).tab(2));
+    public static final Item CROWN_CHISEL = new Item(new Item.Settings().registryKey(RegHelper.itemKey("crown_chisel")).group(MYTHICMETALS_DECOR).tab(2));
 
     @Override
     public void onInitialize() {
