@@ -17,7 +17,7 @@ public class MythicDecorationsArmorMaterials {
         EquipmentType.HELMET, 3,
         EquipmentType.CHESTPLATE, 8,
         EquipmentType.LEGGINGS, 6,
-        EquipmentType.BOOTS, 3), 22, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 2, 0, decoRepairTag("hydrargym"), RegHelper.equipmentAsset("hydrargym_crown"));
+        EquipmentType.BOOTS, 3), 22, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 2, 0, decoRepairTag("hydrargym"), RegHelper.equipmentAsset("hydrargym"));
     public static final ArmorMaterial MANGANESE = new ArmorMaterial(15, Map.of(
         EquipmentType.HELMET, 2,
         EquipmentType.CHESTPLATE, 5,
@@ -27,7 +27,7 @@ public class MythicDecorationsArmorMaterials {
         EquipmentType.HELMET, 2,
         EquipmentType.CHESTPLATE, 6,
         EquipmentType.LEGGINGS, 5,
-    EquipmentType.BOOTS, 2), 13, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0, 0, repairTag("platinum"), RegHelper.equipmentAsset("platinum_crown"));
+    EquipmentType.BOOTS, 2), 13, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0, 0, repairTag("platinum"), RegHelper.equipmentAsset("platinum"));
 
     private static TagKey<Item> repairTag(String material) {
         return TagKey.of(RegistryKeys.ITEM, RegistryHelper.id("ingots/" + material));

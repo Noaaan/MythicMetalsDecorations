@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "mythicmetals_decorations:hydrargym"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "mythicmetals_decorations:hydrargym"
+      }
+    ]
+  }
+}
