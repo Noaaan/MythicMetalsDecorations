@@ -2,10 +2,12 @@
   "type": "alloy_forgery:forging",
   "inputs": [
     {
-      "tag": "c:ingots/silver"
+      "ingredient": "#mythicmetals:ingots/silver",
+      "count": 1
     },
     {
-      "tag": "c:ingots/mythril"
+      "ingredient": "#mythicmetals:ingots/mythril",
+      "count": 1
     }
   ],
   "output": {

@@ -2,10 +2,12 @@
   "type": "alloy_forgery:forging",
   "inputs": [
     {
-      "tag": "mythicmetals:raw_materials/silver"
+      "ingredient": "#mythicmetals:raw_materials/silver",
+      "count": 1
     },
     {
-      "tag": "mythicmetals:raw_materials/mythril"
+      "ingredient": "#mythicmetals:raw_materials/mythril",
+      "count": 1
     }
   ],
   "output": {

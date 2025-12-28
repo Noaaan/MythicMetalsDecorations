@@ -2,10 +2,12 @@
   "type": "alloy_forgery:forging",
   "inputs": [
     {
-      "tag": "mythicmetals:ores/silver"
+      "ingredient": "#mythicmetals:ores/silver",
+      "count": 1
     },
     {
-      "tag": "mythicmetals:ores/mythril"
+      "ingredient": "#mythicmetals:ores/mythril",
+      "count": 1
     }
   ],
   "output": {
