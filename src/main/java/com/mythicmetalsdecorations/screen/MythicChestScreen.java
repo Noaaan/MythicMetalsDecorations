@@ -181,30 +181,21 @@ public class MythicChestScreen extends HandledScreen<MythicChestScreenHandler> {
         drawContext.drawTexture(
             identifier -> OwoUIRenderLayers.getGuiTextured(identifier, false),
             TEXTURE,
-            x,
-            y,
-            u,
-            v,
-            width,
-            height,
-            368,
-            416
+            x, y,
+            u, v,
+            width, height,
+            368, 416
         );
     }
     private void renderFnafParody(DrawContext drawContext, int x, int y, int u, int v) {
         drawContext.drawTexture(
             identifier -> OwoUIRenderLayers.getGuiTextured(identifier, false),
             TEXTURE,
-            x,
-            y,
-            u,
-            v,
-            339,
-            287,
-            14,
-            14,
-            368,
-            416
+            x, y,
+            u, v,
+            339, 287,
+            14, 14,
+            368, 416
         );
     }
 

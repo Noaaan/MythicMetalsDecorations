@@ -1,32 +1,17 @@
 package com.mythicmetalsdecorations.blocks.chest;
 
-import net.minecraft.block.AbstractChestBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.DoubleBlockProperties;
+import com.mythicmetalsdecorations.MythicDecorations;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.ChestType;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
+import net.minecraft.client.render.*;
+import net.minecraft.client.render.block.entity.*;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
-import com.mythicmetalsdecorations.blocks.MythicDecorationSet;
-import com.mythicmetalsdecorations.MythicDecorations;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Mostly a Vanilla Copy, but with changes to fit my rendering
@@ -100,8 +85,7 @@ public class MythicChestBlockEntityRenderer implements BlockEntityRenderer<Mythi
 
             boolean isDoubleChest = chestType != ChestType.SINGLE;
             matrices.push();
-            // TODO - Review
-            float f = blockState.get(MythicChestBlock.FACING).getHorizontalQuarterTurns();
+            float f = blockState.get(MythicChestBlock.FACING).getPositiveHorizontalDegrees();
             matrices.translate(0.5, 0.5, 0.5);
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-f));
             matrices.translate(-0.5, -0.5, -0.5);
