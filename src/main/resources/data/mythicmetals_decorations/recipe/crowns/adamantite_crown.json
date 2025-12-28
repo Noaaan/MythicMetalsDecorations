@@ -1,12 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "mythicmetals:adamantite_helmet"
-    },
-    {
-      "item": "mythicmetals_decorations:crown_chisel"
-    }
+    "mythicmetals:adamantite_helmet",
+    "mythicmetals_decorations:crown_chisel"
   ],
   "result": {
     "id": "mythicmetals_decorations:adamantite_crown",

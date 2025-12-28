@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:aquarium_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:aquarium_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:aquarium_chest",

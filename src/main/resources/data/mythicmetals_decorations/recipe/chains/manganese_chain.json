@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:manganese_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:manganese_ingot"
-    }
+    "#": "mythicmetals:manganese_nugget",
+    "R": "mythicmetals:manganese_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:manganese_chain",

@@ -5,12 +5,8 @@
     "mcm"
   ],
   "key": {
-    "m": {
-      "item": "mythicmetals:platinum_ingot"
-    },
-    "c": {
-      "item": "mythicmetals_decorations:crown_chisel"
-    }
+    "m": "mythicmetals:platinum_ingot",
+    "c": "mythicmetals_decorations:crown_chisel"
   },
   "result": {
     "id": "mythicmetals_decorations:platinum_crown",

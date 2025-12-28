@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:osmium_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:osmium_ingot"
-    }
+    "#": "mythicmetals:osmium_nugget",
+    "R": "mythicmetals:osmium_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:osmium_chain",

@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:orichalcum_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:orichalcum_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:orichalcum_chest",

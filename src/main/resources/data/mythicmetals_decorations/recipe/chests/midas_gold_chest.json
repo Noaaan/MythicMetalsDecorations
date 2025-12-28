@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:midas_gold_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:midas_gold_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:midas_gold_chest",

@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals_decorations:hydrargym_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals_decorations:hydrargym_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:hydrargym_chest",

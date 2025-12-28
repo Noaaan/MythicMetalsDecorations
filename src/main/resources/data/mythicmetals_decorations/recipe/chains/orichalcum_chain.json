@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:orichalcum_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:orichalcum_ingot"
-    }
+    "#": "mythicmetals:orichalcum_nugget",
+    "R": "mythicmetals:orichalcum_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:orichalcum_chain",

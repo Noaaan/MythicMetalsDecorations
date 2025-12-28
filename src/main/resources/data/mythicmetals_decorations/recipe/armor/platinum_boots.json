@@ -5,9 +5,7 @@
     "m m"
   ],
   "key": {
-    "m": {
-      "item": "mythicmetals:platinum_ingot"
-    }
+    "m": "mythicmetals:platinum_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:platinum_boots",

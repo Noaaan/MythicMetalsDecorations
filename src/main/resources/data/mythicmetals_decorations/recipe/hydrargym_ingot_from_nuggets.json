@@ -6,9 +6,7 @@
     "mmm"
   ],
   "key": {
-    "m": {
-      "item": "mythicmetals_decorations:hydrargym_nugget"
-    }
+    "m": "mythicmetals_decorations:hydrargym_nugget"
   },
   "result": {
     "id": "mythicmetals_decorations:hydrargym_ingot",

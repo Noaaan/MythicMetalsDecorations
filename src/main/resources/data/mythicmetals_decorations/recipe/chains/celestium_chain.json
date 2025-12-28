@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:celestium_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:celestium_ingot"
-    }
+    "#": "mythicmetals:celestium_nugget",
+    "R": "mythicmetals:celestium_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:celestium_chain",

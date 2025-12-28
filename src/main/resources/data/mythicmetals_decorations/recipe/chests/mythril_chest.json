@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:mythril_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:mythril_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:mythril_chest",

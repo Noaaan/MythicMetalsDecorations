@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:adamantite_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:adamantite_ingot"
-    }
+    "#": "mythicmetals:adamantite_nugget",
+    "R": "mythicmetals:adamantite_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:adamantite_chain",

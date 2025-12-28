@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:osmium_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:osmium_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:osmium_chest",

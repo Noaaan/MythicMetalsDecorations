@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:silver_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:silver_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:silver_chest",

@@ -1,12 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "mythicmetals:orichalcum_helmet"
-    },
-    {
-      "item": "mythicmetals_decorations:crown_chisel"
-    }
+    "mythicmetals:orichalcum_helmet",
+    "mythicmetals_decorations:crown_chisel"
   ],
   "result": {
     "id": "mythicmetals_decorations:orichalcum_crown",

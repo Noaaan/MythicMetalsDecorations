@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:platinum_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:platinum_ingot"
-    }
+    "#": "mythicmetals:platinum_nugget",
+    "R": "mythicmetals:platinum_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:platinum_chain",

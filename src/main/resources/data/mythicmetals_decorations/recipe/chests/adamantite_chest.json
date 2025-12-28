@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:adamantite_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:adamantite_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:adamantite_chest",

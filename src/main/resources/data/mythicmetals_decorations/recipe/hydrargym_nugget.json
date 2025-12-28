@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "mythicmetals_decorations:hydrargym_ingot"
-    }
+    "mythicmetals_decorations:hydrargym_ingot"
   ],
   "result": {
     "id": "mythicmetals_decorations:hydrargym_nugget",

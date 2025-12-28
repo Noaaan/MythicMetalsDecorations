@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:silver_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:silver_ingot"
-    }
+    "#": "mythicmetals:silver_nugget",
+    "R": "mythicmetals:silver_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:silver_chain",

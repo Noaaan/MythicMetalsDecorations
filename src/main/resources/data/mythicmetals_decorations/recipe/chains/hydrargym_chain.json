@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals_decorations:hydrargym_nugget"
-    },
-    "R": {
-      "item": "mythicmetals_decorations:hydrargym_ingot"
-    }
+    "#": "mythicmetals_decorations:hydrargym_nugget",
+    "R": "mythicmetals_decorations:hydrargym_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:hydrargym_chain",

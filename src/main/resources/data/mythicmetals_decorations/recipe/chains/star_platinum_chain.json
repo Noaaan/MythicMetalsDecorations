@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:star_platinum_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:star_platinum"
-    }
+    "#": "mythicmetals:star_platinum_nugget",
+    "R": "mythicmetals:star_platinum"
   },
   "result": {
     "id": "mythicmetals_decorations:star_platinum_chain",

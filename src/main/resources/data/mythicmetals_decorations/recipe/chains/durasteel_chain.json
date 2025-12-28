@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:durasteel_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:durasteel_ingot"
-    }
+    "#": "mythicmetals:durasteel_nugget",
+    "R": "mythicmetals:durasteel_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:durasteel_chain",

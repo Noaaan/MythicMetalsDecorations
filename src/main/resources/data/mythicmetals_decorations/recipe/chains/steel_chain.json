@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:steel_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:steel_ingot"
-    }
+    "#": "mythicmetals:steel_nugget",
+    "R": "mythicmetals:steel_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:steel_chain",

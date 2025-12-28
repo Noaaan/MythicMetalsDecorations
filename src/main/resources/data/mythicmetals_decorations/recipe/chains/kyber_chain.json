@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:kyber_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:kyber_ingot"
-    }
+    "#": "mythicmetals:kyber_nugget",
+    "R": "mythicmetals:kyber_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:kyber_chain",

@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:quadrillum_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:quadrillum_ingot"
-    }
+    "#": "mythicmetals:quadrillum_nugget",
+    "R": "mythicmetals:quadrillum_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:quadrillum_chain",

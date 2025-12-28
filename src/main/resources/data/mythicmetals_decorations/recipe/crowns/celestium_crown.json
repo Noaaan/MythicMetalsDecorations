@@ -1,12 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "mythicmetals:celestium_helmet"
-    },
-    {
-      "item": "mythicmetals_decorations:crown_chisel"
-    }
+    "mythicmetals:celestium_helmet",
+    "mythicmetals_decorations:crown_chisel"
   ],
   "result": {
     "id": "mythicmetals_decorations:celestium_crown",

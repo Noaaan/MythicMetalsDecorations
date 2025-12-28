@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:celestium_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:celestium_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:celestium_chest",

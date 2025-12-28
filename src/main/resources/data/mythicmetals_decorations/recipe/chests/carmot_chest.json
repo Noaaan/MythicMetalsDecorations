@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:carmot_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:carmot_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:carmot_chest",

@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:kyber_ingot"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:kyber_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:kyber_chest",

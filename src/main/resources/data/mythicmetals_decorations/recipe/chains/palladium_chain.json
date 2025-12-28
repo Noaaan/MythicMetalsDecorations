@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:palladium_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:palladium_ingot"
-    }
+    "#": "mythicmetals:palladium_nugget",
+    "R": "mythicmetals:palladium_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:palladium_chain",

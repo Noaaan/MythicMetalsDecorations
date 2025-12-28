@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:prometheum_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:prometheum_ingot"
-    }
+    "#": "mythicmetals:prometheum_nugget",
+    "R": "mythicmetals:prometheum_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:prometheum_chain",

@@ -1,12 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "mythicmetals:carmot_helmet"
-    },
-    {
-      "item": "mythicmetals_decorations:crown_chisel"
-    }
+    "mythicmetals:carmot_helmet",
+    "mythicmetals_decorations:crown_chisel"
   ],
   "result": {
     "id": "mythicmetals_decorations:carmot_crown",

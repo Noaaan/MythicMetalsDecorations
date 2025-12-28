@@ -1,12 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "mythicmetals:durasteel_helmet"
-    },
-    {
-      "item": "mythicmetals_decorations:crown_chisel"
-    }
+    "mythicmetals:durasteel_helmet"
   ],
   "result": {
     "id": "mythicmetals_decorations:durasteel_crown",

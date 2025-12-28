@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "C": {
-      "tag": "c:chests/wooden"
-    },
-    "#": {
-      "item": "mythicmetals:star_platinum"
-    }
+    "C": "#c:chests/wooden",
+    "#": "mythicmetals:star_platinum"
   },
   "result": {
     "id": "mythicmetals_decorations:star_platinum_chest",

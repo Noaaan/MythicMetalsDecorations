@@ -6,12 +6,8 @@
     "s  "
   ],
   "key": {
-    "q": {
-      "item": "mythicmetals:quadrillum_nugget"
-    },
-    "s": {
-      "item": "minecraft:stick"
-    }
+    "q": "mythicmetals:quadrillum_nugget",
+    "s": "minecraft:stick"
   },
   "result": {
     "id": "mythicmetals_decorations:crown_chisel",

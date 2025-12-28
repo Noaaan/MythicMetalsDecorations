@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:banglum_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:banglum_ingot"
-    }
+    "#": "mythicmetals:banglum_nugget",
+    "R": "mythicmetals:banglum_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:banglum_chain",

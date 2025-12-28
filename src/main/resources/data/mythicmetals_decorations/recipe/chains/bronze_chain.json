@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:bronze_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:bronze_ingot"
-    }
+    "#": "mythicmetals:bronze_nugget",
+    "R": "mythicmetals:bronze_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:bronze_chain",

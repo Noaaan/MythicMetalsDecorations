@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "mythicmetals:stormyx_nugget"
-    },
-    "R": {
-      "item": "mythicmetals:stormyx_ingot"
-    }
+    "#": "mythicmetals:stormyx_nugget",
+    "R": "mythicmetals:stormyx_ingot"
   },
   "result": {
     "id": "mythicmetals_decorations:stormyx_chain",

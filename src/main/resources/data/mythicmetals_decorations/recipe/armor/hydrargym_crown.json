@@ -5,12 +5,8 @@
     "mcm"
   ],
   "key": {
-    "m": {
-      "item": "mythicmetals_decorations:hydrargym_ingot"
-    },
-    "c": {
-      "item": "mythicmetals_decorations:crown_chisel"
-    }
+    "m": "mythicmetals_decorations:hydrargym_ingot",
+    "c": "mythicmetals_decorations:crown_chisel"
   },
   "result": {
     "id": "mythicmetals_decorations:hydrargym_crown",
