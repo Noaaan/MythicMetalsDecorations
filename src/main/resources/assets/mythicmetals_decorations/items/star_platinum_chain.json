@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model":  "mythicmetals_decorations:item/star_platinum_chain"
+    "model":  "mythicmetals_decorations:item/chain/star_platinum_chain"
   }
 }

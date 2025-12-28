@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model":  "mythicmetals_decorations:item/quadrillum_chain"
+    "model":  "mythicmetals_decorations:item/chain/quadrillum_chain"
   }
 }

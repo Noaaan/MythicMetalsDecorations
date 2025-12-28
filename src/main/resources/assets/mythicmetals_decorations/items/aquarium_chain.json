@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model":  "mythicmetals_decorations:item/aquarium_chain"
+    "model":  "mythicmetals_decorations:item/chain/aquarium_chain"
   }
 }
