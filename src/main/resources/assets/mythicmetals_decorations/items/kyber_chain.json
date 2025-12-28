@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model":  "mythicmetals_decorations:item/chain/kyber_chain"
+    "model":  "mythicmetals_decorations:item/kyber_chain"
   }
 }

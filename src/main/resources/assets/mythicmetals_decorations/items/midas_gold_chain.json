@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model":  "mythicmetals_decorations:item/chain/midas_gold_chain"
+    "model":  "mythicmetals_decorations:item/midas_gold_chain"
   }
 }
