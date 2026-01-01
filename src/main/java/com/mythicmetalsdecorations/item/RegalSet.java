@@ -1,16 +1,26 @@
 package com.mythicmetalsdecorations.item;
 
+import com.mythicmetals.AttributeModifier;
 import com.mythicmetals.armor.ArmorSet;
+import com.mythicmetalsdecorations.MythicMetalsDecorations;
 import com.mythicmetalsdecorations.utils.RegHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.*;
+import java.util.List;
 
 public class RegalSet extends ArmorSet {
 
     public RegalSet(String name, ArmorMaterial material) {
         super(name, material);
+    }
+
+    @Override
+    public Item.Settings baseArmorSettings(String name, ArmorMaterial material, EquipmentType equipmentType, List<AttributeModifier> extraModifiers) {
+        return super.baseArmorSettings(name, material, equipmentType, extraModifiers)
+            .group(MythicMetalsDecorations.MYTHICMETALS_DECOR)
+            .tab(2);
     }
 
     @Override
