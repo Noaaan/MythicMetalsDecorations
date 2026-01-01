@@ -2,23 +2,32 @@ package com.mythicmetalsdecorations.blocks;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import io.wispforest.owo.util.TagInjector;
-import net.minecraft.block.*;
-import net.minecraft.item.*;
-import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.registry.Registries;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
+import com.mythicmetals.AttributeModifier;
 import com.mythicmetalsdecorations.MythicDecorations;
 import com.mythicmetalsdecorations.MythicMetalsDecorations;
 import com.mythicmetalsdecorations.blocks.chest.MythicChestBlock;
 import com.mythicmetalsdecorations.blocks.chest.MythicChests;
 import com.mythicmetalsdecorations.item.RegalSet;
 import com.mythicmetalsdecorations.utils.RegHelper;
+import io.wispforest.owo.util.TagInjector;
+import net.minecraft.block.*;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.*;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.item.Item;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+
+import static net.minecraft.entity.attribute.EntityAttributeModifier.Operation.ADD_VALUE;
 
 /**
  * This class is a container which is used for the creation for all the decoration blocks.
@@ -31,7 +40,7 @@ public class MythicDecorationSet {
     private final ChainBlock chain;
     private final MythicChestBlock chest;
     private final RegalSet regalSet;
-    private final ArmorItem crown;
+    private final Item crown;
 
     private final String name;
     private final boolean fireproof;
@@ -47,7 +56,7 @@ public class MythicDecorationSet {
      * @param name         Common name for the entire set of blocks, applies to every block created.
      * @param chain        Contains a vanilla {@link ChainBlock}.
      * @param regalSet     Contains a {@link RegalSet}, a set consisting of armor items.
-     * @param crown        Contains a single {@link ArmorItem}, which is used for a crown (helmet).
+     * @param crown        Contains a single {@link Item}, which is used for a crown (helmet).
      * @param fireproof    Boolean for creating fireproof block sets.
      * @param miningLevels A map containing all the blocks being registered with their corresponding mining levels.
      */
@@ -55,7 +64,7 @@ public class MythicDecorationSet {
                                 ChainBlock chain,
                                 MythicChestBlock chest,
                                 RegalSet regalSet,
-                                ArmorItem crown,
+                                Item crown,
                                 boolean fireproof,
                                 Multimap<Block, Identifier> miningLevels) {
         this.name = name;
@@ -102,7 +111,7 @@ public class MythicDecorationSet {
         return chest;
     }
 
-    public ArmorItem getCrown() {
+    public Item getCrown() {
         return crown;
     }
 
@@ -141,7 +150,7 @@ public class MythicDecorationSet {
 
         private final Identifier PICKAXE = Identifier.of("mineable/pickaxe");
         private RegalSet regalSet = null;
-        private ArmorItem crown = null;
+        private Item crown = null;
 
         /**
          * @see #begin(String, boolean)
@@ -282,6 +291,14 @@ public class MythicDecorationSet {
             return this;
         }
 
+        public Builder createCrown(ArmorMaterial material, int maxDamage, boolean fireproof) {
+            return createCrown(material, maxDamage, fireproof, List.of());
+        }
+
+        public Builder createCrown(ArmorMaterial material, int maxDamage, boolean fireproof, List<AttributeModifier> extraAttributes) {
+            return createCrown(material, maxDamage, fireproof, Rarity.COMMON, extraAttributes);
+        }
+
         /**
          * Creates a custom crown item, which is just a fancy looking helmet
          *
@@ -289,35 +306,63 @@ public class MythicDecorationSet {
          * @param fireproof Whether the crown is fireproof
          * @see Builder
          */
-        public Builder createCrown(ArmorMaterial material, int maxDamage, boolean fireproof) {
+        public Builder createCrown(ArmorMaterial material, int maxDamage, boolean fireproof, Rarity rarity, List<AttributeModifier> extraAttributes) {
             var settings = new Item.Settings()
                 .registryKey(RegHelper.itemKey(this.name + "_crown"))
+                .attributeModifiers(createAttributeModifiers(this.name, material, EquipmentType.HELMET, extraAttributes))
+                .component(DataComponentTypes.EQUIPPABLE, EquippableComponent
+                    .builder(EquipmentSlot.HEAD)
+                    .model(material.assetId())
+                    .equipSound(material.equipSound())
+                    .build()
+                )
+                .rarity(rarity)
                 .maxDamage(maxDamage)
                 .group(MythicMetalsDecorations.MYTHICMETALS_DECOR)
                 .tab(2);
             if (fireproof) {
                 settings = settings.fireproof();
             }
-            this.crown = new ArmorItem(material, EquipmentType.HELMET, settings);
+            this.crown = new Item(settings);
             return this;
         }
 
-        /**
-         * Creates a custom crown item, which is just a fancy looking helmet
-         *
-         * @param material          The Armor Material used for the crown
-         * @param settingsProcessor A consumer that accepts customized {@link Item.Settings}, which can be used
-         *                          for configuring items further
-         * @see Builder
-         */
-        public Builder createCrown(ArmorMaterial material, Consumer<Item.Settings> settingsProcessor) {
-            var settings = new Item.Settings()
-                .registryKey(RegHelper.itemKey(this.name + "_crown"))
-                .group(MythicMetalsDecorations.MYTHICMETALS_DECOR)
-                .tab(2);
-            settingsProcessor.accept(settings);
-            this.crown = new ArmorItem(material, EquipmentType.HELMET, settings);
-            return this;
+        private static AttributeModifiersComponent createAttributeModifiers(String name, ArmorMaterial material, EquipmentType equipmentType, List<AttributeModifier> extraModifiers) {
+            int armor = material.defense().getOrDefault(equipmentType, 0);
+            double toughness = material.toughness();
+            double knockbackResistance = material.knockbackResistance();
+            var builder = AttributeModifiersComponent.builder();
+            var equipmentSlot = AttributeModifierSlot.forEquipmentSlot(equipmentType.getEquipmentSlot());
+            var identifier = Identifier.ofVanilla("armor." + equipmentType.getName());
+            builder.add(
+                EntityAttributes.ARMOR,
+                new EntityAttributeModifier(identifier, armor, ADD_VALUE),
+                equipmentSlot
+            );
+            builder.add(
+                EntityAttributes.ARMOR_TOUGHNESS,
+                new EntityAttributeModifier(identifier, toughness, ADD_VALUE),
+                equipmentSlot
+            );
+            if (knockbackResistance > 0.0F) {
+                builder.add(
+                    EntityAttributes.KNOCKBACK_RESISTANCE,
+                    new EntityAttributeModifier(identifier, knockbackResistance, ADD_VALUE),
+                    equipmentSlot
+                );
+            }
+            extraModifiers.forEach(modifier -> {
+                if (modifier.requiredSlot().matches(equipmentType.getEquipmentSlot())) {
+                    var id = RegHelper.id(name + "_" + modifier.attribute().getKey().orElseThrow().getValue().getPath());
+                    builder.add(
+                        modifier.attribute(),
+                        new EntityAttributeModifier(id, modifier.value(), modifier.operation()),
+                        equipmentSlot
+                    );
+                }
+            });
+
+            return builder.build();
         }
 
         /**
