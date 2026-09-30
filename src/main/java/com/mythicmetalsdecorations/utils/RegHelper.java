@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import com.mythicmetals.mixin.EntityModelLayersAccessor;
+import com.mythicmetals.mixin.client.EntityModelLayersAccessor;
 import com.mythicmetalsdecorations.MythicMetalsDecorations;
 
 
